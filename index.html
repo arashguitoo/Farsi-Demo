@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Was habe ich gestern gemacht - دیروز چه کردم</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            animation: fadeIn 0.5s;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .persian-title {
+            font-size: 1.8em;
+            direction: rtl;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .home-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .home-btn:hover {
+            background: white;
+            color: #667eea;
+            transform: scale(1.05);
+        }
+
+        /* Startseite */
+        .welcome-section {
+            padding: 60px 30px;
+            text-align: center;
+        }
+
+        .welcome-title {
+            font-size: 2.5em;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 50px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .menu-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        .menu-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .menu-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .menu-description {
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+
+        /* Content Seiten */
+        .content-page {
+            padding: 40px 30px;
+            min-height: calc(100vh - 140px);
+        }
+
+        .page-title {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .persian-text {
+            direction: rtl;
+            text-align: right;
+            font-size: 1.4em;
+            line-height: 2;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .persian-word {
+            cursor: pointer;
+            padding: 2px 5px;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+
+        .persian-word:hover {
+            background: #ffd93d;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: #333;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            z-index: 1000;
+            max-width: 200px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            direction: ltr;
+            text-align: left;
+        }
+
+        .question {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .question-text {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .persian-question {
+            direction: rtl;
+            text-align: right;
+        }
+
+        .answer-options {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-yes, .btn-no {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .btn-yes {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-yes:hover {
+            background: #45a049;
+        }
+
+        .btn-no {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-no:hover {
+            background: #da190b;
+        }
+
+        .btn-check {
+            background: #ff9800;
+            color: white;
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+            font-size: 1.1em;
+        }
+
+        .btn-check:hover {
+            background: #e68900;
+        }
+
+        .btn-next {
+            background: #2196F3;
+            color: white;
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+            font-size: 1.1em;
+        }
+
+        .btn-next:hover {
+            background: #0b7dda;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            margin-top: 10px;
+            direction: rtl;
+            text-align: right;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .score {
+            text-align: center;
+            font-size: 1.5em;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+
+        .word-chip {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            direction: rtl;
+        }
+
+        .word-chip:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .word-chip.selected {
+            background: #667eea;
+            color: white;
+        }
+
+        .sentence-builder {
+            min-height: 60px;
+            padding: 20px;
+            background: white;
+            border: 3px dashed #667eea;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            direction: rtl;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Flashcards */
+        .flashcard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .category-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .category-btn {
+            padding: 12px 25px;
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .flashcard {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 500px;
+            height: 350px;
+            margin-bottom: 30px;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .flashcard-front {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .flashcard-back {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-text {
+            font-size: 2.2em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .flashcard-transcription {
+            font-size: 1.2em;
+            opacity: 0.9;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .flashcard-hint {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-top: 20px;
+        }
+
+        .flashcard-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            gap: 20px;
+        }
+
+        .nav-arrow {
+            padding: 15px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .nav-arrow:hover {
+            background: #5568d3;
+            transform: scale(1.05);
+        }
+
+        .nav-arrow:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+
+        .card-counter {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: white;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .radio-option {
+            padding: 12px;
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .radio-option:hover {
+            background: #e9ecef;
+            border-color: #667eea;
+        }
+
+        .radio-option.selected {
+            background: #e7f3ff;
+            border-color: #667eea;
+        }
+
+        .radio-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .hint {
+            color: #666;
+            font-style: italic;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .back-to-home {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 30px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            transition: all 0.3s;
+        }
+
+        .back-to-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .persian-title {
+                font-size: 1.3em;
+            }
+
+            .home-btn {
+                position: static;
+                margin-bottom: 15px;
+            }
+
+            .welcome-title {
+                font-size: 1.8em;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flashcard {
+                height: 300px;
+            }
+
+            .flashcard-text {
+                font-size: 1.6em;
+            }
+
+            .nav-arrow {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Startseite -->
+    <div class="page active" id="page-home">
+        <div class="container">
+            <div class="header">
+                <h1>Was habe ich gestern gemacht</h1>
+                <div class="persian-title">دیروز چه کردم</div>
+            </div>
+            <div class="welcome-section">
+                <div class="welcome-title">Willkommen! 👋</div>
+                <div class="welcome-subtitle">Wähle eine Übung aus:</div>
+                
+                <div class="menu-grid">
+                    <div class="menu-card" onclick="goToPage('text')">
+                        <div class="menu-icon">📖</div>
+                        <div class="menu-title">Text lesen</div>
+                        <div class="menu-description">Lese den persischen Text und beantworte Fragen</div>
+                    </div>
+
+                    <div class="menu-card" onclick="goToPage('sentence')">
+                        <div class="menu-icon">🔨</div>
+                        <div class="menu-title">Satzbau</div>
+                        <div class="menu-description">Baue persische Sätze im Präteritum</div>
+                    </div>
+
+                    <div class="menu-card" onclick="goToPage('gap')">
+                        <div class="menu-icon">📝</div>
+                        <div class="menu-title">Lückentext</div>
+                        <div class="menu-description">Setze Verben im Präteritum ein</div>
+                    </div>
+
+                    <div class="menu-card" onclick="goToPage('translation')">
+                        <div class="menu-icon">🔄</div>
+                        <div class="menu-title">Übersetzung</div>
+                        <div class="menu-description">Übersetze Sätze ins Deutsche</div>
+                    </div>
+
+                    <div class="menu-card" onclick="goToPage('quiz')">
+                        <div class="menu-icon">❓</div>
+                        <div class="menu-title">Grammatik-Quiz</div>
+                        <div class="menu-description">Verbkonjugation im Präteritum</div>
+                    </div>
+
+                    <div class="menu-card" onclick="goToPage('flashcards')">
+                        <div class="menu-icon">🗂️</div>
+                        <div class="menu-title">Vokabelkarten</div>
+                        <div class="menu-description">Lerne Vokabeln mit Flashcards</div>
+                    </div>
+
+                    <div class="menu-card" onclick="goToPage('vocabquiz')">
+                        <div class="menu-icon">🎯</div>
+                        <div class="menu-title">Vokabel-Quiz</div>
+                        <div class="menu-description">Teste dein Vokabelwissen</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 1: Text lesen -->
+    <div class="page" id="page-text">
+        <div class="container">
+            <div class="header">
+                <button class="home-btn" onclick="goToPage('home')">🏠 Home</button>
+                <h1>Text lesen</h1>
+            </div>
+            <div class="content-page">
+                <div class="persian-text" id="persianText"></div>
+                
+                <h3 style="margin-top: 30px; margin-bottom: 20px;">Richtig oder Falsch?</h3>
+                <div id="truefalseQuestions"></div>
+
+                <h3 style="margin-top: 30px; margin-bottom: 20px;">Fragen zum Text</h3>
+                <div id="openQuestions"></div>
+
+                <button class="btn btn-check" onclick="checkTextAnswers()">Antworten überprüfen</button>
+                <div class="score" id="textScore" style="display: none;"></div>
+                
+                <button class="back-to-home" onclick="goToPage('home')">🏠 Zurück zur Übersicht</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 2: Satzbau -->
+    <div class="page" id="page-sentence">
+        <div class="container">
+            <div class="header">
+                <button class="home-btn" onclick="goToPage('home')">🏠 Home</button>
+                <h1>Satzbau</h1>
+            </div>
+            <div class="content-page">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="sentenceProgress">0 / 20</div>
+                </div>
+                <div class="question">
+                    <div class="question-text" id="sentenceTask"></div>
+                    <div class="sentence-builder" id="sentenceBuilder"></div>
+                    <div class="word-bank" id="wordBank"></div>
+                    <div class="feedback" id="sentenceFeedback"></div>
+                </div>
+                <button class="btn btn-check" onclick="checkSentence()">Satz überprüfen</button>
+                <button class="btn btn-next" onclick="nextSentence()" style="display: none;" id="sentenceNext">Nächster Satz</button>
+                <div class="score" id="sentenceScore" style="display: none;"></div>
+                
+                <button class="back-to-home" onclick="goToPage('home')">🏠 Zurück zur Übersicht</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 3: Lückentext -->
+    <div class="page" id="page-gap">
+        <div class="container">
+            <div class="header">
+                <button class="home-btn" onclick="goToPage('home')">🏠 Home</button>
+                <h1>Lückentext</h1>
+            </div>
+            <div class="content-page">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="gapProgress">0 / 20</div>
+                </div>
+                <div id="gapQuestions"></div>
+                <button class="btn btn-check" onclick="checkGapText()">Alle überprüfen</button>
+                <div class="score" id="gapScore" style="display: none;"></div>
+                
+                <button class="back-to-home" onclick="goToPage('home')">🏠 Zurück zur Übersicht</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 4: Übersetzung -->
+    <div class="page" id="page-translation">
+        <div class="container">
+            <div class="header">
+                <button class="home-btn" onclick="goToPage('home')">🏠 Home</button>
+                <h1>Übersetzung</h1>
+            </div>
+            <div class="content-page">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="translationProgress">0 / 20</div>
+                </div>
+                <div id="translationQuestions"></div>
+                <button class="btn btn-check" onclick="checkTranslations()">Alle überprüfen</button>
+                <div class="score" id="translationScore" style="display: none;"></div>
+                
+                <button class="back-to-home" onclick="goToPage('home')">🏠 Zurück zur Übersicht</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 5: Quiz -->
+    <div class="page" id="page-quiz">
+        <div class="container">
+            <div class="header">
+                <button class="home-btn" onclick="goToPage('home')">🏠 Home</button>
+                <h1>Grammatik-Quiz</h1>
+            </div>
+            <div class="content-page">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="quizProgress">0 / 20</div>
+                </div>
+                <div class="question" id="quizQuestion">
+                    <div class="question-text" id="quizText"></div>
+                    <div class="radio-group" id="quizOptions"></div>
+                    <div class="feedback" id="quizFeedback"></div>
+                </div>
+                <button class="btn btn-check" onclick="checkQuiz()">Antwort überprüfen</button>
+                <button class="btn btn-next" onclick="nextQuiz()" style="display: none;" id="quizNext">Nächste Frage</button>
+                <div class="score" id="quizScore" style="display: none;"></div>
+                
+                <button class="back-to-home" onclick="goToPage('home')">🏠 Zurück zur Übersicht</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 6: Flashcards -->
+    <div class="page" id="page-flashcards">
+        <div class="container">
+            <div class="header">
+                <button class="home-btn" onclick="goToPage('home')">🏠 Home</button>
+                <h1>Vokabelkarten</h1>
+            </div>
+            <div class="content-page">
+                <div class="flashcard-container">
+                    <div class="category-selector" id="categorySelector"></div>
+                    
+                    <div class="flashcard" id="flashcard" onclick="flipCard()">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <div class="flashcard-text" id="cardFront"></div>
+                                <div class="flashcard-hint">🔄 Klicke zum Umdrehen</div>
+                            </div>
+                            <div class="flashcard-back">
+                                <div class="flashcard-text" id="cardBack"></div>
+                                <div class="flashcard-transcription" id="cardTranscription"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flashcard-navigation">
+                        <button class="nav-arrow" onclick="previousCard()" id="prevBtn">◄ Zurück</button>
+                        <div class="card-counter" id="cardCounter">1 / 1</div>
+                        <button class="nav-arrow" onclick="nextCard()" id="nextBtn">Weiter ►</button>
+                    </div>
+                </div>
+                
+                <button class="back-to-home" onclick="goToPage('home')">🏠 Zurück zur Übersicht</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seite 7: Vokabel-Quiz -->
+    <div class="page" id="page-vocabquiz">
+        <div class="container">
+            <div class="header">
+                <button class="home-btn" onclick="goToPage('home')">🏠 Home</button>
+                <h1>Vokabel-Quiz</h1>
+            </div>
+            <div class="content-page">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="vocabQuizProgress">0 / 20</div>
+                </div>
+                <div class="question">
+                    <div class="question-text" id="vocabQuizText"></div>
+                    <div class="radio-group" id="vocabQuizOptions"></div>
+                    <div class="feedback" id="vocabQuizFeedback"></div>
+                </div>
+                <button class="btn btn-check" onclick="checkVocabQuiz()">Antwort überprüfen</button>
+                <button class="btn btn-next" onclick="nextVocabQuiz()" style="display: none;" id="vocabQuizNext">Nächste Frage</button>
+                <div class="score" id="vocabQuizScore" style="display: none;"></div>
+                
+                <button class="back-to-home" onclick="goToPage('home')">🏠 Zurück zur Übersicht</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation zwischen Seiten
+        function goToPage(pageName) {
+            // Verstecke alle Seiten
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Zeige gewählte Seite
+            document.getElementById(`page-${pageName}`).classList.add('active');
+            
+            // Scroll nach oben
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Initialisiere Seite wenn nötig
+            if (pageName === 'sentence' && currentSentence === 0) {
+                initSentenceBuilder();
+            } else if (pageName === 'quiz' && currentQuiz === 0) {
+                initQuiz();
+            } else if (pageName === 'vocabquiz' && vocabQuizData.length === 0) {
+                initVocabQuiz();
+            } else if (pageName === 'flashcards') {
+                initFlashcards();
+            } else if (pageName === 'text') {
+                initTextSection();
+            } else if (pageName === 'gap') {
+                initGapText();
+            } else if (pageName === 'translation') {
+                initTranslation();
+            }
+        }
+
+        // Vokabular
+        const vocabulary = {
+            'سَلام': 'Hallo',
+            'من': 'ich',
+            'مینا': 'Mina (Name)',
+            'هَستَم': 'bin (1. Pers. Sg.)',
+            'دانِشجو': 'Student/in',
+            'دیروز': 'gestern',
+            'صُبح': 'Morgen',
+            'ساعَتِ': 'Uhrzeit',
+            'شِش': 'sechs',
+            'بیدار': 'wach',
+            'شُدَم': 'wurde (1. Pers. Sg.)',
+            'هَفت': 'sieben',
+            'صُبحانِه': 'Frühstück',
+            'خُوردَم': 'aß (1. Pers. Sg.)',
+            'بَعد': 'dann, danach',
+            'با': 'mit',
+            'اُتوبوس': 'Bus',
+            'به': 'zu, nach',
+            'دانِشگاه': 'Universität',
+            'رَفتَم': 'ging (1. Pers. Sg.)',
+            'در': 'in',
+            'از': 'von',
+            'تا': 'bis',
+            'هَشت': 'acht',
+            'دَه': 'zehn',
+            'یک': 'ein',
+            'کِلاس': 'Kurs, Unterricht',
+            'داشتَم': 'hatte (1. Pers. Sg.)',
+            'دوستَم': 'mein/e Freund/in',
+            'قَهوه': 'Kaffee',
+            'نوشیدَم': 'trank (1. Pers. Sg.)',
+            'حَرف': 'Gespräch',
+            'زَدیم': 'führten (1. Pers. Pl.)',
+            'کتابخانه': 'Bibliothek',
+            'دو': 'zwei',
+            'دَرس': 'Lektion',
+            'خوانَدم': 'las, lernte (1. Pers. Sg.)',
+            'ظُهر': 'Mittag',
+            'خانه': 'Haus, nach Hause',
+            'برَگَشتم': 'kehrte zurück (1. Pers. Sg.)',
+            'ناهار': 'Mittagessen',
+            'موسیقی': 'Musik',
+            'گوش': 'Ohr',
+            'دادم': 'gab (1. Pers. Sg.)',
+            'عَصر': 'Nachmittag',
+            'خرید': 'Einkauf',
+            'میوِه': 'Obst',
+            'نان': 'Brot',
+            'خریدم': 'kaufte (1. Pers. Sg.)',
+            'شَب': 'Abend',
+            'شام': 'Abendessen',
+            'دُرُست': 'richtig',
+            'کَردم': 'machte (1. Pers. Sg.)',
+            'نُه': 'neun',
+            'فیلم': 'Film',
+            'دیدَم': 'sah (1. Pers. Sg.)',
+            'خوابیدم': 'schlief (1. Pers. Sg.)',
+            'و': 'und',
+            'ساعَت': 'Uhr',
+            'یَعد': 'dann (Variante von بعد)'
+        };
+
+        const fullText = 'سَلام! من مینا هَستَم. من دانِشجو هستم. دیروز صُبح ساعَتِ شِش بیدار شُدَم و ساعَتِ هَفت صُبحانِه خُوردَم. یَعد با اُتوبوس به دانِشگاه رَفتَم. در دانِشگاه از ساعَتِ هَشت تا ساعَتِ دَه یک کِلاس داشتَم. بَعد با دوستَم قَهوه نوشیدَم و حَرف زَدیم. بَعد به کتابخانه رَفتَم و دو ساعَت دَرس خوانَدم. ظُهر به خانه برَگَشتم و ناهار خوردَم. بَعد موسیقی گوش دادم. عَصر خرید رَفتَم و میوِه و نان خریدم. شَب شام دُرُست کَردم. ساعت نُه شام خوردم و یک فیلم دیدَم. ساعتِ دَه خوابیدم.';
+
+        // Vokabeldaten für Flashcards
+        const vocabularyData = {
+            'Familie': [
+                { german: 'die Familie', persian: 'خانِواده', transcription: 'ḫānevāde' },
+                { german: 'der Vater', persian: 'پِدَر', transcription: 'pedar' },
+                { german: 'die Mutter', persian: 'مادَر', transcription: 'mādar' },
+                { german: 'die Eltern', persian: 'پدر و مادر', transcription: 'pedar-o mādar' },
+                { german: 'der Bruder', persian: 'برادَر', transcription: 'barādar' },
+                { german: 'die Schwester', persian: 'خواهَر', transcription: 'ḫāhar' },
+                { german: 'der Sohn', persian: 'پِسَر', transcription: 'pesar' },
+                { german: 'die Tochter', persian: 'دُختَر', transcription: 'doḫtar' },
+                { german: 'der Großvater', persian: 'پدربُزُرگ', transcription: 'pedar-bozorg' },
+                { german: 'die Großmutter', persian: 'مادربُزُرگ', transcription: 'mādar-bozorg' },
+                { german: 'das Kind', persian: 'بچه‌', transcription: 'bačče' }
+            ],
+            'Eigenschaften': [
+                { german: 'groß', persian: 'قَدبُلَند', transcription: 'qad-boland' },
+                { german: 'klein', persian: 'قَدکوتاه', transcription: 'qad-kutāh' },
+                { german: 'dick', persian: 'چاق', transcription: 'čāq' },
+                { german: 'dünn', persian: 'لاغَر', transcription: 'lāġar' },
+                { german: 'schön', persian: 'زیبا', transcription: 'zibā' },
+                { german: 'freundlich', persian: 'مِهرَبان', transcription: 'mehrabān' }
+            ],
+            'Haut & Augen': [
+                { german: 'helle Haut', persian: 'پوستِ روشن', transcription: 'pūst-e rošan' },
+                { german: 'dunkle Haut', persian: 'پوستِ تیره', transcription: 'pūst-e tīre' },
+                { german: 'braune Haut', persian: 'پوستِ قَهوه‌ای', transcription: 'pūst-e qahve-ʾi' },
+                { german: 'blaue Augen', persian: 'چشم‌های آبی', transcription: 'češmhā-ye ābi' },
+                { german: 'grüne Augen', persian: 'چشم‌های سَبز', transcription: 'češmhā-ye sabz' },
+                { german: 'braune Augen', persian: 'چشم‌های قَهوه‌ای', transcription: 'češmhā-ye qahve-ʾi' },
+                { german: 'schwarze Augen', persian: 'چشم‌های مِشکی', transcription: 'češmhā-ye meški' }
+            ],
+            'Haare': [
+                { german: 'die Haare', persian: 'مو', transcription: 'mu' },
+                { german: 'lange Haare', persian: 'مویِ بلند', transcription: 'mu-ye boland' },
+                { german: 'kurze Haare', persian: 'مویِ کوتاه', transcription: 'mu-ye kutāh' },
+                { german: 'glatte Haare', persian: 'مویِ صاف', transcription: 'mu-ye sāf' },
+                { german: 'lockige Haare', persian: 'مویِ فِر', transcription: 'mu-ye fer' },
+                { german: 'schwarze Haare', persian: 'مویِ مِشکی', transcription: 'mu-ye meški' },
+                { german: 'braune Haare', persian: 'مویِِ قَهوه‌ای', transcription: 'mu-ye qahve-ʾi' },
+                { german: 'blonde Haare', persian: 'موی بلوند', transcription: 'mu-ye bolond' },
+                { german: 'graue Haare', persian: 'موی خاکِستَری', transcription: 'mu-ye ḫākestari' }
+            ],
+            'Zeit': [
+                { german: 'gestern', persian: 'دیروز', transcription: 'dīrūz' },
+                { german: 'Morgen', persian: 'صُبح', transcription: 'sobh' },
+                { german: 'Mittag', persian: 'ظُهر', transcription: 'zohr' },
+                { german: 'Nachmittag', persian: 'عَصر', transcription: 'asr' },
+                { german: 'Abend', persian: 'شَب', transcription: 'šab' },
+                { german: 'Uhrzeit', persian: 'ساعت', transcription: 'sāʿat' }
+            ],
+            'Essen': [
+                { german: 'Frühstück', persian: 'صُبحانِه', transcription: 'sobḥāne' },
+                { german: 'Mittagessen', persian: 'ناهار', transcription: 'nāhār' },
+                { german: 'Abendessen', persian: 'شام', transcription: 'šām' },
+                { german: 'Kaffee', persian: 'قَهوِه', transcription: 'qahve' },
+                { german: 'Obst', persian: 'میوِه', transcription: 'mīve' },
+                { german: 'Brot', persian: 'نان', transcription: 'nān' }
+            ],
+            'Orte': [
+                { german: 'Haus', persian: 'خانِه', transcription: 'ḫāne' },
+                { german: 'Universität', persian: 'دانِشگاه', transcription: 'dānešgāh' },
+                { german: 'Bibliothek', persian: 'کِتابخانه', transcription: 'ketābḫāne' },
+                { german: 'Kurs', persian: 'کِلاس', transcription: 'kelās' }
+            ],
+            'Personen': [
+                { german: 'Student/in', persian: 'دانِشجو', transcription: 'dānešǧū' },
+                { german: 'Freund/in', persian: 'دوست', transcription: 'dust' }
+            ],
+            'Verben': [
+                { german: 'sein', persian: 'بودَن', transcription: 'budan' },
+                { german: 'gehen', persian: 'رَفتن', transcription: 'raftan' },
+                { german: 'essen', persian: 'خوردَن', transcription: 'ḫordan' },
+                { german: 'trinken', persian: 'نوشیدَن', transcription: 'nušīdan' },
+                { german: 'lesen', persian: 'خواندَن', transcription: 'ḫāndan' },
+                { german: 'haben', persian: 'داشتَن', transcription: 'dāštan' },
+                { german: 'sagen', persian: 'گُفتَن', transcription: 'goftan' },
+                { german: 'hören', persian: 'شِنیدَن', transcription: 'šenīdan' },
+                { german: 'machen', persian: 'دُرُست کَردَن', transcription: 'dorost kardan' },
+                { german: 'kaufen', persian: 'خَریدَن', transcription: 'ḫarīdan' },
+                { german: 'schlafen', persian: 'خوابیدَن', transcription: 'ḫābīdan' },
+                { german: 'zurückkehren', persian: 'بَرگَشتَن', transcription: 'bargaštan' },
+                { german: 'aufwachen', persian: 'بیدار شُدَن', transcription: 'bidār šodan' },
+                { german: 'zuhören', persian: 'گوش دادن', transcription: 'guš dādan' },
+                { german: 'sehen', persian: 'دیدن', transcription: 'dīdan' }
+            ],
+            'Zahlen': [
+                { german: 'eins', persian: 'یک', transcription: 'yek' },
+                { german: 'zwei', persian: 'دو', transcription: 'do' },
+                { german: 'drei', persian: 'سه', transcription: 'se' },
+                { german: 'vier', persian: 'چَهار', transcription: 'čahār' },
+                { german: 'fünf', persian: 'پَنج', transcription: 'panj' },
+                { german: 'sechs', persian: 'شش', transcription: 'šeš' },
+                { german: 'sieben', persian: 'هفت', transcription: 'haft' },
+                { german: 'acht', persian: 'هشت', transcription: 'hašt' },
+                { german: 'neun', persian: 'نه', transcription: 'noh' },
+                { german: 'zehn', persian: 'ده', transcription: 'dah' }
+            ]
+        };
+
+        // Flashcards State
+        let currentCategory = 'Familie';
+        let currentCardIndex = 0;
+        let currentCards = [];
+
+        function initFlashcards() {
+            // Erstelle Kategorie-Buttons
+            const selector = document.getElementById('categorySelector');
+            selector.innerHTML = '';
+            
+            for (const category of Object.keys(vocabularyData)) {
+                const btn = document.createElement('button');
+                btn.className = 'category-btn';
+                if (category === currentCategory) btn.classList.add('active');
+                btn.textContent = category;
+                btn.onclick = () => selectCategory(category);
+                selector.appendChild(btn);
+            }
+            
+            loadCategory(currentCategory);
+        }
+
+        function selectCategory(category) {
+            currentCategory = category;
+            currentCardIndex = 0;
+            
+            // Update Button-Styles
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === category) btn.classList.add('active');
+            });
+            
+            loadCategory(category);
+        }
+
+        function loadCategory(category) {
+            currentCards = vocabularyData[category];
+            showCard(0);
+        }
+
+        function showCard(index) {
+            if (index < 0 || index >= currentCards.length) return;
+            
+            currentCardIndex = index;
+            const card = currentCards[index];
+            
+            // Reset flip
+            document.getElementById('flashcard').classList.remove('flipped');
+            
+            // Update content
+            document.getElementById('cardFront').textContent = card.german;
+            document.getElementById('cardBack').textContent = card.persian;
+            document.getElementById('cardTranscription').textContent = card.transcription;
+            
+            // Update counter
+            document.getElementById('cardCounter').textContent = `${index + 1} / ${currentCards.length}`;
+            
+            // Update buttons
+            document.getElementById('prevBtn').disabled = (index === 0);
+            document.getElementById('nextBtn').disabled = (index === currentCards.length - 1);
+        }
+
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flipped');
+        }
+
+        function previousCard() {
+            if (currentCardIndex > 0) {
+                showCard(currentCardIndex - 1);
+            }
+        }
+
+        function nextCard() {
+            if (currentCardIndex < currentCards.length - 1) {
+                showCard(currentCardIndex + 1);
+            }
+        }
+
+        // Text Section
+        let textInitialized = false;
+        
+        function initTextSection() {
+            if (textInitialized) return;
+            textInitialized = true;
+            
+            const textDiv = document.getElementById('persianText');
+            const words = fullText.split(' ');
+            
+            words.forEach(word => {
+                const span = document.createElement('span');
+                span.className = 'persian-word';
+                span.textContent = word + ' ';
+                span.onclick = (e) => showTooltip(e, word);
+                textDiv.appendChild(span);
+            });
+
+            // Richtig/Falsch Fragen
+            const tfQuestions = [
+                { text: 'مینا دیروز ساعت هفت بیدار شُد.', answer: false },
+                { text: 'او با دوستش قهوه نوشید.', answer: true },
+                { text: 'مینا از ساعت نُه کلاس داشت.', answer: false },
+                { text: 'مینا به کتابخانه نَرَفت.', answer: false },
+                { text: 'مینا شب ساعَتِ دَه خوابید.', answer: true }
+            ];
+
+            const tfDiv = document.getElementById('truefalseQuestions');
+            tfQuestions.forEach((q, i) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'question';
+                qDiv.innerHTML = `
+                    <div class="question-text persian-question">${q.text}</div>
+                    <div class="answer-options">
+                        <button class="btn btn-yes" onclick="answerTF(${i}, true)">✓ Richtig</button>
+                        <button class="btn btn-no" onclick="answerTF(${i}, false)">✗ Falsch</button>
+                    </div>
+                    <div class="feedback" id="tf-feedback-${i}"></div>
+                `;
+                tfDiv.appendChild(qDiv);
+            });
+
+            // Offene Fragen
+            const openQuestions = [
+                { text: 'مینا کِی بیدار شُد؟', answers: ['ساعت شش', 'شش', '6'] },
+                { text: 'او با چی به دانِشگاه رَفت؟', answers: ['اتوبوس', 'با اتوبوس', 'bus'] },
+                { text: 'بَعد از کِلاس کُجا رَفت؟', answers: ['کتابخانه', 'به کتابخانه'] },
+                { text: 'عَصر چه کار کَرد؟', answers: ['خرید رفت', 'خرید', 'میوه و نان خرید', 'خرید کرد'] },
+                { text: 'چه ساعتی خوابید؟', answers: ['ساعت ده', 'ده', '10'] }
+            ];
+
+            const openDiv = document.getElementById('openQuestions');
+            openQuestions.forEach((q, i) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'question';
+                qDiv.innerHTML = `
+                    <div class="question-text persian-question">${q.text}</div>
+                    <input type="text" id="open-${i}" placeholder="اینجا بنویسید...">
+                    <div class="feedback" id="open-feedback-${i}"></div>
+                `;
+                openDiv.appendChild(qDiv);
+            });
+        }
+
+        let tfAnswers = {};
+        function answerTF(index, answer) {
+            tfAnswers[index] = answer;
+        }
+
+        const tfCorrectAnswers = [false, true, false, false, true];
+        const openCorrectAnswers = [
+            ['ساعت شش', 'شش', '6', 'صبح ساعت شش'],
+            ['اتوبوس', 'با اتوبوس', 'bus', 'اتوبوس به دانشگاه رفت'],
+            ['کتابخانه', 'به کتابخانه', 'کتابخانه رفت'],
+            ['خرید رفت', 'خرید', 'میوه و نان خرید', 'خرید کرد', 'خرید رفتم'],
+            ['ساعت ده', 'ده', '10', 'شب ساعت ده']
+        ];
+
+        function normalizeAnswer(answer) {
+            return answer
+                .toLowerCase()
+                .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
+                .replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+                .replace(/[\u064B-\u065F\u0670]/g, '')
+                .replace(/[.!?،؛]/g, '')
+                .replace(/\s+/g, '')
+                .trim();
+        }
+
+        function checkTextAnswers() {
+            let tfScore = 0;
+            let openScore = 0;
+
+            for (let i = 0; i < 5; i++) {
+                const feedback = document.getElementById(`tf-feedback-${i}`);
+                if (tfAnswers[i] === tfCorrectAnswers[i]) {
+                    feedback.textContent = '✓ Richtig!';
+                    feedback.className = 'feedback correct';
+                    tfScore++;
+                } else {
+                    feedback.textContent = '✗ Falsch';
+                    feedback.className = 'feedback incorrect';
+                }
+                feedback.style.display = 'block';
+            }
+
+            for (let i = 0; i < 5; i++) {
+                const input = document.getElementById(`open-${i}`);
+                const feedback = document.getElementById(`open-feedback-${i}`);
+                const userAnswer = normalizeAnswer(input.value);
+                
+                let isCorrect = false;
+                for (let correctAnswer of openCorrectAnswers[i]) {
+                    if (normalizeAnswer(correctAnswer).includes(userAnswer) || 
+                        userAnswer.includes(normalizeAnswer(correctAnswer))) {
+                        isCorrect = true;
+                        break;
+                    }
+                }
+
+                if (isCorrect) {
+                    feedback.textContent = '✓ Richtig!';
+                    feedback.className = 'feedback correct';
+                    openScore++;
+                } else {
+                    feedback.textContent = '✗ Versuche es nochmal';
+                    feedback.className = 'feedback incorrect';
+                }
+                feedback.style.display = 'block';
+            }
+
+            const totalScore = tfScore + openScore;
+            const scoreDiv = document.getElementById('textScore');
+            scoreDiv.textContent = `Ergebnis: ${totalScore} / 10 Punkten (${Math.round(totalScore/10*100)}%)`;
+            scoreDiv.style.display = 'block';
+        }
+
+        function showTooltip(event, word) {
+            const existingTooltip = document.querySelector('.tooltip');
+            if (existingTooltip) existingTooltip.remove();
+
+            const cleanWord = word.replace(/[.!?،؛]/g, '').trim();
+            const translation = vocabulary[cleanWord] || 'Keine Übersetzung verfügbar';
+
+            const tooltip = document.createElement('div');
+            tooltip.className = 'tooltip';
+            tooltip.textContent = translation;
+            document.body.appendChild(tooltip);
+
+            const rect = event.target.getBoundingClientRect();
+            tooltip.style.left = rect.left + 'px';
+            tooltip.style.top = (rect.bottom + 5) + 'px';
+
+            setTimeout(() => tooltip.remove(), 3000);
+        }
+
+        // Satzbau
+        const sentenceExercises = [
+            { 
+                german: 'Ich wachte gestern um sechs Uhr auf.',
+                persian: ['من', 'دیروز', 'ساعت', 'شش', 'بیدار', 'شدم'],
+                distractors: ['صبحانه', 'رفتم', 'خوردم']
+            },
+            { 
+                german: 'Ich aß Frühstück um sieben Uhr.',
+                persian: ['من', 'ساعت', 'هفت', 'صبحانه', 'خوردم'],
+                distractors: ['دیدم', 'نوشیدم', 'شش']
+            },
+            { 
+                german: 'Ich ging mit dem Bus zur Universität.',
+                persian: ['من', 'با', 'اتوبوس', 'به', 'دانشگاه', 'رفتم'],
+                distractors: ['کتابخانه', 'خانه', 'برگشتم']
+            },
+            { 
+                german: 'Ich hatte einen Kurs von acht bis zehn Uhr.',
+                persian: ['من', 'از', 'ساعت', 'هشت', 'تا', 'ساعت', 'ده', 'یک', 'کلاس', 'داشتم'],
+                distractors: ['دو', 'سه', 'رفتم']
+            },
+            { 
+                german: 'Ich trank Kaffee mit meinem Freund.',
+                persian: ['من', 'با', 'دوستم', 'قهوه', 'نوشیدم'],
+                distractors: ['خوردم', 'دیدم', 'شام']
+            },
+            { 
+                german: 'Wir sprachen zusammen.',
+                persian: ['ما', 'حرف', 'زدیم'],
+                distractors: ['من', 'زدم', 'خوردیم']
+            },
+            { 
+                german: 'Ich ging zur Bibliothek.',
+                persian: ['من', 'به', 'کتابخانه', 'رفتم'],
+                distractors: ['دانشگاه', 'خانه', 'برگشتم']
+            },
+            { 
+                german: 'Ich lernte zwei Stunden.',
+                persian: ['من', 'دو', 'ساعت', 'درس', 'خواندم'],
+                distractors: ['سه', 'خوردم', 'یک']
+            },
+            { 
+                german: 'Mittags kehrte ich nach Hause zurück.',
+                persian: ['ظهر', 'من', 'به', 'خانه', 'برگشتم'],
+                distractors: ['رفتم', 'دانشگاه', 'صبح']
+            },
+            { 
+                german: 'Ich aß Mittagessen.',
+                persian: ['من', 'ناهار', 'خوردم'],
+                distractors: ['شام', 'صبحانه', 'نوشیدم']
+            },
+            { 
+                german: 'Ich hörte Musik.',
+                persian: ['من', 'موسیقی', 'گوش', 'دادم'],
+                distractors: ['دیدم', 'خواندم', 'فیلم']
+            },
+            { 
+                german: 'Nachmittags ging ich einkaufen.',
+                persian: ['عصر', 'من', 'خرید', 'رفتم'],
+                distractors: ['ظهر', 'صبح', 'برگشتم']
+            },
+            { 
+                german: 'Ich kaufte Obst und Brot.',
+                persian: ['من', 'میوه', 'و', 'نان', 'خریدم'],
+                distractors: ['قهوه', 'خوردم', 'شام']
+            },
+            { 
+                german: 'Abends kochte ich Abendessen.',
+                persian: ['شب', 'من', 'شام', 'درست', 'کردم'],
+                distractors: ['خوردم', 'ناهار', 'صبحانه']
+            },
+            { 
+                german: 'Ich aß Abendessen um neun Uhr.',
+                persian: ['من', 'ساعت', 'نه', 'شام', 'خوردم'],
+                distractors: ['ده', 'هشت', 'نوشیدم']
+            },
+            { 
+                german: 'Ich sah einen Film.',
+                persian: ['من', 'یک', 'فیلم', 'دیدم'],
+                distractors: ['دو', 'موسیقی', 'شنیدم']
+            },
+            { 
+                german: 'Ich schlief um zehn Uhr.',
+                persian: ['من', 'ساعت', 'ده', 'خوابیدم'],
+                distractors: ['نه', 'بیدار', 'شدم']
+            },
+            { 
+                german: 'Ich ging gestern zur Universität.',
+                persian: ['من', 'دیروز', 'به', 'دانشگاه', 'رفتم'],
+                distractors: ['کتابخانه', 'برگشتم', 'امروز']
+            },
+            { 
+                german: 'Wir tranken zusammen Kaffee.',
+                persian: ['ما', 'قهوه', 'نوشیدیم'],
+                distractors: ['من', 'نوشیدم', 'خوردیم']
+            },
+            { 
+                german: 'Ich hatte gestern einen Kurs.',
+                persian: ['من', 'دیروز', 'یک', 'کلاس', 'داشتم'],
+                distractors: ['دو', 'امروز', 'داشتیم']
+            }
+        ];
+
+        let currentSentence = 0;
+        let sentenceScore = 0;
+        let selectedWords = [];
+
+        function initSentenceBuilder() {
+            showSentenceExercise();
+        }
+
+        function showSentenceExercise() {
+            if (currentSentence >= sentenceExercises.length) {
+                showSentenceResults();
+                return;
+            }
+
+            const exercise = sentenceExercises[currentSentence];
+            document.getElementById('sentenceTask').textContent = exercise.german;
+            document.getElementById('sentenceBuilder').innerHTML = '';
+            selectedWords = [];
+
+            const allWords = [...exercise.persian, ...exercise.distractors];
+            shuffleArray(allWords);
+
+            const wordBank = document.getElementById('wordBank');
+            wordBank.innerHTML = '';
+            allWords.forEach(word => {
+                const chip = document.createElement('div');
+                chip.className = 'word-chip';
+                chip.textContent = word;
+                chip.onclick = () => selectWord(word, chip);
+                wordBank.appendChild(chip);
+            });
+
+            document.getElementById('sentenceFeedback').style.display = 'none';
+            document.getElementById('sentenceNext').style.display = 'none';
+            
+            updateSentenceProgress();
+        }
+
+        function selectWord(word, chip) {
+            if (chip.classList.contains('selected')) {
+                const index = selectedWords.indexOf(word);
+                if (index > -1) {
+                    selectedWords.splice(index, 1);
+                }
+                chip.classList.remove('selected');
+            } else {
+                selectedWords.push(word);
+                chip.classList.add('selected');
+            }
+
+            const builder = document.getElementById('sentenceBuilder');
+            builder.innerHTML = selectedWords.map(w => `<span class="word-chip selected">${w}</span>`).join(' ');
+        }
+
+        function checkSentence() {
+            const exercise = sentenceExercises[currentSentence];
+            const feedback = document.getElementById('sentenceFeedback');
+            
+            const isCorrect = JSON.stringify(selectedWords) === JSON.stringify(exercise.persian);
+
+            if (isCorrect) {
+                feedback.textContent = '✓ Perfekt! Der Satz ist richtig.';
+                feedback.className = 'feedback correct';
+                sentenceScore++;
+            } else {
+                feedback.textContent = `✗ Nicht ganz. Richtig wäre: ${exercise.persian.join(' ')}`;
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.style.display = 'block';
+            document.getElementById('sentenceNext').style.display = 'block';
+        }
+
+        function nextSentence() {
+            currentSentence++;
+            showSentenceExercise();
+        }
+
+        function showSentenceResults() {
+            document.querySelector('#page-sentence .question').style.display = 'none';
+            document.querySelector('#page-sentence .btn-check').style.display = 'none';
+            const scoreDiv = document.getElementById('sentenceScore');
+            scoreDiv.textContent = `Ergebnis: ${sentenceScore} / ${sentenceExercises.length} richtig (${Math.round(sentenceScore/sentenceExercises.length*100)}%)`;
+            scoreDiv.style.display = 'block';
+        }
+
+        function updateSentenceProgress() {
+            const progress = document.getElementById('sentenceProgress');
+            const percent = (currentSentence / sentenceExercises.length) * 100;
+            progress.style.width = percent + '%';
+            progress.textContent = `${currentSentence} / ${sentenceExercises.length}`;
+        }
+
+        // Lückentext
+        const gapTexts = [
+            { text: 'من دیروز ساعت شش بیدار _____ (بیدار شدن)', answer: 'شدم', person: 'ich' },
+            { text: 'او ساعت هفت صبحانه _____ (خوردن)', answer: 'خورد', person: 'er/sie' },
+            { text: 'ما با اتوبوس به دانشگاه _____ (رفتن)', answer: 'رفتیم', person: 'wir' },
+            { text: 'تو کی به کتابخانه _____؟ (رفتن)', answer: 'رفتی', person: 'du' },
+            { text: 'من از ساعت هشت تا ده یک کلاس _____ (داشتن)', answer: 'داشتم', person: 'ich' },
+            { text: 'آنها با دوستشان قهوه _____ (نوشیدن)', answer: 'نوشیدند', person: 'sie (Pl.)' },
+            { text: 'شما حرف _____؟ (زدن)', answer: 'زدید', person: 'ihr' },
+            { text: 'او دو ساعت درس _____ (خواندن)', answer: 'خواند', person: 'er/sie' },
+            { text: 'من ظهر به خانه _____ (برگشتن)', answer: 'برگشتم', person: 'ich' },
+            { text: 'ما ناهار _____ (خوردن)', answer: 'خوردیم', person: 'wir' },
+            { text: 'او موسیقی گوش _____ (دادن)', answer: 'داد', person: 'er/sie' },
+            { text: 'من عصر خرید _____ (رفتن)', answer: 'رفتم', person: 'ich' },
+            { text: 'تو چه _____؟ (خریدن)', answer: 'خریدی', person: 'du' },
+            { text: 'او شب شام درست _____ (کردن)', answer: 'کرد', person: 'er/sie' },
+            { text: 'آنها ساعت نه شام _____ (خوردن)', answer: 'خوردند', person: 'sie (Pl.)' },
+            { text: 'من یک فیلم _____ (دیدن)', answer: 'دیدم', person: 'ich' },
+            { text: 'تو کی _____؟ (خوابیدن)', answer: 'خوابیدی', person: 'du' },
+            { text: 'ما دیروز به دانشگاه _____ (رفتن، nein)', answer: 'نرفتیم', person: 'wir', negative: true },
+            { text: 'او صبحانه _____ (خوردن، nein)', answer: 'نخورد', person: 'er/sie', negative: true },
+            { text: 'من به کتابخانه _____ (رفتن، nein)', answer: 'نرفتم', person: 'ich', negative: true }
+        ];
+
+        let gapInitialized = false;
+
+        function initGapText() {
+            if (gapInitialized) return;
+            gapInitialized = true;
+            
+            const container = document.getElementById('gapQuestions');
+            gapTexts.forEach((gap, i) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'question';
+                const hint = gap.negative ? ' (Verneinung!)' : '';
+                qDiv.innerHTML = `
+                    <div class="question-text persian-question">${gap.text}</div>
+                    <div class="hint">Person: ${gap.person}${hint}</div>
+                    <input type="text" id="gap-${i}" placeholder="فعل را بنویسید...">
+                    <div class="feedback" id="gap-feedback-${i}"></div>
+                `;
+                container.appendChild(qDiv);
+            });
+        }
+
+        function checkGapText() {
+            let score = 0;
+            gapTexts.forEach((gap, i) => {
+                const input = document.getElementById(`gap-${i}`);
+                const feedback = document.getElementById(`gap-feedback-${i}`);
+                const userAnswer = normalizeAnswer(input.value);
+                const correctAnswer = normalizeAnswer(gap.answer);
+
+                if (userAnswer === correctAnswer) {
+                    feedback.textContent = '✓ Richtig!';
+                    feedback.className = 'feedback correct';
+                    score++;
+                } else {
+                    feedback.textContent = `✗ Richtig wäre: ${gap.answer}`;
+                    feedback.className = 'feedback incorrect';
+                }
+                feedback.style.display = 'block';
+            });
+
+            const scoreDiv = document.getElementById('gapScore');
+            scoreDiv.textContent = `Ergebnis: ${score} / ${gapTexts.length} richtig (${Math.round(score/gapTexts.length*100)}%)`;
+            scoreDiv.style.display = 'block';
+
+            const progress = document.getElementById('gapProgress');
+            progress.style.width = '100%';
+            progress.textContent = `${gapTexts.length} / ${gapTexts.length}`;
+        }
+
+        // Übersetzung
+        const translationExercises = [
+            { persian: 'من دیروز ساعت شش بیدار شدم.', german: 'Ich wachte gestern um sechs Uhr auf.' },
+            { persian: 'او ساعت هفت صبحانه خورد.', german: 'Er/Sie aß um sieben Uhr Frühstück.' },
+            { persian: 'ما با اتوبوس به دانشگاه رفتیم.', german: 'Wir gingen mit dem Bus zur Universität.' },
+            { persian: 'تو کی به کتابخانه رفتی؟', german: 'Wann gingst du zur Bibliothek?' },
+            { persian: 'من از ساعت هشت تا ده یک کلاس داشتم.', german: 'Ich hatte von acht bis zehn Uhr einen Kurs.' },
+            { persian: 'آنها با دوستشان قهوه نوشیدند.', german: 'Sie tranken mit ihrem Freund Kaffee.' },
+            { persian: 'شما چه حرف زدید؟', german: 'Worüber habt ihr gesprochen?' },
+            { persian: 'او دو ساعت درس خواند.', german: 'Er/Sie lernte zwei Stunden.' },
+            { persian: 'من ظهر به خانه برگشتم.', german: 'Ich kehrte mittags nach Hause zurück.' },
+            { persian: 'ما ناهار خوردیم.', german: 'Wir aßen Mittagessen.' },
+            { persian: 'او موسیقی گوش داد.', german: 'Er/Sie hörte Musik.' },
+            { persian: 'من عصر خرید رفتم.', german: 'Ich ging nachmittags einkaufen.' },
+            { persian: 'تو چه خریدی؟', german: 'Was hast du gekauft?' },
+            { persian: 'او شب شام درست کرد.', german: 'Er/Sie kochte abends Abendessen.' },
+            { persian: 'آنها ساعت نه شام خوردند.', german: 'Sie aßen um neun Uhr Abendessen.' },
+            { persian: 'من یک فیلم دیدم.', german: 'Ich sah einen Film.' },
+            { persian: 'تو کی خوابیدی؟', german: 'Wann schliefst du?' },
+            { persian: 'ما دیروز به دانشگاه نرفتیم.', german: 'Wir gingen gestern nicht zur Universität.' },
+            { persian: 'او صبحانه نخورد.', german: 'Er/Sie aß kein Frühstück.' },
+            { persian: 'من به کتابخانه نرفتم.', german: 'Ich ging nicht zur Bibliothek.' }
+        ];
+
+        let translationInitialized = false;
+
+        function initTranslation() {
+            if (translationInitialized) return;
+            translationInitialized = true;
+            
+            const container = document.getElementById('translationQuestions');
+            translationExercises.forEach((ex, i) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'question';
+                qDiv.innerHTML = `
+                    <div class="question-text persian-question">${ex.persian}</div>
+                    <input type="text" id="trans-${i}" placeholder="Deutsche Übersetzung..." style="direction: ltr; text-align: left;">
+                    <div class="feedback" id="trans-feedback-${i}"></div>
+                `;
+                container.appendChild(qDiv);
+            });
+        }
+
+        function checkTranslations() {
+            let score = 0;
+            translationExercises.forEach((ex, i) => {
+                const input = document.getElementById(`trans-${i}`);
+                const feedback = document.getElementById(`trans-feedback-${i}`);
+                const userAnswer = normalizeAnswer(input.value);
+                const correctAnswer = normalizeAnswer(ex.german);
+
+                const keyWords = correctAnswer.split(/\s+/).filter(w => w.length > 3);
+                let matches = 0;
+                keyWords.forEach(word => {
+                    if (userAnswer.includes(word)) matches++;
+                });
+
+                if (matches >= keyWords.length * 0.6) {
+                    feedback.textContent = '✓ Gut übersetzt!';
+                    feedback.className = 'feedback correct';
+                    score++;
+                } else {
+                    feedback.textContent = `Mögliche Übersetzung: ${ex.german}`;
+                    feedback.className = 'feedback incorrect';
+                }
+                feedback.style.display = 'block';
+            });
+
+            const scoreDiv = document.getElementById('translationScore');
+            scoreDiv.textContent = `Ergebnis: ${score} / ${translationExercises.length} richtig (${Math.round(score/translationExercises.length*100)}%)`;
+            scoreDiv.style.display = 'block';
+
+            const progress = document.getElementById('translationProgress');
+            progress.style.width = '100%';
+            progress.textContent = `${translationExercises.length} / ${translationExercises.length}`;
+        }
+
+        // Quiz
+        const quizQuestions = [
+            {
+                question: 'Wie heißt "ich ging" auf Persisch?',
+                options: ['رفتم', 'رفتی', 'رفت', 'رفتیم'],
+                correct: 0
+            },
+            {
+                question: 'Welche Form ist "du aßest"?',
+                options: ['خوردم', 'خوردی', 'خورد', 'خوردید'],
+                correct: 1
+            },
+            {
+                question: 'Was bedeutet "نوشیدیم"?',
+                options: ['ich trank', 'du trankst', 'wir tranken', 'sie tranken'],
+                correct: 2
+            },
+            {
+                question: 'Wie konjugiert man "داشتن" für "er/sie"?',
+                options: ['داشتم', 'داشتی', 'داشت', 'داشتیم'],
+                correct: 2
+            },
+            {
+                question: 'Was ist die richtige Form: "wir gingen"?',
+                options: ['رفتم', 'رفتی', 'رفتیم', 'رفتند'],
+                correct: 2
+            },
+            {
+                question: 'Wie sagt man "sie (Plural) sahen"?',
+                options: ['دیدم', 'دید', 'دیدیم', 'دیدند'],
+                correct: 3
+            },
+            {
+                question: 'Was bedeutet "خواندی"?',
+                options: ['ich las', 'du lasest', 'er/sie las', 'wir lasen'],
+                correct: 1
+            },
+            {
+                question: 'Welche Form ist "ich schlief"?',
+                options: ['خوابیدم', 'خوابیدی', 'خوابید', 'خوابیدیم'],
+                correct: 0
+            },
+            {
+                question: 'Was ist "ihr hattet" auf Persisch?',
+                options: ['داشتم', 'داشتی', 'داشتیم', 'داشتید'],
+                correct: 3
+            },
+            {
+                question: 'Wie heißt "er/sie kehrte zurück"?',
+                options: ['برگشتم', 'برگشتی', 'برگشت', 'برگشتیم'],
+                correct: 2
+            },
+            {
+                question: 'Was bedeutet "خریدند"?',
+                options: ['ich kaufte', 'du kauftest', 'wir kauften', 'sie kauften'],
+                correct: 3
+            },
+            {
+                question: 'Welche Negation ist richtig für "ich ging nicht"?',
+                options: ['رفتم', 'نرفتم', 'نرفتی', 'رفتم نه'],
+                correct: 1
+            },
+            {
+                question: 'Wie sagt man "wir aßen nicht"?',
+                options: ['نخوردم', 'نخوردی', 'نخوردیم', 'نخوردند'],
+                correct: 2
+            },
+            {
+                question: 'Was ist die 1. Person Singular von "دیدن"?',
+                options: ['دیدم', 'دیدی', 'دید', 'دیدیم'],
+                correct: 0
+            },
+            {
+                question: 'Wie konjugiert man "کردن" für "wir"?',
+                options: ['کردم', 'کردی', 'کرد', 'کردیم'],
+                correct: 3
+            },
+            {
+                question: 'Was bedeutet "نوشیدی"?',
+                options: ['ich trank', 'du trankst', 'er/sie trank', 'wir tranken'],
+                correct: 1
+            },
+            {
+                question: 'Welche Form ist "sie (Pl.) hörten"?',
+                options: ['شنیدم', 'شنید', 'شنیدیم', 'شنیدند'],
+                correct: 3
+            },
+            {
+                question: 'Wie sagt man "du schliefst nicht"?',
+                options: ['نخوابیدم', 'نخوابیدی', 'نخوابید', 'خوابیدی نه'],
+                correct: 1
+            },
+            {
+                question: 'Was ist "ihr kauftet" auf Persisch?',
+                options: ['خریدم', 'خریدی', 'خریدیم', 'خریدید'],
+                correct: 3
+            },
+            {
+                question: 'Wie heißt "wir machten/kochten"?',
+                options: ['کردم', 'کردی', 'کرد', 'کردیم'],
+                correct: 3
+            }
+        ];
+
+        let currentQuiz = 0;
+        let quizScore = 0;
+        let quizAnswered = false;
+
+        function initQuiz() {
+            showQuizQuestion();
+        }
+
+        function showQuizQuestion() {
+            if (currentQuiz >= quizQuestions.length) {
+                showQuizResults();
+                return;
+            }
+
+            const q = quizQuestions[currentQuiz];
+            document.getElementById('quizText').textContent = q.question;
+            
+            const optionsDiv = document.getElementById('quizOptions');
+            optionsDiv.innerHTML = '';
+            
+            q.options.forEach((option, i) => {
+                const label = document.createElement('label');
+                label.className = 'radio-option';
+                label.innerHTML = `
+                    <input type="radio" name="quiz" value="${i}">
+                    <span style="direction: rtl;">${option}</span>
+                `;
+                label.onclick = () => {
+                    document.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+                    label.classList.add('selected');
+                };
+                optionsDiv.appendChild(label);
+            });
+
+            document.getElementById('quizFeedback').style.display = 'none';
+            document.getElementById('quizNext').style.display = 'none';
+            quizAnswered = false;
+            updateQuizProgress();
+        }
+
+        function checkQuiz() {
+            if (quizAnswered) return;
+
+            const selected = document.querySelector('input[name="quiz"]:checked');
+            if (!selected) {
+                alert('Bitte wähle eine Antwort aus!');
+                return;
+            }
+
+            quizAnswered = true;
+            const q = quizQuestions[currentQuiz];
+            const feedback = document.getElementById('quizFeedback');
+
+            if (parseInt(selected.value) === q.correct) {
+                feedback.textContent = '✓ Richtig!';
+                feedback.className = 'feedback correct';
+                quizScore++;
+            } else {
+                feedback.textContent = `✗ Falsch. Die richtige Antwort ist: ${q.options[q.correct]}`;
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.style.display = 'block';
+            document.getElementById('quizNext').style.display = 'block';
+        }
+
+        function nextQuiz() {
+            currentQuiz++;
+            showQuizQuestion();
+        }
+
+        function showQuizResults() {
+            document.getElementById('quizQuestion').style.display = 'none';
+            document.querySelector('#page-quiz .btn-check').style.display = 'none';
+            const scoreDiv = document.getElementById('quizScore');
+            scoreDiv.textContent = `Ergebnis: ${quizScore} / ${quizQuestions.length} richtig (${Math.round(quizScore/quizQuestions.length*100)}%)`;
+            scoreDiv.style.display = 'block';
+        }
+
+        function updateQuizProgress() {
+            const progress = document.getElementById('quizProgress');
+            const percent = (currentQuiz / quizQuestions.length) * 100;
+            progress.style.width = percent + '%';
+            progress.textContent = `${currentQuiz} / ${quizQuestions.length}`;
+        }
+
+        // Vokabel-Quiz
+        let vocabQuizData = [];
+        let currentVocabQuiz = 0;
+        let vocabQuizScore = 0;
+        let vocabQuizAnswered = false;
+
+        function initVocabQuiz() {
+            vocabQuizData = [];
+            for (const [category, words] of Object.entries(vocabularyData)) {
+                words.forEach(word => {
+                    vocabQuizData.push({
+                        question: `Was heißt "${word.german}" auf Persisch?`,
+                        correct: word.persian,
+                        category: category
+                    });
+                });
+            }
+            
+            shuffleArray(vocabQuizData);
+            vocabQuizData = vocabQuizData.slice(0, 20);
+            
+            vocabQuizData.forEach(q => {
+                const allWords = [];
+                for (const words of Object.values(vocabularyData)) {
+                    words.forEach(w => allWords.push(w.persian));
+                }
+                
+                const wrongOptions = allWords.filter(w => w !== q.correct);
+                shuffleArray(wrongOptions);
+                q.options = [q.correct, ...wrongOptions.slice(0, 3)];
+                shuffleArray(q.options);
+                q.correctIndex = q.options.indexOf(q.correct);
+            });
+            
+            showVocabQuizQuestion();
+        }
+
+        function showVocabQuizQuestion() {
+            if (currentVocabQuiz >= vocabQuizData.length) {
+                showVocabQuizResults();
+                return;
+            }
+
+            const q = vocabQuizData[currentVocabQuiz];
+            document.getElementById('vocabQuizText').textContent = q.question;
+            
+            const optionsDiv = document.getElementById('vocabQuizOptions');
+            optionsDiv.innerHTML = '';
+            
+            q.options.forEach((option, i) => {
+                const label = document.createElement('label');
+                label.className = 'radio-option';
+                label.innerHTML = `
+                    <input type="radio" name="vocabquiz" value="${i}">
+                    <span style="direction: rtl;">${option}</span>
+                `;
+                label.onclick = () => {
+                    document.querySelectorAll('#vocabQuizOptions .radio-option').forEach(opt => opt.classList.remove('selected'));
+                    label.classList.add('selected');
+                };
+                optionsDiv.appendChild(label);
+            });
+
+            document.getElementById('vocabQuizFeedback').style.display = 'none';
+            document.getElementById('vocabQuizNext').style.display = 'none';
+            vocabQuizAnswered = false;
+            updateVocabQuizProgress();
+        }
+
+        function checkVocabQuiz() {
+            if (vocabQuizAnswered) return;
+
+            const selected = document.querySelector('input[name="vocabquiz"]:checked');
+            if (!selected) {
+                alert('Bitte wähle eine Antwort aus!');
+                return;
+            }
+
+            vocabQuizAnswered = true;
+            const q = vocabQuizData[currentVocabQuiz];
+            const feedback = document.getElementById('vocabQuizFeedback');
+
+            if (parseInt(selected.value) === q.correctIndex) {
+                feedback.textContent = '✓ Richtig!';
+                feedback.className = 'feedback correct';
+                vocabQuizScore++;
+            } else {
+                feedback.textContent = `✗ Falsch. Die richtige Antwort ist: ${q.correct}`;
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.style.display = 'block';
+            document.getElementById('vocabQuizNext').style.display = 'block';
+        }
+
+        function nextVocabQuiz() {
+            currentVocabQuiz++;
+            showVocabQuizQuestion();
+        }
+
+        function showVocabQuizResults() {
+            document.querySelector('#page-vocabquiz .question').style.display = 'none';
+            document.querySelector('#page-vocabquiz .btn-check').style.display = 'none';
+            const scoreDiv = document.getElementById('vocabQuizScore');
+            scoreDiv.textContent = `Ergebnis: ${vocabQuizScore} / ${vocabQuizData.length} richtig (${Math.round(vocabQuizScore/vocabQuizData.length*100)}%)`;
+            scoreDiv.style.display = 'block';
+        }
+
+        function updateVocabQuizProgress() {
+            const progress = document.getElementById('vocabQuizProgress');
+            const percent = (currentVocabQuiz / vocabQuizData.length) * 100;
+            progress.style.width = percent + '%';
+            progress.textContent = `${currentVocabQuiz} / ${vocabQuizData.length}`;
+        }
+
+        // Hilfsfunktionen
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+    </script>
+</body>
+</html>
