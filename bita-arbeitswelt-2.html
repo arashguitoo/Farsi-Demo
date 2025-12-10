@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>دنیای کاری - Berufswelt</title>
+    <script data-goatcounter="https://aguitoo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        :root {
+            --primary: #5C6BC0;
+            --primary-dark: #3F51B5;
+            --primary-light: #C5CAE9;
+            --accent: #FF7043;
+            --accent-light: #FFCCBC;
+            --success: #66BB6A;
+            --success-light: #C8E6C9;
+            --error: #EF5350;
+            --error-light: #FFCDD2;
+            --bg: #FAFAFA;
+            --card: #FFFFFF;
+            --text: #37474F;
+            --text-light: #78909C;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        
+        body {
+            font-family: 'Vazirmatn', 'Calibri', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--text);
+            line-height: 1.8;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 10px;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+        
+        /* Header */
+        .header {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        /* Home Button */
+        .home-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(92, 107, 192, 0.4);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .home-btn:hover, .home-btn:active {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(92, 107, 192, 0.5);
+        }
+        
+        .home-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+        
+        /* Sections */
+        .section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+        }
+        
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .menu-item {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            border: 2px solid transparent;
+        }
+        
+        .menu-item:hover, .menu-item:active {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary-light);
+        }
+        
+        .menu-item .icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .menu-item .title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 3px;
+        }
+        
+        .menu-item .subtitle {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+        
+        /* Text Section */
+        .story-text {
+            font-size: 1.05rem;
+            line-height: 2;
+            text-align: justify;
+        }
+        
+        .story-text p {
+            margin-bottom: 15px;
+        }
+        
+        /* Vocabulary Cards */
+        .vocab-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .vocab-btn {
+            flex: 1;
+            min-width: 100px;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .vocab-btn.primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+        
+        .vocab-btn.secondary {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+        
+        .flashcard-container {
+            perspective: 1000px;
+            height: 200px;
+            margin-bottom: 15px;
+        }
+        
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease;
+            cursor: pointer;
+        }
+        
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .flashcard-front {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .flashcard-back {
+            background: linear-gradient(135deg, var(--accent) 0%, #E64A19 100%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        
+        .flashcard-word {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .flashcard-hint {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        
+        .flashcard-progress {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .flashcard-nav {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .nav-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--card);
+            color: var(--primary-dark);
+            box-shadow: var(--shadow);
+        }
+        
+        .nav-btn:active {
+            transform: scale(0.98);
+        }
+        
+        /* Exercise Section */
+        .exercise-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+        }
+        
+        .exercise-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .job-ad {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-right: 4px solid var(--primary);
+        }
+        
+        .job-ad-title {
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+        
+        .job-ad-content {
+            font-size: 0.95rem;
+            line-height: 1.9;
+        }
+        
+        .job-ad-content strong {
+            color: var(--primary-dark);
+        }
+        
+        .question-box {
+            background: var(--primary-light);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 500;
+            color: var(--primary-dark);
+        }
+        
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .answer-btn {
+            padding: 15px;
+            border: 2px solid var(--primary-light);
+            border-radius: 12px;
+            background: var(--card);
+            font-family: inherit;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: right;
+        }
+        
+        .answer-btn:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+        
+        .answer-btn.correct {
+            border-color: var(--success);
+            background: var(--success-light);
+            color: #2E7D32;
+        }
+        
+        .answer-btn.wrong {
+            border-color: var(--error);
+            background: var(--error-light);
+            color: #C62828;
+        }
+        
+        .answer-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .feedback-box {
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+        
+        .feedback-box.success {
+            background: var(--success-light);
+            color: #2E7D32;
+            display: block;
+        }
+        
+        .feedback-box.error {
+            background: var(--error-light);
+            color: #C62828;
+            display: block;
+        }
+        
+        .next-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .next-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(92, 107, 192, 0.4);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: var(--primary-light);
+            border-radius: 4px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        /* Vocabulary Helper */
+        .vocab-helper {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--primary-light);
+        }
+        
+        .vocab-helper-title {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .vocab-helper-content {
+            display: none;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .vocab-helper-content.show {
+            display: flex;
+        }
+        
+        .vocab-chip {
+            background: var(--primary-light);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .vocab-chip:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .vocab-tooltip {
+            position: fixed;
+            background: var(--text);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            z-index: 1001;
+            max-width: 250px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: none;
+        }
+        
+        /* Matching Exercise */
+        .matching-container {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .matching-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .matching-item {
+            padding: 12px;
+            border: 2px solid var(--primary-light);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            background: var(--card);
+        }
+        
+        .matching-item:hover {
+            border-color: var(--primary);
+        }
+        
+        .matching-item.selected {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+        
+        .matching-item.matched {
+            border-color: var(--success);
+            background: var(--success-light);
+            color: #2E7D32;
+            cursor: default;
+        }
+        
+        .matching-item.wrong-match {
+            animation: shake 0.5s ease;
+            border-color: var(--error);
+            background: var(--error-light);
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .matching-score {
+            text-align: center;
+            padding: 15px;
+            background: var(--primary-light);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-weight: 500;
+            color: var(--primary-dark);
+        }
+        
+        .matching-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .matching-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+        }
+        
+        /* Download Button */
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            border: 2px dashed var(--primary);
+            border-radius: 12px;
+            background: transparent;
+            color: var(--primary-dark);
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+        
+        .download-btn:hover {
+            background: var(--primary-light);
+        }
+        
+        .download-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* Completion Screen */
+        .completion-screen {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .completion-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .completion-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+        
+        .completion-message {
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+        
+        /* RTL German text */
+        .de {
+            direction: ltr;
+            text-align: left;
+            font-family: 'Calibri', 'Vazirmatn', sans-serif;
+        }
+
+        /* Why Question Section */
+        .why-section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .why-section.show {
+            display: block;
+        }
+        
+        /* Person-Job Matching */
+        .person-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-right: 4px solid var(--accent);
+        }
+        
+        .person-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .person-details {
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        
+        .person-details p {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        
+        .detail-label {
+            background: var(--primary-light);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--primary-dark);
+            white-space: nowrap;
+        }
+        
+        .job-options-grid {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .job-option {
+            padding: 15px;
+            border: 2px solid var(--primary-light);
+            border-radius: 12px;
+            background: var(--card);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: right;
+        }
+        
+        .job-option:hover {
+            border-color: var(--primary);
+            background: rgba(92, 107, 192, 0.05);
+        }
+        
+        .job-option.selected {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+        
+        .job-option.correct {
+            border-color: var(--success);
+            background: var(--success-light);
+        }
+        
+        .job-option.wrong {
+            border-color: var(--error);
+            background: var(--error-light);
+        }
+        
+        .job-option-title {
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+        
+        .job-option-type {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        .round-indicator {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+        
+        /* Klickbare Wörter mit Bedeutung */
+        .clickable-word {
+            background: linear-gradient(135deg, #E8EAF6 0%, #C5CAE9 100%);
+            padding: 2px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 2px 0;
+            border: 1px solid transparent;
+        }
+        
+        .clickable-word:hover {
+            background: linear-gradient(135deg, #C5CAE9 0%, #9FA8DA 100%);
+            border-color: var(--primary);
+        }
+        
+        .clickable-word:active {
+            transform: scale(0.98);
+        }
+        
+        .clickable-word.showing-meaning {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+        
+        .word-meaning {
+            display: none;
+            background: var(--primary-dark);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            font-family: 'Calibri', sans-serif;
+            direction: ltr;
+            text-align: left;
+            animation: fadeInMeaning 0.3s ease;
+        }
+        
+        .word-meaning.show {
+            display: block;
+        }
+        
+        @keyframes fadeInMeaning {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Erweiterte Personen-Karte */
+        .person-card-extended {
+            background: linear-gradient(135deg, #F5F5F5 0%, #E8EAF6 100%);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid var(--primary-light);
+        }
+        
+        .person-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 2px dashed var(--primary-light);
+        }
+        
+        .person-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .person-name-extended {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+        
+        .detail-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .detail-icon {
+            font-size: 1.3rem;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        .detail-content {
+            flex: 1;
+        }
+        
+        .detail-label-extended {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 5px;
+        }
+        
+        .label-fa {
+            background: var(--primary);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .label-de {
+            background: var(--accent);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-family: 'Calibri', sans-serif;
+            direction: ltr;
+        }
+        
+        .detail-text {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text);
+        }
+        
+        .help-hint {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            padding: 8px;
+            background: rgba(92, 107, 192, 0.1);
+            border-radius: 8px;
+        }
+        
+        .help-hint span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🏢 دنیای کاری</h1>
+            <p>Berufswelt auf Persisch</p>
+        </div>
+        
+        <!-- Main Menu -->
+        <div id="menu" class="section active">
+            <div class="menu-grid">
+                <div class="menu-item" onclick="showSection('text')">
+                    <div class="icon">📖</div>
+                    <div class="title">متن</div>
+                    <div class="subtitle">Text lesen</div>
+                </div>
+                <div class="menu-item" onclick="showSection('flashcards')">
+                    <div class="icon">🎴</div>
+                    <div class="title">واژه‌ها</div>
+                    <div class="subtitle">Vokabelkarten</div>
+                </div>
+                <div class="menu-item" onclick="showSection('exercise')">
+                    <div class="icon">✍️</div>
+                    <div class="title">تمرین ۱</div>
+                    <div class="subtitle">Stellenanzeigen</div>
+                </div>
+                <div class="menu-item" onclick="showSection('personjob')">
+                    <div class="icon">👥</div>
+                    <div class="title">تمرین ۲</div>
+                    <div class="subtitle">Person → Beruf</div>
+                </div>
+                <div class="menu-item" onclick="showSection('matching')">
+                    <div class="icon">🔗</div>
+                    <div class="title">تمرین ۳</div>
+                    <div class="subtitle">Vokabel-Matching</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Text Section -->
+        <div id="text" class="section">
+            <div class="card">
+                <div class="exercise-title">📖 اوّلین مُصاحِبۀ کاریِ بیتا</div>
+                <div class="story-text">
+                    <p>بیتا بیست‌و‌هفت‌ساله است و در شیراز زندگی می‌کند. او همان‌جا به مدرسه رفته است و بعد در دانشگاه مِعماری خوانده است. او سه ماه پیش درسش را تمام کرده است. بیتا حالا می‌خواهد در تهران یک کارِ تمام‌وقت پیدا کند.</p>
+                    
+                    <p>هفتۀ گذشته او چندین دَرخواستِ کاری نوشت. برای پیدا کردنِ کار او به چند سایتِ اینترنتی مُراجِعه کرده و آن‌جا به دنبالِ کار گشته است. قبل از تماس با شرکت‌ها او رِزومۀ خود را کامِل کرد و بعد به چند شِرکَت زنگ زد و ایمیل فرستاد. دیروز یک ایمیل از یک دَفتَرِ معماری در تهران گرفت. در ایمیل آمده است که شرکت می‌خواهد با او بیش‌تر آشنا شود و او را به یک مُصاحِبۀ کاری دعوت کرده است.</p>
+                    
+                    <p>بیتا هم خیلی خوشحال است و هم کمی نگران. چون‌که تا حالا در تهران مُصاحِبۀ کاری نداشته است، خودش را برای مصاحبه خوب آماده کرده است: او دربارهٔ شرکت اِطِّلاعات جَمع‌آوری کرده است و از دوستی که در زمینۀ مصاحبه‌های کاری تَجرُبه دارد مُشاوِره گرفته است. همچنین با همان دوست پاسخ‌هایش به سؤال‌هایی مثل «چرا می‌خواهید در این‌جا کار کنید؟» یا «نُقاط قوّت و ضَعفِ شما چیست؟» را مُرور کرده است.</p>
+                    
+                    <p>بیتا روزِ شنبه مصاحبه دارد. او پنج‌شنبه با قطار به تهران رفته است و قرار است در خانۀ دوستِ مادرش بماند. بیتا می‌خواهد با مِترو به دفتر برود. او تصمیم دارد نیم ساعت زودتر آن‌جا برسد و در قسمتِ پذیرش مُنتَظِر بماند.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Flashcards Section -->
+        <div id="flashcards" class="section">
+            <div class="card">
+                <div class="flashcard-progress">
+                    <span id="cardNumber">1</span> / <span id="totalCards">35</span>
+                </div>
+                
+                <div class="flashcard-container" onclick="flipCard()">
+                    <div class="flashcard" id="flashcard">
+                        <div class="flashcard-front">
+                            <div class="flashcard-word" id="frontWord">درخواستِ کاری</div>
+                            <div class="flashcard-hint">برای دیدن ترجمه کلیک کنید</div>
+                        </div>
+                        <div class="flashcard-back">
+                            <div class="flashcard-word de" id="backWord">die Bewerbung</div>
+                            <div class="flashcard-hint">Klicken zum Umdrehen</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flashcard-nav">
+                    <button class="nav-btn" onclick="prevCard()">← قبلی</button>
+                    <button class="nav-btn" onclick="nextCard()">بعدی →</button>
+                </div>
+                
+                <button class="download-btn" onclick="downloadVocabPDF()">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                    دانلود لیست واژه‌ها
+                </button>
+            </div>
+        </div>
+        
+        <!-- Exercise 1: Job Ads for Bita -->
+        <div id="exercise" class="section">
+            <div class="card">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="exerciseProgress" style="width: 0%"></div>
+                </div>
+                <div id="exerciseContent"></div>
+            </div>
+        </div>
+        
+        <!-- Exercise 2: Person-Job Matching -->
+        <div id="personjob" class="section">
+            <div class="card">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="personJobProgress" style="width: 0%"></div>
+                </div>
+                <div class="round-indicator" id="personJobRound">۱ / ۱۵</div>
+                <div id="personJobContent"></div>
+            </div>
+        </div>
+        
+        <!-- Exercise 3: Vocabulary Matching -->
+        <div id="matching" class="section">
+            <div class="card">
+                <div class="matching-score" id="matchingScore">
+                    ✨ جفت‌های درست: <span id="matchCount">0</span> / 5
+                </div>
+                
+                <div class="matching-header">
+                    <span class="matching-label de">Deutsch</span>
+                    <span class="matching-label">فارسی</span>
+                </div>
+                
+                <div class="matching-container">
+                    <div class="matching-column" id="germanColumn"></div>
+                    <div class="matching-column" id="persianColumn"></div>
+                </div>
+                
+                <button class="next-btn" id="nextMatchingBtn" onclick="loadNewMatchingRound()" style="display: none;">
+                    🔄 دور بعدی
+                </button>
+            </div>
+        </div>
+        
+        <!-- Vocabulary Tooltip -->
+        <div class="vocab-tooltip" id="vocabTooltip"></div>
+        
+        <!-- Home Button -->
+        <button class="home-btn" onclick="showSection('menu')">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </button>
+    </div>
+
+    <script>
+        // Vocabulary Data
+        const vocabulary = [
+            { fa: "درخواستِ کاری", de: "die Bewerbung" },
+            { fa: "مصاحبهٔ کاری", de: "das Vorstellungsgespräch" },
+            { fa: "رِسیدن", de: "ankommen" },
+            { fa: "زنگ زدن", de: "anrufen" },
+            { fa: "کامل کردن", de: "vervollständigen" },
+            { fa: "مرور کردن", de: "durchgehen / wiederholen" },
+            { fa: "آشنا شدن", de: "kennenlernen" },
+            { fa: "دعوت", de: "die Einladung" },
+            { fa: "تجربه", de: "die Erfahrung" },
+            { fa: "اطلاعات", de: "die Information" },
+            { fa: "مترو", de: "die Metro / U-Bahn" },
+            { fa: "نقطهٔ قوت و ضعف", de: "Stärken und Schwächen" },
+            { fa: "ایمیل فرستادن", de: "E-Mail schicken" },
+            { fa: "دعوت کردن", de: "einladen" },
+            { fa: "پیدا کردن", de: "finden" },
+            { fa: "جمع‌آوری کردن", de: "sammeln" },
+            { fa: "آماده کردن", de: "vorbereiten" },
+            { fa: "نگران بودن", de: "nervös sein" },
+            { fa: "دنبالِ کار گشتن", de: "Arbeit suchen" },
+            { fa: "تماس گرفتن", de: "telefonieren" },
+            { fa: "مُنتَظِر ماندن", de: "warten" },
+            { fa: "دفتر", de: "das Büro" },
+            { fa: "همان", de: "derselbe/dieselbe" },
+            { fa: "مشاوره گرفتن", de: "Beratung bekommen" },
+            { fa: "قرار است", de: "es ist geplant" },
+            { fa: "سابقهٔ کاری", de: "die Berufserfahrung" },
+            { fa: "تمام‌وقت", de: "Vollzeit" },
+            { fa: "پاره‌وقت", de: "Teilzeit" },
+            { fa: "کارآموزی", de: "das Praktikum" },
+            { fa: "فارغ‌التحصیل", de: "der Absolvent" },
+            { fa: "حقوق", de: "das Gehalt" },
+            { fa: "شرایط", de: "die Voraussetzungen" },
+            { fa: "مهارت", de: "die Fähigkeit" },
+            { fa: "استخدام", de: "die Einstellung" },
+            { fa: "دورکاری", de: "Homeoffice" }
+        ];
+
+        // Job Ads for Bita Exercise
+        const jobAds = [
+            {
+                id: 1,
+                title: "آگهی ۱ — دفتر معماری سَهَند (تهران)",
+                content: `دفتر معماری سهند برای تکمیل تیم طراحی خود به یک <strong>خانم معمار یا آقای معمار تازه‌کار</strong> نیاز دارد.<br>
+                <strong>سابقهٔ کاری لازم نیست</strong>، اما آشنایی با AutoCAD و SketchUp مهم است.<br>
+                مسئولیت‌ها شامل همکاری در طراحی اولیه، تهیهٔ نقشه‌های ساده و کمک در پروژه‌های مسکونی است.<br>
+                <strong>محل کار: تهران، میدان هفت‌تیر</strong><br>
+                ساعات کار: تمام‌وقت.`,
+                suitable: true,
+                vocabHelp: [
+                    { fa: "تکمیل", de: "vervollständigen" },
+                    { fa: "تازه‌کار", de: "Berufsanfänger" },
+                    { fa: "سابقه", de: "Erfahrung" }
+                ],
+                wrongAnswers: ["چون دفتر در شهر دیگری است.", "چون سابقهٔ زیاد می‌خواهد.", "چون این شغل پاره‌وقت است."]
+            },
+            {
+                id: 2,
+                title: "آگهی ۲ — گروه طراحی آتیه (اصفهان)",
+                content: `گروه آتیه برای پروژه‌های بزرگ تجاری و اداری به یک <strong>معمار باتجربه با حداقل ۵ سال سابقهٔ کاری</strong> نیاز دارد.<br>
+                توانایی مدیریت پروژه ضروری است.<br>
+                <strong>محل کار: اصفهان</strong><br>
+                کار از راه دور امکان‌پذیر نیست.`,
+                suitable: false,
+                correctIndex: 0,
+                vocabHelp: [{ fa: "حداقل", de: "mindestens" }, { fa: "مدیریت", de: "Management" }],
+                wrongAnswers: ["چون بیتا سابقهٔ کاری ندارد.", "چون کار فقط برای کارآموزهاست.", "چون این شغل پاره‌وقت است."]
+            },
+            {
+                id: 3,
+                title: "آگهی ۳ — آتلیهٔ معماری نُوآ (تهران — کارآموزی)",
+                content: `آتلیهٔ نُوآ برای دورهٔ <strong>کارآموزی ۶ ماهه</strong> یک کارآموز معماری می‌پذیرد.<br>
+                این دوره مخصوص <strong>دانشجویان سال آخر</strong> است و برای فارغ‌التحصیلان مناسب نیست.<br>
+                <strong>محل کار: تهران، میدان ونک</strong>`,
+                suitable: false,
+                correctIndex: 1,
+                vocabHelp: [{ fa: "کارآموزی", de: "Praktikum" }, { fa: "فارغ‌التحصیل", de: "Absolvent" }],
+                wrongAnswers: ["چون دفتر در شهر دیگری است.", "چون آگهی فقط مخصوص دانشجویان است.", "چون سابقهٔ ۵ ساله می‌خواهد."]
+            },
+            {
+                id: 4,
+                title: "آگهی ۴ — دفتر معماری آرته مدرن (تهران — پاره‌وقت)",
+                content: `دفتر آرته مدرن به یک معمار جوان نیاز دارد که تجربهٔ زیاد ندارد.<br>
+                این موقعیت <strong>پاره‌وقت (۲۰ ساعت در هفته)</strong> است.<br>
+                <strong>محل کار: تهران، خیابان کریم‌خان</strong>`,
+                suitable: false,
+                correctIndex: 2,
+                vocabHelp: [{ fa: "پاره‌وقت", de: "Teilzeit" }],
+                wrongAnswers: ["چون دفتر در شهر دیگری است.", "چون سابقهٔ زیاد می‌خواهد.", "چون این شغل پاره‌وقت است."]
+            },
+            {
+                id: 5,
+                title: "آگهی ۵ — وزارت راه و شهرسازی (تهران)",
+                content: `وزارت راه و شهرسازی برای تکمیل تیم معماری خود به <strong>فارغ‌التحصیلان تازه رشتهٔ معماری</strong> نیاز دارد.<br>
+                <strong>سابقهٔ کاری لازم نیست.</strong><br>
+                شرایط: مدرک کارشناسی معماری، آشنایی با نرم‌افزارهای طراحی.<br>
+                مزایا: بیمه، حقوق ثابت، امنیت شغلی بالا.<br>
+                <strong>محل کار: تهران</strong><br>
+                کار تمام‌وقت.`,
+                suitable: true,
+                vocabHelp: [{ fa: "وزارت", de: "Ministerium" }, { fa: "امنیت شغلی", de: "Arbeitsplatzsicherheit" }],
+                wrongAnswers: ["چون دفتر در شهر دیگری است.", "چون سابقهٔ زیاد می‌خواهد.", "چون این شغل پاره‌وقت است."]
+            },
+            {
+                id: 6,
+                title: "آگهی ۶ — دفتر معماری بهار (تهران)",
+                content: `دفتر بهار به یک <strong>معمار تازه‌فارغ‌التحصیل</strong> برای همکاری در پروژه‌های مسکونی و اداری نیاز دارد.<br>
+                آشنایی با نرم‌افزارهای پایه، انگیزهٔ بالا و خلاقیت مهم است.<br>
+                <strong>محل کار: تهران، سعادت‌آباد</strong><br>
+                کار تمام‌وقت.`,
+                suitable: true,
+                vocabHelp: [{ fa: "تازه‌فارغ‌التحصیل", de: "frischer Absolvent" }, { fa: "خلاقیت", de: "Kreativität" }],
+                wrongAnswers: ["چون دفتر در شهر دیگری است.", "چون سابقهٔ زیاد می‌خواهد.", "چون این شغل پاره‌وقت است."]
+            }
+        ];
+
+        // Person-Job Matching Data
+        // Wörterbuch für klickbare Wörter
+        const wordDictionary = {
+            // Abschlüsse / Bildung (nur vollständige Begriffe)
+            "کارشناسی ارشد": "Master (M.A./M.Sc.)",
+            "کاردانی": "Associate Degree (2-jährig)",
+            "دیپلم": "Abitur / Schulabschluss",
+            "فارغ‌التحصیل": "Absolvent/in",
+            "مدرک": "Abschluss / Zeugnis",
+            
+            // Fachrichtungen (vollständige Namen)
+            "مدیریت منابع انسانی": "Personalmanagement (HR)",
+            "حسابداری": "Buchhaltung / Rechnungswesen",
+            "گرافیک": "Grafikdesign",
+            "روان‌شناسی کودکان": "Kinderpsychologie",
+            "ریاضی": "Mathematik",
+            "مدیریت بازاریابی": "Marketing-Management",
+            "مترجمی زبان انگلیسی": "Englisch-Übersetzen",
+            "مهندسی صنایع": "Wirtschaftsingenieurwesen",
+            "کامپیوتر": "Informatik",
+            "مدیریت بازرگانی": "Betriebswirtschaft",
+            "معماری": "Architektur",
+            
+            // Erfahrung & Qualifikationen
+            "سابقه کار": "Berufserfahrung",
+            "جذب و استخدام": "Recruiting & Einstellung",
+            "کارآموزی": "Praktikum",
+            "تدریس خصوصی": "Privatunterricht",
+            "مهارت": "Fähigkeit / Kompetenz",
+            "آشنایی": "Kenntnisse",
+            
+            // Arbeitsformen
+            "تمام‌وقت": "Vollzeit",
+            "نیمه‌وقت": "Teilzeit",
+            "پاره‌وقت": "Teilzeit",
+            "فریلنس": "Freelance / freiberuflich",
+            "دورکاری": "Homeoffice / Remote",
+            "پروژه‌ای": "projektbasiert",
+            "رسمی": "fest angestellt (Beamte)",
+            
+            // Arbeitgeber-Typen (nur eindeutige)
+            "دولتی": "staatlich / öffentlich",
+            "خصوصی": "privat",
+            "استارتاپ": "Startup",
+            "شرکت بیمه": "Versicherung",
+            "بانک دولتی": "Staatsbank",
+            "بانک خصوصی": "Privatbank",
+            
+            // Präferenzen & Benefits
+            "امنیت شغلی": "Arbeitsplatzsicherheit",
+            "بیمه بازنشستگی": "Rentenversicherung",
+            "بیمه تکمیلی": "Zusatzversicherung",
+            "حقوق توافقی": "Gehalt nach Vereinbarung",
+            "پیشرفت شغلی": "Karriereentwicklung",
+            "انعطاف زمانی": "flexible Arbeitszeiten",
+            "پورسانت": "Provision / Bonus",
+            "حقوق ثابت": "Festgehalt",
+            
+            // Berufe (vollständige Titel)
+            "کارشناس منابع انسانی": "HR-Spezialist/in",
+            "طراح گرافیک": "Grafikdesigner/in",
+            "مربی مهدکودک": "Kindergärtner/in",
+            "سرآشپز": "Chefkoch / Chefköchin",
+            "مترجم زبان انگلیسی": "Englisch-Übersetzer/in",
+            "بازرس فنی": "technischer Inspektor",
+            "ویزیتور مواد غذایی": "Lebensmittel-Außendienst",
+            "فروشنده فروشگاه": "Verkäufer/in im Laden",
+            "معلم ریاضی": "Mathelehrer/in",
+            "تحلیلگر داده": "Datenanalyst/in",
+            "کارشناس بازاریابی دیجیتال": "Digital-Marketing-Spezialist",
+            "کارشناس IT": "IT-Spezialist/in",
+            "کارمند باجه بانک": "Bankschalter-Angestellte/r",
+            "حسابدار شرکت بیمه": "Buchhalter/in (Versicherung)",
+            "معلم ریاضی دبیرستان": "Gymnasial-Mathelehrer/in",
+            "سرآشپز رستوران": "Restaurant-Chefkoch",
+            
+            // Sonstiges
+            "علاقه‌مند": "interessiert an",
+            "محیط پویا": "dynamisches Umfeld",
+            "کنترل کیفیت": "Qualitätskontrolle",
+            "وسیله نقلیه": "Fahrzeug",
+            "سفر بین‌شهری": "Dienstreisen",
+            "شبکه‌های اجتماعی": "soziale Netzwerke",
+            "ادامه تحصیل": "Weiterbildung"
+        };
+        
+        const personJobData = [
+            {
+                person: {
+                    name: "زهرا سلطانی",
+                    degree: "کارشناسی ارشد مدیریت منابع انسانی",
+                    experience: "۲ سال سابقه کار به‌عنوان کارشناس جذب و استخدام",
+                    preference: "علاقه‌مند به کار در شرکت خصوصی با امکان پیشرفت شغلی، تمام‌وقت"
+                },
+                correctJob: "کارشناس منابع انسانی (شرکت خصوصی)",
+                options: [
+                    { title: "کارشناس منابع انسانی", type: "شرکت خصوصی — تمام‌وقت" },
+                    { title: "کارمند باجه بانک", type: "بانک دولتی — رسمی" },
+                    { title: "طراح گرافیک", type: "فریلنس — پروژه‌ای" },
+                    { title: "مربی مهدکودک", type: "دولتی — رسمی" }
+                ],
+                correctIndex: 0
+            },
+            {
+                person: {
+                    name: "سینا نوروزی",
+                    degree: "کارشناسی حسابداری",
+                    experience: "به تازگی فارغ‌التحصیل شده، به دنبال کار در حوزه مالی یا بانکی",
+                    preference: "امنیت شغلی، بیمه بازنشستگی دولتی"
+                },
+                correctJob: "کارمند باجه بانک دولتی",
+                options: [
+                    { title: "طراح گرافیک", type: "فریلنس" },
+                    { title: "کارمند باجه بانک", type: "بانک دولتی — رسمی" },
+                    { title: "سرآشپز رستوران", type: "خصوصی — تمام‌وقت" },
+                    { title: "بازاریاب دیجیتال", type: "استارتاپ" }
+                ],
+                correctIndex: 1
+            },
+            {
+                person: {
+                    name: "نگین مولایی",
+                    degree: "کارشناسی گرافیک",
+                    experience: "طراح آزاد (فریلنس) با سه سال سابقه طراحی لوگو و پوستر",
+                    preference: "همکاری پروژه‌ای با شرکت‌های مختلف، انعطاف زمانی"
+                },
+                correctJob: "طراح گرافیک فریلنس",
+                options: [
+                    { title: "حسابدار شرکت بیمه", type: "خصوصی — تمام‌وقت" },
+                    { title: "معلم ریاضی", type: "دولتی — رسمی" },
+                    { title: "طراح گرافیک", type: "فریلنس — پروژه‌ای" },
+                    { title: "کارشناس روابط عمومی", type: "دولتی" }
+                ],
+                correctIndex: 2
+            },
+            {
+                person: {
+                    name: "حمید کاظمی",
+                    degree: "کارشناسی ارشد روان‌شناسی کودکان",
+                    experience: "۱ سال کارآموزی در مهدکودک",
+                    preference: "علاقه‌مند به استخدام رسمی در نهاد دولتی، کار با کودکان"
+                },
+                correctJob: "مربی مهدکودک دولتی",
+                options: [
+                    { title: "مربی مهدکودک", type: "دولتی — رسمی" },
+                    { title: "ویزیتور مواد غذایی", type: "خصوصی — تمام‌وقت" },
+                    { title: "تحلیلگر داده", type: "فریلنس" },
+                    { title: "کارشناس IT بانک", type: "خصوصی" }
+                ],
+                correctIndex: 0
+            },
+            {
+                person: {
+                    name: "فرشته معینی",
+                    degree: "کارشناسی حسابداری",
+                    experience: "۳ سال کار در بخش مالی یک شرکت بیمه",
+                    preference: "تمام‌وقت در شرکت بیمه خصوصی با حقوق توافقی و بیمه تکمیلی"
+                },
+                correctJob: "حسابدار شرکت بیمه",
+                options: [
+                    { title: "مترجم زبان انگلیسی", type: "دورکاری — پاره‌وقت" },
+                    { title: "حسابدار شرکت بیمه", type: "خصوصی — تمام‌وقت" },
+                    { title: "فروشنده فروشگاه", type: "خصوصی — نیمه‌وقت" },
+                    { title: "بازرس فنی", type: "دولتی" }
+                ],
+                correctIndex: 1
+            },
+            {
+                person: {
+                    name: "امیررضا تبریزی",
+                    degree: "کارشناسی مدیریت بازاریابی",
+                    experience: "فعالیت در حوزه دیجیتال مارکتینگ در یک استارتاپ، مهارت در سئو و شبکه‌های اجتماعی",
+                    preference: "محیط پویا و خلاق، امکان کار نیمه‌وقت یا تمام‌وقت"
+                },
+                correctJob: "کارشناس بازاریابی دیجیتال",
+                options: [
+                    { title: "سرآشپز رستوران", type: "خصوصی" },
+                    { title: "کارمند باجه بانک", type: "دولتی" },
+                    { title: "کارشناس بازاریابی دیجیتال", type: "استارتاپ" },
+                    { title: "بازرس فنی صنایع", type: "دولتی" }
+                ],
+                correctIndex: 2
+            },
+            {
+                person: {
+                    name: "آرمان کشاورز",
+                    degree: "کارشناسی ارشد ریاضی",
+                    experience: "سابقه تدریس خصوصی ریاضی به دانش‌آموزان دبیرستان",
+                    preference: "استخدام رسمی آموزش‌وپرورش، علاقه به تدریس دولتی"
+                },
+                correctJob: "معلم ریاضی دبیرستان",
+                options: [
+                    { title: "تحلیلگر داده", type: "فریلنس" },
+                    { title: "معلم ریاضی دبیرستان", type: "دولتی — رسمی" },
+                    { title: "طراح گرافیک", type: "فریلنس" },
+                    { title: "ویزیتور فروش", type: "خصوصی" }
+                ],
+                correctIndex: 1
+            },
+            {
+                person: {
+                    name: "لیلا یگانه",
+                    degree: "دیپلم فنی حرفه‌ای در آشپزی بین‌الملل + دوره‌های تخصصی",
+                    experience: "سرآشپز کمکی در چند رستوران",
+                    preference: "محیط کاری با ثبات و امکان پیشرفت، تمام‌وقت"
+                },
+                correctJob: "سرآشپز رستوران",
+                options: [
+                    { title: "سرآشپز رستوران", type: "خصوصی — تمام‌وقت" },
+                    { title: "کارشناس منابع انسانی", type: "خصوصی" },
+                    { title: "مترجم انگلیسی", type: "دورکاری" },
+                    { title: "فروشنده فروشگاه", type: "نیمه‌وقت" }
+                ],
+                correctIndex: 0
+            },
+            {
+                person: {
+                    name: "ناصر رشیدی",
+                    degree: "کارشناسی مترجمی زبان انگلیسی",
+                    experience: "سابقه ترجمه مقالات علمی و کتاب به صورت پروژه‌ای",
+                    preference: "دورکاری یا همکاری پاره‌وقت به دلیل مشغله شخصی"
+                },
+                correctJob: "مترجم زبان انگلیسی",
+                options: [
+                    { title: "کارشناس IT بانک", type: "خصوصی — تمام‌وقت" },
+                    { title: "بازرس فنی", type: "دولتی" },
+                    { title: "معلم ریاضی", type: "دولتی" },
+                    { title: "مترجم زبان انگلیسی", type: "دورکاری — پاره‌وقت" }
+                ],
+                correctIndex: 3
+            },
+            {
+                person: {
+                    name: "پویا راستین",
+                    degree: "کارشناسی مهندسی صنایع",
+                    experience: "کارشناس کنترل کیفیت در یک شرکت خصوصی (۲ سال)",
+                    preference: "استخدام رسمی در بخش دولتی با حقوق و مزایای ثابت"
+                },
+                correctJob: "بازرس فنی دولتی",
+                options: [
+                    { title: "طراح گرافیک", type: "فریلنس" },
+                    { title: "بازرس فنی", type: "دولتی — رسمی" },
+                    { title: "سرآشپز", type: "خصوصی" },
+                    { title: "فروشنده فروشگاه", type: "نیمه‌وقت" }
+                ],
+                correctIndex: 1
+            },
+            {
+                person: {
+                    name: "آتنا احسانی",
+                    degree: "دیپلم و ۱ سال سابقه فروش در فروشگاه پوشاک",
+                    experience: "توانایی کار با صندوق، مهارت ارتباط با مشتری",
+                    preference: "کار نیمه‌وقت به دلیل ادامه تحصیل"
+                },
+                correctJob: "فروشنده فروشگاه",
+                options: [
+                    { title: "کارشناس منابع انسانی", type: "خصوصی" },
+                    { title: "حسابدار", type: "تمام‌وقت" },
+                    { title: "فروشنده فروشگاه زنجیره‌ای", type: "نیمه‌وقت" },
+                    { title: "تحلیلگر داده", type: "فریلنس" }
+                ],
+                correctIndex: 2
+            },
+            {
+                person: {
+                    name: "ایمان رضایی",
+                    degree: "کارشناسی کامپیوتر (نرم‌افزار)",
+                    experience: "۲ سال فعالیت در حوزه پشتیبانی شبکه و امنیت اطلاعات",
+                    preference: "علاقه‌مند به کار در یک بانک خصوصی با حقوق مناسب"
+                },
+                correctJob: "کارشناس IT بانک",
+                options: [
+                    { title: "کارشناس IT بانک", type: "خصوصی — تمام‌وقت" },
+                    { title: "مربی مهدکودک", type: "دولتی" },
+                    { title: "ویزیتور فروش", type: "خصوصی" },
+                    { title: "معلم ریاضی", type: "دولتی" }
+                ],
+                correctIndex: 0
+            },
+            {
+                person: {
+                    name: "سامان میرزایی",
+                    degree: "کاردانی مدیریت بازرگانی",
+                    experience: "ویزیتور محصولات غذایی و بهداشتی، دارای وسیله نقلیه شخصی",
+                    preference: "حقوق ثابت + پورسانت، امکان سفر بین‌شهری"
+                },
+                correctJob: "ویزیتور مواد غذایی",
+                options: [
+                    { title: "طراح گرافیک", type: "فریلنس" },
+                    { title: "کارمند باجه بانک", type: "دولتی" },
+                    { title: "ویزیتور مواد غذایی", type: "خصوصی — تمام‌وقت" },
+                    { title: "مترجم", type: "دورکاری" }
+                ],
+                correctIndex: 2
+            },
+            {
+                person: {
+                    name: "المیرا صادقی",
+                    degree: "کارشناسی آمار",
+                    experience: "تحلیل داده به صورت پروژه‌ای برای چند شرکت",
+                    preference: "فریلنس، امکان دورکاری، دریافت حق‌الزحمه براساس پروژه"
+                },
+                correctJob: "تحلیلگر داده فریلنس",
+                options: [
+                    { title: "کارشناس روابط عمومی", type: "دولتی" },
+                    { title: "تحلیلگر داده", type: "فریلنس — پروژه‌ای" },
+                    { title: "حسابدار", type: "تمام‌وقت" },
+                    { title: "سرآشپز", type: "خصوصی" }
+                ],
+                correctIndex: 1
+            },
+            {
+                person: {
+                    name: "حسین دادگر",
+                    degree: "کارشناسی روابط عمومی",
+                    experience: "۱ سال کارآموزی در روابط عمومی یک سازمان فرهنگی",
+                    preference: "استخدام در موسسه دولتی برای امنیت شغلی، علاقه به کار تبلیغاتی و فرهنگی"
+                },
+                correctJob: "کارشناس روابط عمومی",
+                options: [
+                    { title: "ویزیتور فروش", type: "خصوصی" },
+                    { title: "تحلیلگر داده", type: "فریلنس" },
+                    { title: "فروشنده فروشگاه", type: "نیمه‌وقت" },
+                    { title: "کارشناس روابط عمومی", type: "دولتی — رسمی" }
+                ],
+                correctIndex: 3
+            }
+        ];
+
+        // State Variables
+        let currentSection = 'menu';
+        let currentCard = 0;
+        let currentAdIndex = 0;
+        let currentPersonIndex = 0;
+        let exerciseAnswered = false;
+        let personJobAnswered = false;
+        let matchingSelected = null;
+        let matchedPairs = 0;
+        let matchingVocab = [];
+        let usedVocabIndices = [];
+
+        // Section Navigation
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            currentSection = sectionId;
+            
+            if (sectionId === 'exercise') {
+                currentAdIndex = 0;
+                loadJobAd();
+            } else if (sectionId === 'personjob') {
+                currentPersonIndex = 0;
+                loadPersonJob();
+            } else if (sectionId === 'matching') {
+                loadNewMatchingRound();
+            } else if (sectionId === 'flashcards') {
+                currentCard = 0;
+                updateFlashcard();
+            }
+        }
+
+        // Flashcard Functions
+        function updateFlashcard() {
+            document.getElementById('cardNumber').textContent = currentCard + 1;
+            document.getElementById('totalCards').textContent = vocabulary.length;
+            document.getElementById('frontWord').textContent = vocabulary[currentCard].fa;
+            document.getElementById('backWord').textContent = vocabulary[currentCard].de;
+            document.getElementById('flashcard').classList.remove('flipped');
+        }
+
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flipped');
+        }
+
+        function nextCard() {
+            currentCard = (currentCard + 1) % vocabulary.length;
+            updateFlashcard();
+        }
+
+        function prevCard() {
+            currentCard = (currentCard - 1 + vocabulary.length) % vocabulary.length;
+            updateFlashcard();
+        }
+
+        // Bita Job Ad Exercise
+        function loadJobAd() {
+            const ad = jobAds[currentAdIndex];
+            const progress = ((currentAdIndex) / jobAds.length) * 100;
+            document.getElementById('exerciseProgress').style.width = progress + '%';
+            
+            let html = `
+                <div class="job-ad">
+                    <div class="job-ad-title">${ad.title}</div>
+                    <div class="job-ad-content">${ad.content}</div>
+                </div>
+                
+                <div class="vocab-helper">
+                    <div class="vocab-helper-title" onclick="toggleVocabHelper(this)">
+                        💡 کمک واژگان <span>▼</span>
+                    </div>
+                    <div class="vocab-helper-content" id="vocabHelperContent">
+                        ${ad.vocabHelp.map(v => `<span class="vocab-chip" onclick="showVocabTooltip(event, '${v.de}')">${v.fa}</span>`).join('')}
+                    </div>
+                </div>
+                
+                <div class="question-box">آیا این آگهی کاری برای بیتا مناسب است؟</div>
+                
+                <div class="answer-options" id="yesNoOptions">
+                    <button class="answer-btn" onclick="answerYesNo(true, ${ad.suitable})">✓ بله، مناسب است</button>
+                    <button class="answer-btn" onclick="answerYesNo(false, ${ad.suitable})">✗ نه، مناسب نیست</button>
+                </div>
+                
+                <div class="why-section" id="whySection">
+                    <div class="question-box">چرا مناسب نیست؟</div>
+                    <div class="answer-options" id="whyOptions">
+                        ${ad.wrongAnswers.map((ans, i) => `
+                            <button class="answer-btn" onclick="answerWhy(${i}, ${ad.correctIndex})">${ans}</button>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div class="feedback-box" id="feedbackBox"></div>
+                <button class="next-btn" id="nextAdBtn" onclick="nextJobAd()" style="display: none;">آگهی بعدی ←</button>
+            `;
+            
+            document.getElementById('exerciseContent').innerHTML = html;
+            exerciseAnswered = false;
+        }
+
+        function toggleVocabHelper(el) {
+            const content = el.nextElementSibling;
+            content.classList.toggle('show');
+            el.querySelector('span').textContent = content.classList.contains('show') ? '▲' : '▼';
+        }
+
+        function showVocabTooltip(event, text) {
+            const tooltip = document.getElementById('vocabTooltip');
+            tooltip.textContent = text;
+            tooltip.style.display = 'block';
+            tooltip.style.left = event.pageX + 'px';
+            tooltip.style.top = (event.pageY - 40) + 'px';
+            setTimeout(() => { tooltip.style.display = 'none'; }, 2000);
+        }
+
+        function answerYesNo(userSaidYes, isActuallySuitable) {
+            if (exerciseAnswered) return;
+            
+            const buttons = document.querySelectorAll('#yesNoOptions .answer-btn');
+            const feedback = document.getElementById('feedbackBox');
+            const whySection = document.getElementById('whySection');
+            
+            if (userSaidYes === isActuallySuitable) {
+                exerciseAnswered = true;
+                buttons.forEach((btn, i) => {
+                    btn.disabled = true;
+                    if ((i === 0 && userSaidYes) || (i === 1 && !userSaidYes)) btn.classList.add('correct');
+                });
+                feedback.className = 'feedback-box success';
+                feedback.textContent = '✓ آفرین! جواب درست است.';
+                document.getElementById('nextAdBtn').style.display = 'block';
+            } else {
+                buttons.forEach((btn, i) => {
+                    if ((i === 0 && userSaidYes) || (i === 1 && !userSaidYes)) btn.classList.add('wrong');
+                    btn.disabled = true;
+                });
+                
+                if (!isActuallySuitable) {
+                    whySection.classList.add('show');
+                    feedback.className = 'feedback-box error';
+                    feedback.textContent = 'این آگهی مناسب نیست. چرا؟';
+                } else {
+                    feedback.className = 'feedback-box error';
+                    feedback.textContent = '✗ این آگهی برای بیتا مناسب است!';
+                    exerciseAnswered = true;
+                    document.getElementById('nextAdBtn').style.display = 'block';
+                }
+            }
+        }
+
+        function answerWhy(selectedIndex, correctIndex) {
+            if (exerciseAnswered) return;
+            
+            const buttons = document.querySelectorAll('#whyOptions .answer-btn');
+            const feedback = document.getElementById('feedbackBox');
+            
+            exerciseAnswered = true;
+            buttons.forEach((btn, i) => {
+                btn.disabled = true;
+                if (i === correctIndex) btn.classList.add('correct');
+                else if (i === selectedIndex) btn.classList.add('wrong');
+            });
+            
+            feedback.className = selectedIndex === correctIndex ? 'feedback-box success' : 'feedback-box error';
+            feedback.textContent = selectedIndex === correctIndex ? '✓ آفرین! جواب درست است.' : '✗ جواب درست نبود.';
+            document.getElementById('nextAdBtn').style.display = 'block';
+        }
+
+        function nextJobAd() {
+            currentAdIndex++;
+            if (currentAdIndex < jobAds.length) loadJobAd();
+            else showExerciseCompletion('exercise', 'exerciseProgress', 'exerciseContent', 'آگهی‌های کاری');
+        }
+
+        // Person-Job Matching Exercise
+        
+        // Funktion zum Markieren von klickbaren Wörtern
+        function makeWordsClickable(text) {
+            let result = text;
+            // Sortiere nach Länge (längere zuerst), um Überlappungen zu vermeiden
+            const sortedWords = Object.keys(wordDictionary).sort((a, b) => b.length - a.length);
+            
+            for (const word of sortedWords) {
+                const regex = new RegExp(`(${word})(?![^<]*>)`, 'g');
+                result = result.replace(regex, `<span class="clickable-word" data-meaning="${wordDictionary[word]}" onclick="toggleWordMeaning(this)">$1</span>`);
+            }
+            return result;
+        }
+        
+        function toggleWordMeaning(element) {
+            // Verhindere dass der Klick die Job-Option auswählt
+            event.stopPropagation();
+            
+            // Schließe alle anderen offenen Bedeutungen
+            document.querySelectorAll('.clickable-word.showing-meaning').forEach(el => {
+                if (el !== element) {
+                    el.classList.remove('showing-meaning');
+                    const existingMeaning = el.nextElementSibling;
+                    if (existingMeaning && existingMeaning.classList.contains('word-meaning')) {
+                        existingMeaning.remove();
+                    }
+                }
+            });
+            
+            // Toggle für das geklickte Element
+            if (element.classList.contains('showing-meaning')) {
+                element.classList.remove('showing-meaning');
+                const meaningDiv = element.nextElementSibling;
+                if (meaningDiv && meaningDiv.classList.contains('word-meaning')) {
+                    meaningDiv.remove();
+                }
+            } else {
+                element.classList.add('showing-meaning');
+                const meaning = element.dataset.meaning;
+                const meaningDiv = document.createElement('div');
+                meaningDiv.className = 'word-meaning show';
+                meaningDiv.innerHTML = `🇩🇪 ${meaning}`;
+                element.after(meaningDiv);
+            }
+        }
+        
+        function loadPersonJob() {
+            const data = personJobData[currentPersonIndex];
+            const progress = ((currentPersonIndex) / personJobData.length) * 100;
+            document.getElementById('personJobProgress').style.width = progress + '%';
+            document.getElementById('personJobRound').textContent = `${currentPersonIndex + 1} / ${personJobData.length}`;
+            
+            let html = `
+                <div class="person-card-extended">
+                    <div class="person-header">
+                        <div class="person-avatar">👤</div>
+                        <div class="person-name-extended">${data.person.name}</div>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <div class="detail-icon">🎓</div>
+                        <div class="detail-content">
+                            <div class="detail-label-extended">
+                                <span class="label-fa">مدرک</span>
+                                <span class="label-de">Abschluss</span>
+                            </div>
+                            <div class="detail-text">${makeWordsClickable(data.person.degree)}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <div class="detail-icon">💼</div>
+                        <div class="detail-content">
+                            <div class="detail-label-extended">
+                                <span class="label-fa">سوابق</span>
+                                <span class="label-de">Erfahrung</span>
+                            </div>
+                            <div class="detail-text">${makeWordsClickable(data.person.experience)}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <div class="detail-icon">⭐</div>
+                        <div class="detail-content">
+                            <div class="detail-label-extended">
+                                <span class="label-fa">ترجیح</span>
+                                <span class="label-de">Präferenz</span>
+                            </div>
+                            <div class="detail-text">${makeWordsClickable(data.person.preference)}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="help-hint">💡 روی کلمات <span>رنگی</span> کلیک کنید تا معنی آلمانی را ببینید!</div>
+                
+                <div class="question-box">کدام شغل برای این شخص مناسب است؟</div>
+                
+                <div class="job-options-grid" id="jobOptionsGrid">
+                    ${data.options.map((opt, i) => `
+                        <div class="job-option" onclick="selectPersonJob(${i}, ${data.correctIndex})">
+                            <div class="job-option-title">${makeWordsClickable(opt.title)}</div>
+                            <div class="job-option-type">${makeWordsClickable(opt.type)}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <div class="feedback-box" id="personJobFeedback"></div>
+                <button class="next-btn" id="nextPersonJobBtn" onclick="nextPersonJob()" style="display: none;">شخص بعدی ←</button>
+            `;
+            
+            document.getElementById('personJobContent').innerHTML = html;
+            personJobAnswered = false;
+        }
+
+        function selectPersonJob(selectedIndex, correctIndex) {
+            if (personJobAnswered) return;
+            personJobAnswered = true;
+            
+            const options = document.querySelectorAll('.job-option');
+            const feedback = document.getElementById('personJobFeedback');
+            
+            options.forEach((opt, i) => {
+                opt.style.pointerEvents = 'none';
+                // Erlaube weiterhin Klicks auf Wörter
+                opt.querySelectorAll('.clickable-word').forEach(word => {
+                    word.style.pointerEvents = 'auto';
+                });
+                if (i === correctIndex) opt.classList.add('correct');
+                else if (i === selectedIndex && selectedIndex !== correctIndex) opt.classList.add('wrong');
+            });
+            
+            feedback.className = selectedIndex === correctIndex ? 'feedback-box success' : 'feedback-box error';
+            feedback.textContent = selectedIndex === correctIndex ? '✓ آفرین! جواب درست است.' : `✗ جواب درست: ${personJobData[currentPersonIndex].correctJob}`;
+            document.getElementById('nextPersonJobBtn').style.display = 'block';
+        }
+
+        function nextPersonJob() {
+            currentPersonIndex++;
+            if (currentPersonIndex < personJobData.length) loadPersonJob();
+            else showExerciseCompletion('personjob', 'personJobProgress', 'personJobContent', 'تطبیق شخص و شغل');
+        }
+
+        function showExerciseCompletion(sectionId, progressId, contentId, title) {
+            document.getElementById(progressId).style.width = '100%';
+            document.getElementById(contentId).innerHTML = `
+                <div class="completion-screen">
+                    <div class="completion-icon">🎉</div>
+                    <div class="completion-title">آفرین!</div>
+                    <div class="completion-message">شما تمرین ${title} را تمام کردید.</div>
+                    <button class="next-btn" onclick="showSection('${sectionId}')">🔄 دوباره شروع کن</button>
+                </div>
+            `;
+        }
+
+        // Vocabulary Matching
+        function loadNewMatchingRound() {
+            matchedPairs = 0;
+            matchingSelected = null;
+            document.getElementById('matchCount').textContent = '0';
+            document.getElementById('nextMatchingBtn').style.display = 'none';
+            
+            let available = vocabulary.filter((_, i) => !usedVocabIndices.includes(i));
+            if (available.length < 5) {
+                usedVocabIndices = [];
+                available = [...vocabulary];
+            }
+            
+            matchingVocab = [];
+            while (matchingVocab.length < 5) {
+                const randomIndex = Math.floor(Math.random() * available.length);
+                const item = available.splice(randomIndex, 1)[0];
+                usedVocabIndices.push(vocabulary.indexOf(item));
+                matchingVocab.push(item);
+            }
+            
+            const germanWords = [...matchingVocab].sort(() => Math.random() - 0.5);
+            const persianWords = [...matchingVocab].sort(() => Math.random() - 0.5);
+            
+            document.getElementById('germanColumn').innerHTML = germanWords.map(v => `
+                <div class="matching-item de" data-word="${v.de}" data-pair="${v.fa}" onclick="selectMatching(this, 'german')">${v.de}</div>
+            `).join('');
+            
+            document.getElementById('persianColumn').innerHTML = persianWords.map(v => `
+                <div class="matching-item" data-word="${v.fa}" data-pair="${v.de}" onclick="selectMatching(this, 'persian')">${v.fa}</div>
+            `).join('');
+        }
+
+        function selectMatching(element, column) {
+            if (element.classList.contains('matched')) return;
+            
+            document.querySelectorAll('.matching-item').forEach(el => el.classList.remove('wrong-match'));
+            
+            if (matchingSelected === null) {
+                matchingSelected = { element, column, word: element.dataset.word, pair: element.dataset.pair };
+                element.classList.add('selected');
+            } else if (matchingSelected.column === column) {
+                matchingSelected.element.classList.remove('selected');
+                matchingSelected = { element, column, word: element.dataset.word, pair: element.dataset.pair };
+                element.classList.add('selected');
+            } else {
+                const isMatch = (matchingSelected.word === element.dataset.pair) || (matchingSelected.pair === element.dataset.word);
+                
+                if (isMatch) {
+                    matchingSelected.element.classList.remove('selected');
+                    matchingSelected.element.classList.add('matched');
+                    element.classList.add('matched');
+                    matchedPairs++;
+                    document.getElementById('matchCount').textContent = matchedPairs;
+                    if (matchedPairs === 5) document.getElementById('nextMatchingBtn').style.display = 'block';
+                } else {
+                    matchingSelected.element.classList.add('wrong-match');
+                    element.classList.add('wrong-match');
+                    matchingSelected.element.classList.remove('selected');
+                }
+                matchingSelected = null;
+            }
+        }
+
+        // Download
+        function downloadVocabPDF() {
+            let content = 'واژه‌های درس - دنیای کاری\n';
+            content += 'Vokabeln - Berufswelt\n';
+            content += '═══════════════════════════════\n\n';
+            vocabulary.forEach((v, i) => { 
+                content += `${i + 1}. ${v.fa}\n   → ${v.de}\n\n`; 
+            });
+            
+            // UTF-8 BOM für korrekte Darstellung in Windows
+            const BOM = '\uFEFF';
+            const blob = new Blob([BOM + content], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'vokabeln-berufswelt.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => updateFlashcard());
+        document.addEventListener('scroll', () => { document.getElementById('vocabTooltip').style.display = 'none'; });
+    </script>
+</body>
+</html>

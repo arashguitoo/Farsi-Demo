@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Googoosh - کمکم کن (Hilf mir)</title>
+    <script data-goatcounter="https://aguitoo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+        }
+        
+        [dir="rtl"] {
+            font-family: Tahoma, Arial, sans-serif;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Home View */
+        .home-view {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        .title-persian {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .title-german {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+        
+        .artist {
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .audio-hint {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            color: white;
+        }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2.5rem;
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .card-description {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+        }
+        
+        /* Content Views */
+        .content-view {
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .lyrics-view {
+            background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+        }
+        
+        .flashcards-view {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        }
+        
+        .puzzle-view {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+        }
+        
+        .back-button {
+            background: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .back-button:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+        
+        .view-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 2rem 0;
+        }
+        
+        .content-box {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Lyrics */
+        .lyrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+        
+        .lyrics-column h3 {
+            text-align: right;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid;
+        }
+        
+        .lyrics-line {
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .lyrics-line:hover {
+            border-color: currentColor;
+        }
+        
+        .lyrics-line.active {
+            background: rgba(0,0,0,0.05);
+        }
+        
+        .persian-text {
+            text-align: right;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .translation {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            font-style: italic;
+            color: #666;
+        }
+        
+        /* Flashcards */
+        .flashcard-container {
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        
+        .progress-bar {
+            background: #e5e7eb;
+            height: 12px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #10b981;
+            transition: width 0.3s;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+        
+        .flashcard {
+            background: white;
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            transition: transform 0.3s;
+            margin-bottom: 2rem;
+        }
+        
+        .flashcard:hover {
+            transform: scale(1.02);
+        }
+        
+        .flashcard.flipped {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .flashcard-content {
+            text-align: center;
+        }
+        
+        .flashcard-label {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+        
+        .flashcard-word {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        
+        .flashcard-hint {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .nav-button {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .nav-button:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* Puzzle */
+        .section-selector {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .section-button {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .section-button.active {
+            background: #ec4899;
+            color: white;
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
+        }
+        
+        .section-button:not(.active) {
+            background: white;
+            color: #374151;
+        }
+        
+        .puzzle-instructions {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        
+        .sentences-list {
+            margin-bottom: 2rem;
+        }
+        
+        .sentence-item {
+            background: #fce7f3;
+            border: 2px solid #fbcfe8;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 10px;
+            text-align: right;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .sentence-item:hover:not(.used) {
+            background: #fbcfe8;
+            border-color: #ec4899;
+        }
+        
+        .sentence-item.used {
+            background: #e5e7eb;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+        
+        .ordered-list {
+            margin-top: 2rem;
+        }
+        
+        .ordered-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #d1fae5;
+            border: 2px solid #a7f3d0;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 10px;
+        }
+        
+        .order-number {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            background: #10b981;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .sentence-text {
+            flex: 1;
+            text-align: right;
+        }
+        
+        .remove-button {
+            flex-shrink: 0;
+            background: #fee2e2;
+            color: #dc2626;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .remove-button:hover {
+            background: #fecaca;
+        }
+        
+        .result-box {
+            margin-top: 2rem;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .result-box.success {
+            background: #d1fae5;
+            border: 2px solid #10b981;
+        }
+        
+        .result-box.error {
+            background: #fee2e2;
+            border: 2px solid #dc2626;
+        }
+        
+        .result-emoji {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .result-message {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .result-box.success .result-message {
+            color: #065f46;
+        }
+        
+        .result-box.error .result-message {
+            color: #991b1b;
+        }
+        
+        .stars {
+            font-size: 2rem;
+            margin: 1rem 0;
+        }
+        
+        .action-button {
+            background: #ec4899;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+        
+        .action-button:hover {
+            background: #db2777;
+        }
+        
+        @media (max-width: 768px) {
+            .title-persian { font-size: 2rem; }
+            .title-german { font-size: 1.5rem; }
+            .lyrics-grid { grid-template-columns: 1fr; }
+            .cards-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        // Data
+        const songData = [
+          {german: "Hilf mir, hilf mir, lass mich nicht hier bleiben, bis ich verrotte.", hochpersisch: "کمکم کن، کمکم کن، نگذار این‌جا بمانم تا بپوسم.", original: "کُمَکَم کُن، کمکم کن، نَذار اینجا بِمونم تا بِپوسَم.", section: 1},
+          {german: "Hilf mir, hilf mir, lass mich nicht hier die Lippen des Todes küssen.", hochpersisch: "کمکم کن، کمکم کن، نگذار این‌جا لبِ مرگ را ببوسم.", original: "کمکم کن، کمکم کن، نذار اینجا لَبِ مَرگو بِبوسَم.", section: 1},
+          {german: "Hilf mir, hilf mir, verfluchte Liebe braucht Furchtlosigkeit.", hochpersisch: "کمکم کن، کمکم کن، عشقِ نفرینی، بی‌پروایی می‌خواهد.", original: "کمکم کن، کمکم کن، عِشقِ نِفرینی بی‌پَروایی می‌خواد.", section: 1},
+          {german: "Der Fisch aus einem alten Bach sehnt sich nach der frischen Luft des Meeres.", hochpersisch: "ماهیِ چشمه‌ی کهنه، هوای تازه‌ی دریایی می‌خواهد.", original: "ماهی چِشمِه‌ی کُهنِه هوای تازِه‌ی دَریایی می‌خواد.", section: 1},
+          {german: "Mein Herz ist meerhaft", hochpersisch: "دلِ من دریایی ا‌ست.", original: "دل من درياییه.", section: 2},
+          {german: "Der Bach ist für mich ein Gefängnis.", hochpersisch: "چشمه زندانِ من است.", original: "چشمه زندونه برام.", section: 2},
+          {german: "Das tropfende Wasser ist mein Klagelied.", hochpersisch: "چکه‌چکه‌های آب، مرثیه‌خوانِ من است.", original: "چکه چکه‌های آب مَرثیه‌خونه برام.", section: 2},
+          {german: "In meinen Adern fließt statt Blut das rote Gedicht des Aufbruchs.", hochpersisch: "در رگ‌هایم به جای خون، شعرِ سرخِ رفتن است.", original: "تو رَگام به جای خون شِعرِ سُرخَِ رفتنه.", section: 2},
+          {german: "Ich gebe mich dem Bleiben nicht hin.", hochpersisch: "تن به ماندن نمی‌دهم.", original: "تَن به موندن نمی‌دم.", section: 2},
+          {german: "Mein Bleiben ist mein Tod.", hochpersisch: "ماندنم مرگِ من است.", original: "موندنم مرگ منه.", section: 2},
+          {german: "Ich bin verliebt – verliebt wie ein Reisender.", hochpersisch: "عاشقم، مثلِ مسافر عاشقم.", original: "عاشقم مثل مُسافِر عاشقَم.", section: 3},
+          {german: "Ich liebe das Erreichen des Endes.", hochpersisch: "عاشقِ رسیدن به انتها.", original: "عاشق رسیدن به اِنتِها.", section: 3},
+          {german: "Ich liebe den fremden Duft des Aufbruchs im grauen Morgengrauen der Straßen.", hochpersisch: "عاشقِ بویِ غریبِانه‌ی کوچ، توی سپیده‌ی غریبِ جاده‌ها.", original: "عاشق بوی غريبانه‌ی کوچ تو سپیده‌ی غريب جاده ها.", section: 3},
+          {german: "Ich bin voller Versuchungen des Aufbruchs.", hochpersisch: "من پر از وسوسه‌هایِ رفتن‌ام.", original: "من پر از وسوسه های رفتنم.", section: 3},
+          {german: "Gehen, Ankommen, Neuwerden.", hochpersisch: "رفتن و رسیدن و تازه شدن.", original: "رفتن و رسیدن و تازه شدن.", section: 3},
+          {german: "In einem kalten grauen Morgen von einer ruhmhaften Liebe mesmerisiert zu werden.", hochpersisch: "توی یک سپیده‌ی طوسی سرد، مسخ یک شعر پُرآوازه شدن.", original: "توی یک سپیده ی طوسی سرد مسخ یک عشق پر آوازه شدن.", section: 3},
+          {german: "Hilf mir, hilf mir, lass nicht zu, dass dieser Verlorene zusammenbricht.", hochpersisch: "کمکم کن، کمکم کن، نگذار این گمشده از پا دربیاید.", original: "کمکم کن، کمکم کن، نذار این گمشده از پا در بیاد.", section: 4},
+          {german: "Hilf mir, hilf mir, der Heuhaufen meiner Trägheit braucht eine Flamme.", hochpersisch: "کمکم کن، کمکم کن، خرمنِ رخوتِ من، شعله می‌خواهد.", original: "کمکم کن، کمکم کن، خرمن رخوت من شعله می خواد.", section: 4},
+          {german: "Hilf mir, hilf mir, wir müssen das Morgen erreichen.", hochpersisch: "کمکم کن، کمکم کن، من و تو باید به فردا برسیم.", original: "کمکم کن، کمکم کن، من و تو باید به فردا برسیم.", section: 4},
+          {german: "Der Bach ist uns zu eng, wir müssen zum Meer gelangen.", hochpersisch: "چشمه برایِ ما کوچک است، باید برویم تا به دریا برسیم.", original: "چشمه کوچیکه برامون، ما باید بريم به دريا برسیم.", section: 4},
+          {german: "Unser Herz ist meerhaft.", hochpersisch: "دلِ ما دریایی ا‌ست.", original: "دل ما دریاییه.", section: 4},
+          {german: "Der Bach ist unser Gefängnis.", hochpersisch: "چشمه زندانِ ماست.", original: "چشمه زندونمونه.", section: 4},
+          {german: "Das tropfende Wasser ist unser Trauerlied.", hochpersisch: "چکه‌چکه‌های آب، مرثیه‌خوانِ ماست.", original: "چکه چکه های آب مرثیه خونمونه.", section: 4},
+          {german: "In unserem Sein fließt das rote Gedicht des Aufbruchs.", hochpersisch: "در رگِ بودنِ ما، شعرِِ سرخِِ رفتن است.", original: "تو رگ بودن ما شعر سرخه رفتنه.", section: 4},
+          {german: "Hilf mir, denn es ist Zeit aufzubrechen.", hochpersisch: "کمکم کن که دیگر وقتِ راهی شدن است.", original: "کمکم کن که دیگه وقت راهی شدنه.", section: 4}
+        ];
+
+        const vocabularyData = [
+          {german: "Bach", persian: "چشمه"}, {german: "Blut", persian: "خون"}, {german: "Duft", persian: "بو"},
+          {german: "Ende", persian: "انتها"}, {german: "Furchtlosigkeit", persian: "بی‌پروایی"}, {german: "Gefängnis", persian: "زندان"},
+          {german: "Gedicht", persian: "شعر"}, {german: "Liebe", persian: "عشق"}, {german: "Herz", persian: "دل"},
+          {german: "Morgendämmerung", persian: "سپیده"}, {german: "Haufen / Heuhaufen", persian: "خرمن"}, {german: "Luft", persian: "هوا"},
+          {german: "Meer", persian: "دریا"}, {german: "Reisender", persian: "مسافر"}, {german: "Morgen (Zukunft)", persian: "فردا"},
+          {german: "Scharlachrot", persian: "سرخ"}, {german: "Tod", persian: "مرگ"}, {german: "Trägheit", persian: "رخوت"},
+          {german: "Tropfen", persian: "چکه"}, {german: "Versuchung", persian: "وسوسه"}, {german: "Wasser", persian: "آب"},
+          {german: "ankommen", persian: "رسیدن"}, {german: "Trauerlied", persian: "مرثیه"}, {german: "Flamme", persian: "شعله"},
+          {german: "Zeit / Moment", persian: "وقت"}, {german: "Ader", persian: "رگ"}, {german: "Angstlos / furchtlos", persian: "بی‌پروا"},
+          {german: "frisch", persian: "تازه"}, {german: "grau", persian: "طوسی"}, {german: "kalt", persian: "سرد"},
+          {german: "klein", persian: "کوچک"}, {german: "neu", persian: "تازه"}, {german: "Der/die Verlorene", persian: "گمشده"},
+          {german: "verliebt", persian: "عاشق"}, {german: "bleiben", persian: "ماندن"}, {german: "verrotten", persian: "پوسیدن"},
+          {german: "küssen", persian: "بوسیدن"}, {german: "wollen", persian: "خواستن"}, {german: "helfen", persian: "کمک کردن"},
+          {german: "Schlaf", persian: "خواب"}, {german: "Lassen", persian: "گذاشتن"}, {german: "Verflucht", persian: "نفرینی"},
+          {german: "alt", persian: "کهنه"}, {german: "Fisch", persian: "ماهی"}, {german: "fremdartig", persian: "غریبانه"},
+          {german: "Aufbruch / Migration", persian: "کوچ"}, {german: "Fremd", persian: "غریب"}, {german: "zusammenbrechen", persian: "از پا در آمدن"},
+          {german: "Weg", persian: "جاده"}
+        ];
+
+        // App State
+        const state = {
+            currentView: 'home',
+            selectedLine: null,
+            currentFlashcard: 0,
+            isFlipped: false,
+            currentSection: 1,
+            shuffledSentences: [],
+            orderedSentences: []
+        };
+
+        // Render functions
+        function renderHome() {
+            return `
+                <div class="home-view">
+                    <div class="container">
+                        <div class="header">
+                            <div class="title-persian">کمکم کن</div>
+                            <div class="title-german">Hilf mir</div>
+                            <div class="artist">Googoosh</div>
+                        </div>
+                        
+                        <div class="audio-hint">
+                            <h3 style="margin-bottom: 1rem;">🎵 Audio</h3>
+                            <p>Spielen Sie das Lied auf Ihrem bevorzugten Player ab (YouTube, Spotify, oder lokale Datei)</p>
+                        </div>
+                        
+                        <div class="cards-grid">
+                            <div class="card" onclick="showView('lyrics')">
+                                <div class="card-icon" style="background: #3b82f6;">📝</div>
+                                <div class="card-title">Liedtext</div>
+                                <div class="card-description">Original & Hochpersisch mit deutscher Übersetzung</div>
+                            </div>
+                            
+                            <div class="card" onclick="showView('flashcards')">
+                                <div class="card-icon" style="background: #10b981;">📚</div>
+                                <div class="card-title">Vokabeln</div>
+                                <div class="card-description">${vocabularyData.length} Flashcards zum Lernen</div>
+                            </div>
+                            
+                            <div class="card" onclick="showView('puzzle')">
+                                <div class="card-icon" style="background: #ec4899;">🧩</div>
+                                <div class="card-title">Satz-Puzzle</div>
+                                <div class="card-description">Bringe die Sätze in die richtige Reihenfolge (4 Abschnitte)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderLyrics() {
+            return `
+                <div class="content-view lyrics-view">
+                    <div class="container">
+                        <button class="back-button" onclick="showView('home')">
+                            🏠 Zurück
+                        </button>
+                        
+                        <h2 class="view-title" style="color: #1e40af;">Liedtext - کمکم کن</h2>
+                        
+                        <div class="content-box">
+                            <div class="lyrics-grid">
+                                <div class="lyrics-column">
+                                    <h3 style="color: #7c3aed; border-color: #7c3aed;">اصلی (زبان محاوره)</h3>
+                                    ${songData.map((line, i) => `
+                                        <div class="lyrics-line ${state.selectedLine === i ? 'active' : ''}" 
+                                             style="color: #7c3aed;" 
+                                             onclick="toggleLine(${i})">
+                                            <div class="persian-text" dir="rtl">${line.original}</div>
+                                            ${state.selectedLine === i ? `<div class="translation">${line.german}</div>` : ''}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                
+                                <div class="lyrics-column">
+                                    <h3 style="color: #2563eb; border-color: #2563eb;">فارسی معیار</h3>
+                                    ${songData.map((line, i) => `
+                                        <div class="lyrics-line ${state.selectedLine === i ? 'active' : ''}" 
+                                             style="color: #2563eb;" 
+                                             onclick="toggleLine(${i})">
+                                            <div class="persian-text" dir="rtl">${line.hochpersisch}</div>
+                                            ${state.selectedLine === i ? `<div class="translation">${line.german}</div>` : ''}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            
+                            <p style="text-align: center; color: #666; margin-top: 2rem;">
+                                Klicken Sie auf einen Satz, um die deutsche Übersetzung zu sehen
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderFlashcards() {
+            const card = vocabularyData[state.currentFlashcard];
+            const progress = ((state.currentFlashcard + 1) / vocabularyData.length) * 100;
+            
+            return `
+                <div class="content-view flashcards-view">
+                    <div class="container">
+                        <button class="back-button" onclick="showView('home')">
+                            🏠 Zurück
+                        </button>
+                        
+                        <h2 class="view-title" style="color: #065f46;">Vokabel-Flashcards</h2>
+                        
+                        <div class="flashcard-container">
+                            <div class="progress-text">
+                                <strong>Fortschritt:</strong> ${state.currentFlashcard + 1} / ${vocabularyData.length}
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${progress}%"></div>
+                            </div>
+                            
+                            <div class="flashcard ${state.isFlipped ? 'flipped' : ''}" onclick="flipCard()">
+                                <div class="flashcard-content">
+                                    ${state.isFlipped ? `
+                                        <div class="flashcard-label">فارسی</div>
+                                        <div class="flashcard-word" dir="rtl">${card.persian}</div>
+                                    ` : `
+                                        <div class="flashcard-label">Deutsch</div>
+                                        <div class="flashcard-word">${card.german}</div>
+                                    `}
+                                </div>
+                            </div>
+                            
+                            <div class="flashcard-hint">Klicken Sie auf die Karte, um sie umzudrehen</div>
+                            
+                            <div class="navigation">
+                                <button class="nav-button" 
+                                        style="background: white; color: #374151;"
+                                        onclick="previousCard()" 
+                                        ${state.currentFlashcard === 0 ? 'disabled' : ''}>
+                                    ← Zurück
+                                </button>
+                                <button class="nav-button" 
+                                        style="background: #10b981; color: white;"
+                                        onclick="nextCard()" 
+                                        ${state.currentFlashcard === vocabularyData.length - 1 ? 'disabled' : ''}>
+                                    Weiter →
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderPuzzle() {
+            const sectionSentences = songData.filter(item => item.section === state.currentSection);
+            const isComplete = state.orderedSentences.length === sectionSentences.length;
+            const isCorrect = isComplete && state.orderedSentences.every((sentence, index) => 
+                sentence.original === sectionSentences[index].original
+            );
+            
+            return `
+                <div class="content-view puzzle-view">
+                    <div class="container">
+                        <button class="back-button" onclick="showView('home')">
+                            🏠 Zurück
+                        </button>
+                        
+                        <h2 class="view-title" style="color: #be185d;">Satz-Puzzle</h2>
+                        
+                        <p style="text-align: center; color: #666; margin-bottom: 2rem;">
+                            Hören Sie das Lied, pausieren Sie es und ordnen Sie die Sätze in der richtigen Reihenfolge
+                        </p>
+                        
+                        <div class="section-selector">
+                            ${[1, 2, 3, 4].map(section => `
+                                <button class="section-button ${state.currentSection === section ? 'active' : ''}" 
+                                        onclick="changeSection(${section})">
+                                    Teil ${section}
+                                </button>
+                            `).join('')}
+                        </div>
+                        
+                        <div class="content-box">
+                            <div class="puzzle-instructions">
+                                💡 <strong>Anleitung:</strong> Klicken Sie auf die Sätze in der richtigen Reihenfolge
+                            </div>
+                            
+                            <h3 style="margin-bottom: 1rem;">Verfügbare Sätze:</h3>
+                            <div class="sentences-list">
+                                ${state.shuffledSentences.map((sentence, i) => {
+                                    const isUsed = state.orderedSentences.find(s => s.original === sentence.original);
+                                    return `
+                                        <div class="sentence-item ${isUsed ? 'used' : ''}" 
+                                             onclick="${isUsed ? '' : `addSentence(${i})`}">
+                                            <div dir="rtl">${sentence.original}</div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                            
+                            ${state.orderedSentences.length > 0 ? `
+                                <div class="ordered-list">
+                                    <h3 style="margin-bottom: 1rem;">
+                                        Ihre Reihenfolge: 
+                                        <span style="color: #666; font-size: 0.9rem;">
+                                            (${state.orderedSentences.length} / ${sectionSentences.length})
+                                        </span>
+                                    </h3>
+                                    ${state.orderedSentences.map((sentence, i) => `
+                                        <div class="ordered-item">
+                                            <div class="order-number">${i + 1}</div>
+                                            <div class="sentence-text" dir="rtl">${sentence.original}</div>
+                                            <button class="remove-button" onclick="removeSentence(${i})">✕</button>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                            
+                            ${isComplete ? `
+                                <div class="result-box ${isCorrect ? 'success' : 'error'}">
+                                    <div class="result-emoji">${isCorrect ? '🎉' : '😅'}</div>
+                                    <div class="result-message">
+                                        ${isCorrect ? 'Perfekt! Die Reihenfolge ist richtig!' : 'Nicht ganz richtig. Versuchen Sie es noch einmal!'}
+                                    </div>
+                                    ${isCorrect ? `
+                                        <div class="stars">⭐⭐⭐</div>
+                                        ${state.currentSection < 4 ? `
+                                            <button class="action-button" onclick="changeSection(${state.currentSection + 1})">
+                                                Nächster Teil →
+                                            </button>
+                                        ` : ''}
+                                    ` : `
+                                        <button class="action-button" onclick="resetPuzzle()">
+                                            Neu starten
+                                        </button>
+                                    `}
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Action functions
+        function showView(view) {
+            state.currentView = view;
+            if (view === 'puzzle') {
+                initPuzzle(state.currentSection);
+            }
+            render();
+        }
+
+        function toggleLine(index) {
+            state.selectedLine = state.selectedLine === index ? null : index;
+            render();
+        }
+
+        function flipCard() {
+            state.isFlipped = !state.isFlipped;
+            render();
+        }
+
+        function previousCard() {
+            if (state.currentFlashcard > 0) {
+                state.currentFlashcard--;
+                state.isFlipped = false;
+                render();
+            }
+        }
+
+        function nextCard() {
+            if (state.currentFlashcard < vocabularyData.length - 1) {
+                state.currentFlashcard++;
+                state.isFlipped = false;
+                render();
+            }
+        }
+
+        function changeSection(section) {
+            initPuzzle(section);
+        }
+
+        function initPuzzle(section) {
+            state.currentSection = section;
+            const sectionSentences = songData.filter(item => item.section === section);
+            state.shuffledSentences = [...sectionSentences].sort(() => Math.random() - 0.5);
+            state.orderedSentences = [];
+            render();
+        }
+
+        function addSentence(index) {
+            const sentence = state.shuffledSentences[index];
+            if (!state.orderedSentences.find(s => s.original === sentence.original)) {
+                state.orderedSentences.push(sentence);
+                render();
+            }
+        }
+
+        function removeSentence(index) {
+            state.orderedSentences.splice(index, 1);
+            render();
+        }
+
+        function resetPuzzle() {
+            initPuzzle(state.currentSection);
+        }
+
+        // Main render
+        function render() {
+            const app = document.getElementById('app');
+            let html = '';
+            
+            switch(state.currentView) {
+                case 'home':
+                    html = renderHome();
+                    break;
+                case 'lyrics':
+                    html = renderLyrics();
+                    break;
+                case 'flashcards':
+                    html = renderFlashcards();
+                    break;
+                case 'puzzle':
+                    html = renderPuzzle();
+                    break;
+            }
+            
+            app.innerHTML = html;
+        }
+
+        // Initialize
+        initPuzzle(1);
+        render();
+    </script>
+</body>
+</html>

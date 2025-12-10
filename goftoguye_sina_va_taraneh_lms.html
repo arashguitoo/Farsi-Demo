@@ -1,0 +1,2636 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>گفتگوی سینا و ترانه | Goftogu-ye Sina va Taraneh</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+    <script data-goatcounter="https://aguitoo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Calibri', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .nav-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: none;
+        }
+
+        .content.active {
+            display: block;
+        }
+
+        .persian {
+            font-family: 'Vazirmatn', sans-serif !important;
+            direction: rtl !important;
+            text-align: right !important;
+            font-size: 1.3em;
+            color: #333;
+            line-height: 2;
+            unicode-bidi: embed !important;
+        }
+
+        .persian-question {
+            font-family: 'Vazirmatn', sans-serif !important;
+            direction: rtl !important;
+            text-align: right !important;
+            color: #667eea;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        .dialog-box {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .dialog-line {
+            margin: 15px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            direction: rtl !important;
+            text-align: right !important;
+        }
+
+        .speaker {
+            font-weight: bold;
+            margin-bottom: 5px;
+            direction: rtl !important;
+            text-align: right !important;
+            display: block !important;
+        }
+
+        .speaker.taraneh {
+            color: #e91e63;
+        }
+
+        .speaker.sina {
+            color: #2196F3;
+        }
+
+        .vocab-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            font-size: 1.5em;
+        }
+
+        .vocab-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .vocab-card.flipped {
+            background: white;
+            color: #667eea;
+            border: 3px solid #667eea;
+        }
+
+        .exercise {
+            background: #f0f7ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .exercise h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .option {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            transform: translateX(-5px);
+        }
+
+        .option.correct {
+            background: #c8e6c9;
+            border-color: #4CAF50;
+        }
+
+        .option.wrong {
+            background: #ffcdd2;
+            border-color: #f44336;
+        }
+
+        .option.selected {
+            background: #e3f2fd;
+            border-color: #667eea;
+            border-width: 3px;
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            margin: 10px 0;
+        }
+
+        .input-box.persian {
+            font-family: 'Vazirmatn', sans-serif !important;
+            direction: rtl !important;
+            text-align: right !important;
+            font-size: 1.2em;
+        }
+
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 15px;
+            background: #fff3cd;
+            border-radius: 8px;
+            margin: 15px 0;
+            direction: rtl !important;
+            justify-content: flex-end !important;
+        }
+
+        .word-chip {
+            background: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 2px solid #667eea;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        .word-chip:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .word-chip.selected {
+            background: #764ba2;
+            color: white;
+            border-color: #764ba2;
+        }
+
+        .sentence-builder {
+            min-height: 60px;
+            padding: 15px;
+            background: white;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            direction: rtl !important;
+            justify-content: flex-end !important;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .feedback {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .feedback.correct {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .feedback.wrong {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .progress-bar {
+            background: rgba(255,255,255,0.3);
+            height: 25px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.1em;
+            margin: 15px 0;
+        }
+
+        .quiz-result {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .certificate {
+            background: linear-gradient(135deg, #fff, #f0f0f0);
+            border: 5px solid #667eea;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 20px auto;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .certificate h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin: 20px 0;
+        }
+
+        .certificate .name {
+            font-size: 1.8em;
+            color: #764ba2;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .certificate .score {
+            font-size: 1.5em;
+            color: #4CAF50;
+            margin: 15px 0;
+        }
+
+        .pair-word {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 3px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .pair-word:hover {
+            border-color: #667eea;
+            transform: scale(1.05);
+        }
+
+        .pair-word.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .pair-word.matched {
+            background: #c8e6c9;
+            border-color: #4CAF50;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .error-correction {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .error-sentence {
+            font-size: 1.2em;
+            line-height: 2;
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .error-word {
+            display: inline-block;
+            padding: 2px 8px;
+            margin: 0 3px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .error-word:hover {
+            background: #ffeb3b;
+            transform: scale(1.05);
+        }
+
+        .error-word.wrong {
+            background: #ffcdd2;
+            border-bottom: 2px solid #f44336;
+        }
+
+        .error-word.fixed {
+            background: #c8e6c9;
+            border-bottom: 2px solid #4CAF50;
+            pointer-events: none;
+        }
+
+        .error-word.clicked {
+            background: #fff9c4;
+            animation: pulse 0.5s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .correction-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            z-index: 1000;
+            min-width: 300px;
+        }
+
+        .correction-popup.show {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        .popup-overlay.show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .persian {
+                font-size: 1.1em;
+            }
+
+            .vocab-card {
+                font-size: 1.2em;
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 <span class="persian" dir="rtl" style="font-size: 1.2em;">گفتگوی سینا و ترانه</span></h1>
+            <p style="font-size: 1.1em; margin-top: 10px;">Goftogu-ye Sina va Taraneh</p>
+            <p style="font-size: 0.9em; opacity: 0.9;">Gespräch zwischen Sina und Taraneh</p>
+            <p>Dialog, Präteritum, Pronomen, Plural & Quiz</p>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn active" onclick="showSection(0)">1️⃣ Text + Fragen</button>
+            <button class="nav-btn" onclick="showSection(1)">2️⃣ Präteritum</button>
+            <button class="nav-btn" onclick="showSection(2)">3️⃣ Pronomen</button>
+            <button class="nav-btn" onclick="showSection(3)">4️⃣ Plural</button>
+            <button class="nav-btn" onclick="showSection(4)">5️⃣ Quiz/Test</button>
+        </div>
+
+        <!-- BEREICH 1: TEXT + FRAGEN -->
+        <div class="content active" id="section0">
+            <h2>📖 Teil 1: Text und Fragen</h2>
+            
+            <div class="dialog-box">
+                <h3 style="text-align: center; color: #667eea; margin-bottom: 20px;">گفت‌وگو بین ترانه و سینا</h3>
+                
+                <div class="dialog-line" dir="rtl">
+                    <div class="speaker taraneh" dir="rtl">ترانه:</div>
+                    <div class="persian">سلام سینا، خوبی؟</div>
+                </div>
+                
+                <div class="dialog-line" dir="rtl">
+                    <div class="speaker sina" dir="rtl">سینا:</div>
+                    <div class="persian">سلام ترانه! مَمنون، خوبم! تو خوبی؟</div>
+                </div>
+                
+                <div class="dialog-line" dir="rtl">
+                    <div class="speaker taraneh" dir="rtl">ترانه:</div>
+                    <div class="persian">من هَم خوبم. تو دیروز کُجا بودی؟</div>
+                </div>
+                
+                <div class="dialog-line" dir="rtl">
+                    <div class="speaker sina" dir="rtl">سینا:</div>
+                    <div class="persian">دیروز صبح در دانشگاه بودم. ساعتِ یازده با هَمکِلاسی‌هایَم در کتابخانه قَرار داشتم. ساعت دَوازده با هَم به سالُنِ غَذاخُوریِ دانشگاه‌ِمان رفتیم و ناهارِمان را آنجا خوردیم. بعد با هم کلاس داشتیم.</div>
+                </div>
+                
+                <div class="dialog-line" dir="rtl">
+                    <div class="speaker taraneh" dir="rtl">ترانه:</div>
+                    <div class="persian">کلاس‌تان ساعتِ چَند بود؟</div>
+                </div>
+                
+                <div class="dialog-line" dir="rtl">
+                    <div class="speaker sina" dir="rtl">سینا:</div>
+                    <div class="persian">کلاس‌مان ساعت یک شُروع شد و ساعت سه تَمام شد.</div>
+                </div>
+                
+                <div class="dialog-line" dir="rtl">
+                    <div class="speaker taraneh" dir="rtl">ترانه:</div>
+                    <div class="persian">بعد از آن چه کردید؟</div>
+                </div>
+                
+                <div class="dialog-line" dir="rtl">
+                    <div class="speaker sina" dir="rtl">سینا:</div>
+                    <div class="persian">همکلاسی‌هایم به خانه‌شان رفتند و من هم به خانه‌اَم رفتم. آنجا تا شب با خواهرم تَنها بودیم. شب زود خوابیدم. تو چه‌کار کردی؟</div>
+                </div>
+                
+                <div class="dialog-line" dir="rtl">
+                    <div class="speaker taraneh" dir="rtl">ترانه:</div>
+                    <div class="persian">دیروز من و خواهرم برای خرید به مَرکَزِ شَهر رفتیم. شب پیشِ مادرمان رفتیم و آنجا شام خوردیم.</div>
+                </div>
+                
+                <div class="dialog-line" dir="rtl">
+                    <div class="speaker sina" dir="rtl">سینا:</div>
+                    <div class="persian">تو و خانواده‌ات شام چی خوردید؟</div>
+                </div>
+                
+                <div class="dialog-line" dir="rtl">
+                    <div class="speaker taraneh" dir="rtl">ترانه:</div>
+                    <div class="persian">با هم ساندویچ دُرُست کردیم و بعد ساندویچ‌ها را با هم خوردیم!</div>
+                </div>
+                
+                <div class="dialog-line" dir="rtl">
+                    <div class="speaker sina" dir="rtl">سینا:</div>
+                    <div class="persian">راستی، کتابِ کلاسِ فارسی را خریدی؟</div>
+                </div>
+                
+                <div class="dialog-line" dir="rtl">
+                    <div class="speaker taraneh" dir="rtl">ترانه:</div>
+                    <div class="persian">بله من آن را آنلاین سِفارِش دادم. تو آن را خریدی؟</div>
+                </div>
+                
+                <div class="dialog-line" dir="rtl">
+                    <div class="speaker sina" dir="rtl">سینا:</div>
+                    <div class="persian">بله من کتابم را دیروز در مرکز شهر خریدم.</div>
+                </div>
+                
+                <div class="dialog-line" dir="rtl">
+                    <div class="speaker taraneh" dir="rtl">ترانه:</div>
+                    <div class="persian">اوکی، تا فردا!</div>
+                </div>
+                
+                <div class="dialog-line" dir="rtl">
+                    <div class="speaker sina" dir="rtl">سینا:</div>
+                    <div class="persian">تا فردا!</div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px; color: #667eea;">کلمات تازه (Neue Wörter)</h3>
+            <p style="margin: 10px 0; color: #666;">Klicke auf die Karte zum Umdrehen • <span id="cardCounter">1 / 29</span></p>
+            
+            <div style="max-width: 500px; margin: 30px auto; position: relative;">
+                <div id="vocabStack" style="min-height: 200px; position: relative;">
+                    <!-- Vokabelkarte wird hier angezeigt -->
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                    <button class="btn" onclick="previousCard()" id="prevBtn" style="background: #764ba2;">← Zurück</button>
+                    <button class="btn" onclick="nextCard()" id="nextBtn">Weiter →</button>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px; color: #667eea;">سؤال‌ها (Fragen zum Text)</h3>
+            
+            <div class="exercise">
+                <h4>1. Wo war Sina gestern morgen?</h4>
+                <div class="option" onclick="checkTextAnswer(this, true, 1)">
+                    <span class="persian" dir="rtl">در دانشگاه</span> (In der Universität)
+                </div>
+                <div class="option" onclick="checkTextAnswer(this, false, 1)">
+                    <span class="persian" dir="rtl">در خانه</span> (Zu Hause)
+                </div>
+                <div class="option" onclick="checkTextAnswer(this, false, 1)">
+                    <span class="persian" dir="rtl">در مرکز شهر</span> (Im Stadtzentrum)
+                </div>
+                <div class="feedback" id="textfeedback1"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>2. Um wie viel Uhr war Sina in der Bibliothek verabredet?</h4>
+                <div class="option" onclick="checkTextAnswer(this, false, 2)">
+                    <span class="persian" dir="rtl">ساعت دَوازده</span> (12 Uhr)
+                </div>
+                <div class="option" onclick="checkTextAnswer(this, true, 2)">
+                    <span class="persian" dir="rtl">ساعت یازده</span> (11 Uhr)
+                </div>
+                <div class="option" onclick="checkTextAnswer(this, false, 2)">
+                    <span class="persian" dir="rtl">ساعت یک</span> (1 Uhr)
+                </div>
+                <div class="feedback" id="textfeedback2"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>3. Wo haben sie ihr Mittagessen gegessen?</h4>
+                <div class="option" onclick="checkTextAnswer(this, true, 3)">
+                    <span class="persian" dir="rtl">در سالُن غَذاخوری دانشگاه</span> (Im Speisesaal der Uni)
+                </div>
+                <div class="option" onclick="checkTextAnswer(this, false, 3)">
+                    <span class="persian" dir="rtl">در خانه</span> (Zu Hause)
+                </div>
+                <div class="option" onclick="checkTextAnswer(this, false, 3)">
+                    <span class="persian" dir="rtl">در کتابخانه</span> (In der Bibliothek)
+                </div>
+                <div class="feedback" id="textfeedback3"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>4. Um wie viel Uhr hat Sinas Unterricht begonnen?</h4>
+                <div class="option" onclick="checkTextAnswer(this, false, 4)">
+                    <span class="persian" dir="rtl">ساعت دَوازده</span> (12 Uhr)
+                </div>
+                <div class="option" onclick="checkTextAnswer(this, true, 4)">
+                    <span class="persian" dir="rtl">ساعت یک</span> (1 Uhr)
+                </div>
+                <div class="option" onclick="checkTextAnswer(this, false, 4)">
+                    <span class="persian" dir="rtl">ساعت سه</span> (3 Uhr)
+                </div>
+                <div class="feedback" id="textfeedback4"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>5. Wohin sind Taraneh und ihre Schwester gegangen?</h4>
+                <div class="option" onclick="checkTextAnswer(this, false, 5)">
+                    <span class="persian" dir="rtl">به دانشگاه</span> (Zur Universität)
+                </div>
+                <div class="option" onclick="checkTextAnswer(this, true, 5)">
+                    <span class="persian" dir="rtl">به مرکز شهر</span> (Ins Stadtzentrum)
+                </div>
+                <div class="option" onclick="checkTextAnswer(this, false, 5)">
+                    <span class="persian" dir="rtl">به کتابخانه</span> (Zur Bibliothek)
+                </div>
+                <div class="feedback" id="textfeedback5"></div>
+            </div>
+
+            <div class="score-display">
+                نمره شما: <span id="textScore">0</span> / 5
+            </div>
+        </div>
+
+        <!-- BEREICH 2: PRÄTERITUM -->
+        <div class="content" id="section1">
+            <h2>⏮️ Teil 2: Präteritum-Übungen</h2>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="praetProgress">0%</div>
+            </div>
+
+            <div class="score-display">
+                نمره: <span id="praetScore">0</span> / 22
+            </div>
+
+            <h3 style="color: #667eea; margin: 30px 0 20px 0;">Teil A: Setzen Sie die Verben ins Präteritum</h3>
+
+            <div class="exercise">
+                <h4>1. Sie haben heute morgen ..................... (duschen)</h4>
+                <p class="persian" dir="rtl" style="margin: 10px 0;">آنها امروز صبح ..................... (دوش گرفتن)</p>
+                <input type="text" class="input-box persian" id="praet1" placeholder="پاسخ خود را بنویسید">
+                <button class="btn" onclick="checkPraet('دوش گرفتند', 1)">بررسی</button>
+                <div class="feedback" id="praetfeedback1"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>2. Ich habe meine Schwester in ihrem Haus .................. (sehen)</h4>
+                <p class="persian" dir="rtl" style="margin: 10px 0;">من خواهرَم را در خانه‌اَش.................. (دیدن)</p>
+                <input type="text" class="input-box persian" id="praet2" placeholder="پاسخ خود را بنویسید">
+                <button class="btn" onclick="checkPraet('دیدم', 2)">بررسی</button>
+                <div class="feedback" id="praetfeedback2"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>3. Hattet ihr in der Universität Unterricht ..................? (haben)</h4>
+                <p class="persian" dir="rtl" style="margin: 10px 0;">آیا شُما در دانشگاه کلاس ..................؟ (داشتن)</p>
+                <input type="text" class="input-box persian" id="praet3" placeholder="پاسخ خود را بنویسید">
+                <button class="btn" onclick="checkPraet('داشتید', 3)">بررسی</button>
+                <div class="feedback" id="praetfeedback3"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>4. Ich war gestern Abend hungrig, deswegen habe ich Abendessen gegessen</h4>
+                <p class="persian" dir="rtl" style="margin: 10px 0;">من دیشب گرسنه ....................(بودن).، برایِ هَمین شام..........................(خوردن)</p>
+                <p style="color: #666; margin: 10px 0;">Zwei Verben: Trennen Sie mit ، (persisches Komma)</p>
+                <input type="text" class="input-box persian" id="praet4" placeholder="پاسخ خود را بنویسید">
+                <button class="btn" onclick="checkPraet('بودم، خوردم', 4)">بررسی</button>
+                <div class="feedback" id="praetfeedback4"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>5. Unser Lehrer ist gestern spät zum Persisch-Unterricht ................... (kommen)</h4>
+                <p class="persian" dir="rtl" style="margin: 10px 0;">مُعَلِّم‌مان دیروز دیر به کِلاسِ فارسی ................... (آمدن)</p>
+                <input type="text" class="input-box persian" id="praet5" placeholder="پاسخ خود را بنویسید">
+                <button class="btn" onclick="checkPraet('آمد', 5)">بررسی</button>
+                <div class="feedback" id="praetfeedback5"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>6. Wir hatten gestern Spaghetti zum Mittagessen .................. (haben)</h4>
+                <p class="persian" dir="rtl" style="margin: 10px 0;">ما دیروز برای نَهار اِسپاگِتی.................. (داشتن)</p>
+                <input type="text" class="input-box persian" id="praet6" placeholder="پاسخ خود را بنویسید">
+                <button class="btn" onclick="checkPraet('داشتیم', 6)">بررسی</button>
+                <div class="feedback" id="praetfeedback6"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>7. Ihr habt gestern mit eurer Mutter ...................... (sprechen)</h4>
+                <p class="persian" dir="rtl" style="margin: 10px 0;">شما دیروز با مادرِتان...................... (حرف زَدَن)</p>
+                <input type="text" class="input-box persian" id="praet7" placeholder="پاسخ خود را بنویسید">
+                <button class="btn" onclick="checkPraet('حرف زدید', 7)">بررسی</button>
+                <div class="feedback" id="praetfeedback7"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>8. Ich bin gestern zum Basar von Teheran ................. (gehen) aber habe nichts ................ (kaufen)</h4>
+                <p class="persian" dir="rtl" style="margin: 10px 0;">من دیروز به بازارِ تهران ................. (رفتن) اَمّا چیزی ................ (خَریدَن)</p>
+                <p style="color: #666; margin: 10px 0;">Zwei Verben mit Komma trennen</p>
+                <input type="text" class="input-box persian" id="praet8" placeholder="پاسخ خود را بنویسید">
+                <button class="btn" onclick="checkPraet('رفتم، خریدم', 8)">بررسی</button>
+                <div class="feedback" id="praetfeedback8"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>9. Um wie viel Uhr bist du heute morgen ...................... (aufwachen)?</h4>
+                <p class="persian" dir="rtl" style="margin: 10px 0;">تو امروز صُبح ساعَتِ چَند از خواب ...................... (بیدار شدن)؟</p>
+                <input type="text" class="input-box persian" id="praet9" placeholder="پاسخ خود را بنویسید">
+                <button class="btn" onclick="checkPraet('بیدار شدی', 9)">بررسی</button>
+                <div class="feedback" id="praetfeedback9"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>10. Warum sind sie früh .........................(aufwachen)?</h4>
+                <p class="persian" dir="rtl" style="margin: 10px 0;">آنها چرا زود از خواب.........................(بیدار شدن)؟</p>
+                <input type="text" class="input-box persian" id="praet10" placeholder="پاسخ خود را بنویسید">
+                <button class="btn" onclick="checkPraet('بیدار شدند', 10)">بررسی</button>
+                <div class="feedback" id="praetfeedback10"></div>
+            </div>
+
+            <h3 style="color: #667eea; margin: 40px 0 20px 0;">🔍 Fehler finden und korrigieren</h3>
+            
+            <div class="exercise error-correction">
+                <h4>11. Finden Sie die Fehler im persischen Satz und korrigieren Sie sie</h4>
+                <p style="color: #666; margin: 10px 0;">Deutsch: Gestern bin ich früh aufgestanden und habe gefrühstückt</p>
+                <div class="error-sentence persian" dir="rtl">
+                    <span class="error-word" data-exercise="praet_21">دیروز</span>
+                    <span class="error-word" data-exercise="praet_21">من</span>
+                    <span class="error-word" data-exercise="praet_21">زود</span>
+                    <span class="error-word wrong" data-exercise="praet_21" onclick="clickErrorWord(this, 'بیدار شدم', 'praet_21')">بیدار شد</span>
+                    <span class="error-word" data-exercise="praet_21">و</span>
+                    <span class="error-word wrong" data-exercise="praet_21" onclick="clickErrorWord(this, 'صبحانه خوردم', 'praet_21')">صبحانه خورد</span>
+                </div>
+                <p style="color: #f44336; margin: 10px 0; font-size: 0.9em;">💡 Tipp: Klicken Sie auf die falsch markierten Wörter (rot unterstrichen)</p>
+                <div class="feedback" id="feedback_praet_21"></div>
+            </div>
+
+            <h3 style="color: #667eea; margin: 40px 0 20px 0;">Teil B: Ordnen Sie die Wörter zum Satz (Wortsalat)</h3>
+
+            <div class="exercise">
+                <h4>21. Ordnen Sie die Wörter:</h4>
+                <p style="color: #666; margin: 10px 0;">Ich bin gestern nach Hause gegangen</p>
+                <div class="word-bank" dir="rtl" id="wordbank12">
+                    <div class="word-chip" onclick="selectWord(this, 12)">دیروز</div>
+                    <div class="word-chip" onclick="selectWord(this, 12)">من</div>
+                    <div class="word-chip" onclick="selectWord(this, 12)">خانه</div>
+                    <div class="word-chip" onclick="selectWord(this, 12)">رفتم</div>
+                    <div class="word-chip" onclick="selectWord(this, 12)">به</div>
+                </div>
+                <div class="sentence-builder" dir="rtl" id="sentence12"></div>
+                <button class="btn" onclick="checkSentenceMulti(['من دیروز به خانه رفتم', 'دیروز من به خانه رفتم'], 11)">بررسی</button>
+                <button class="btn" onclick="clearSentence(12)" style="background: #f44336;">پاک کردن</button>
+                <div class="feedback" id="praetfeedback12"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>21. Ordnen Sie die Wörter:</h4>
+                <p style="color: #666; margin: 10px 0;">Er/Sie hat das Buch gelesen</p>
+                <div class="word-bank" dir="rtl" id="wordbank13">
+                    <div class="word-chip" onclick="selectWord(this, 13)">او</div>
+                    <div class="word-chip" onclick="selectWord(this, 13)">کتاب</div>
+                    <div class="word-chip" onclick="selectWord(this, 13)">را</div>
+                    <div class="word-chip" onclick="selectWord(this, 13)">خواند</div>
+                </div>
+                <div class="sentence-builder" dir="rtl" id="sentence13"></div>
+                <button class="btn" onclick="checkSentence('او کتاب را خواند', 13)">بررسی</button>
+                <button class="btn" onclick="clearSentence(13)" style="background: #f44336;">پاک کردن</button>
+                <div class="feedback" id="praetfeedback13"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>21. Ordnen Sie die Wörter:</h4>
+                <p style="color: #666; margin: 10px 0;">Wir haben zusammen Abendessen gegessen</p>
+                <div class="word-bank" dir="rtl" id="wordbank14">
+                    <div class="word-chip" onclick="selectWord(this, 14)">ما</div>
+                    <div class="word-chip" onclick="selectWord(this, 14)">شام</div>
+                    <div class="word-chip" onclick="selectWord(this, 14)">با هم</div>
+                    <div class="word-chip" onclick="selectWord(this, 14)">خوردیم</div>
+                </div>
+                <div class="sentence-builder" dir="rtl" id="sentence14"></div>
+                <button class="btn" onclick="checkSentence('ما با هم شام خوردیم', 14)">بررسی</button>
+                <button class="btn" onclick="clearSentence(14)" style="background: #f44336;">پاک کردن</button>
+                <div class="feedback" id="praetfeedback14"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>21. Ordnen Sie die Wörter:</h4>
+                <p style="color: #666; margin: 10px 0;">Sie hatten gestern Unterricht</p>
+                <div class="word-bank" dir="rtl" id="wordbank15">
+                    <div class="word-chip" onclick="selectWord(this, 15)">آنها</div>
+                    <div class="word-chip" onclick="selectWord(this, 15)">دیروز</div>
+                    <div class="word-chip" onclick="selectWord(this, 15)">کلاس</div>
+                    <div class="word-chip" onclick="selectWord(this, 15)">داشتند</div>
+                </div>
+                <div class="sentence-builder" dir="rtl" id="sentence15"></div>
+                <button class="btn" onclick="checkSentenceMulti(['آنها دیروز کلاس داشتند', 'دیروز آنها کلاس داشتند'], 14)">بررسی</button>
+                <button class="btn" onclick="clearSentence(15)" style="background: #f44336;">پاک کردن</button>
+                <div class="feedback" id="praetfeedback15"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>21. Ordnen Sie die Wörter:</h4>
+                <p style="color: #666; margin: 10px 0;">Du hast morgens geduscht</p>
+                <div class="word-bank" dir="rtl" id="wordbank16">
+                    <div class="word-chip" onclick="selectWord(this, 16)">تو</div>
+                    <div class="word-chip" onclick="selectWord(this, 16)">صبح</div>
+                    <div class="word-chip" onclick="selectWord(this, 16)">دوش</div>
+                    <div class="word-chip" onclick="selectWord(this, 16)">گرفتی</div>
+                </div>
+                <div class="sentence-builder" dir="rtl" id="sentence16"></div>
+                <button class="btn" onclick="checkSentenceMulti(['تو صبح دوش گرفتی', 'صبح تو دوش گرفتی'], 15)">بررسی</button>
+                <button class="btn" onclick="clearSentence(16)" style="background: #f44336;">پاک کردن</button>
+                <div class="feedback" id="praetfeedback16"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>21. Ordnen Sie die Wörter:</h4>
+                <p style="color: #666; margin: 10px 0;">Ich habe meine Schwester gesehen</p>
+                <div class="word-bank" dir="rtl" id="wordbank17">
+                    <div class="word-chip" onclick="selectWord(this, 17)">من</div>
+                    <div class="word-chip" onclick="selectWord(this, 17)">خواهرم</div>
+                    <div class="word-chip" onclick="selectWord(this, 17)">را</div>
+                    <div class="word-chip" onclick="selectWord(this, 17)">دیدم</div>
+                </div>
+                <div class="sentence-builder" dir="rtl" id="sentence17"></div>
+                <button class="btn" onclick="checkSentence('من خواهرم را دیدم', 17)">بررسی</button>
+                <button class="btn" onclick="clearSentence(17)" style="background: #f44336;">پاک کردن</button>
+                <div class="feedback" id="praetfeedback17"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>21. Ordnen Sie die Wörter:</h4>
+                <p style="color: #666; margin: 10px 0;">Er/Sie hat früh geschlafen</p>
+                <div class="word-bank" dir="rtl" id="wordbank18">
+                    <div class="word-chip" onclick="selectWord(this, 18)">او</div>
+                    <div class="word-chip" onclick="selectWord(this, 18)">زود</div>
+                    <div class="word-chip" onclick="selectWord(this, 18)">خوابید</div>
+                </div>
+                <div class="sentence-builder" dir="rtl" id="sentence18"></div>
+                <button class="btn" onclick="checkSentence('او زود خوابید', 18)">بررسی</button>
+                <button class="btn" onclick="clearSentence(18)" style="background: #f44336;">پاک کردن</button>
+                <div class="feedback" id="praetfeedback18"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>21. Ordnen Sie die Wörter:</h4>
+                <p style="color: #666; margin: 10px 0;">Was habt ihr gegessen?</p>
+                <div class="word-bank" dir="rtl" id="wordbank19">
+                    <div class="word-chip" onclick="selectWord(this, 19)">شما</div>
+                    <div class="word-chip" onclick="selectWord(this, 19)">چی</div>
+                    <div class="word-chip" onclick="selectWord(this, 19)">خوردید</div>
+                </div>
+                <div class="sentence-builder" dir="rtl" id="sentence19"></div>
+                <button class="btn" onclick="checkSentence('شما چی خوردید', 19)">بررسی</button>
+                <button class="btn" onclick="clearSentence(19)" style="background: #f44336;">پاک کردن</button>
+                <div class="feedback" id="praetfeedback19"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>21. Ordnen Sie die Wörter:</h4>
+                <p style="color: #666; margin: 10px 0;">Wir sind ins Stadtzentrum gegangen</p>
+                <div class="word-bank" dir="rtl" id="wordbank20">
+                    <div class="word-chip" onclick="selectWord(this, 20)">ما</div>
+                    <div class="word-chip" onclick="selectWord(this, 20)">به</div>
+                    <div class="word-chip" onclick="selectWord(this, 20)">مرکز شهر</div>
+                    <div class="word-chip" onclick="selectWord(this, 20)">رفتیم</div>
+                </div>
+                <div class="sentence-builder" dir="rtl" id="sentence20"></div>
+                <button class="btn" onclick="checkSentence('ما به مرکز شهر رفتیم', 20)">بررسی</button>
+                <button class="btn" onclick="clearSentence(20)" style="background: #f44336;">پاک کردن</button>
+                <div class="feedback" id="praetfeedback20"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>21. Ordnen Sie die Wörter:</h4>
+                <p style="color: #666; margin: 10px 0;">Sie haben das Buch gekauft</p>
+                <div class="word-bank" dir="rtl" id="wordbank21">
+                    <div class="word-chip" onclick="selectWord(this, 21)">آنها</div>
+                    <div class="word-chip" onclick="selectWord(this, 21)">کتاب</div>
+                    <div class="word-chip" onclick="selectWord(this, 21)">را</div>
+                    <div class="word-chip" onclick="selectWord(this, 21)">خریدند</div>
+                </div>
+                <div class="sentence-builder" dir="rtl" id="sentence21"></div>
+                <button class="btn" onclick="checkSentence('آنها کتاب را خریدند', 21)">بررسی</button>
+                <button class="btn" onclick="clearSentence(21)" style="background: #f44336;">پاک کردن</button>
+                <div class="feedback" id="praetfeedback21"></div>
+            </div>
+
+            <h3 style="color: #667eea; margin: 40px 0 20px 0;">🔍 Fehler finden und korrigieren</h3>
+            
+            <div class="exercise error-correction">
+                <h4>22. Finden Sie die Fehler im persischen Satz und korrigieren Sie sie</h4>
+                <p style="color: #666; margin: 10px 0;">Deutsch: Sie (Plural) sind gestern ins Kino gegangen und haben einen Film gesehen</p>
+                <div class="error-sentence persian" dir="rtl">
+                    <span class="error-word wrong" data-exercise="praet_22" onclick="clickErrorWord(this, 'آنها', 'praet_22')">او</span>
+                    <span class="error-word" data-exercise="praet_22">دیروز</span>
+                    <span class="error-word" data-exercise="praet_22">به</span>
+                    <span class="error-word" data-exercise="praet_22">سینما</span>
+                    <span class="error-word wrong" data-exercise="praet_22" onclick="clickErrorWord(this, 'رفتند', 'praet_22')">رفت</span>
+                    <span class="error-word" data-exercise="praet_22">و</span>
+                    <span class="error-word" data-exercise="praet_22">فیلمی</span>
+                    <span class="error-word wrong" data-exercise="praet_22" onclick="clickErrorWord(this, 'دیدند', 'praet_22')">دید</span>
+                </div>
+                <p style="color: #f44336; margin: 10px 0; font-size: 0.9em;">💡 Tipp: 3 Fehler! Achten Sie auf Singular vs. Plural</p>
+                <div class="feedback" id="feedback_praet_22"></div>
+            </div>
+        </div>
+
+        <!-- BEREICH 3: PRONOMEN -->
+        <div class="content" id="section2">
+            <h2>👤 Teil 3: Pronomen (ضمایر)</h2>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="pronProgress">0%</div>
+            </div>
+
+            <div class="score-display">
+                نمره: <span id="pronScore">0</span> / 11
+            </div>
+
+            <!-- GRAMMATIK-LEKTION -->
+            <div style="background: #fff3cd; padding: 25px; border-radius: 10px; margin: 30px 0; border-left: 5px solid #667eea;">
+                <h3 style="color: #667eea; margin-bottom: 20px;">📖 Grammatik: Pronomen im Persischen</h3>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; margin: 15px 0;">
+                    <h4 style="color: #667eea;">Grundregel:</h4>
+                    <p style="margin: 10px 0; line-height: 1.8;">
+                        ✅ Pronomen bleiben bei <strong>allen grammatikalischen Fällen gleich</strong> (Nominativ, Akkusativ, Dativ, Genitiv)<br>
+                        ✅ Es gibt <strong>zwei Formen</strong>: a) Personalpronomen b) Kurzform als Suffix<br>
+                        ✅ Beide Formen sind <strong>gleichwertig</strong><br>
+                        ⚠️ Nur Pronomen als Suffix können (logischerweise) <strong>nicht als Subjekt</strong> verwendet werden
+                    </p>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; margin: 15px 0;">
+                    <h4 style="color: #667eea;">A) Personalpronomen (alle vier Fälle!)</h4>
+                    <table style="width: 100%; border-collapse: collapse; margin: 15px 0; background: white;">
+                        <tr style="background: #f8f9fa;">
+                            <th style="padding: 10px; border: 1px solid #ddd;">Persisch</th>
+                            <th style="padding: 10px; border: 1px solid #ddd;">Deutsch (Nom./Akk./Dat./Gen.)</th>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">من</span></td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;">ich, mich, mir, mein</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">تو</span></td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;">du, dich, dir, dein</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">او = وی</span></td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;">er/sie, ihn/sie, ihm/ihr, sein/ihr</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">ما</span></td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;">wir, uns, uns, unser</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">شما</span></td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;">ihr/Sie, euch/Sie, euch/Ihnen, euer/Ihr</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">آنها = ایشان</span></td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;">sie, sie, ihnen, ihr</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px; border: 1px solid #ddd; background: #f8f9fa;"><span class="persian" dir="rtl">این \ همین</span></td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: #f8f9fa;">Diese/r/s</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px; border: 1px solid #ddd; background: #f8f9fa;"><span class="persian" dir="rtl">آن\ همان</span></td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: #f8f9fa;">Jene/r/s</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; margin: 15px 0;">
+                    <h4 style="color: #667eea;">B) Kurzform als Suffix</h4>
+                    <table style="width: 100%; border-collapse: collapse; margin: 15px 0; background: white;">
+                        <tr style="background: #f8f9fa;">
+                            <th style="padding: 10px; border: 1px solid #ddd;">Person</th>
+                            <th style="padding: 10px; border: 1px solid #ddd;">Suffix</th>
+                            <th style="padding: 10px; border: 1px solid #ddd;">Bedeutung</th>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;">1. Sg.</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">ـَم = اَم</span></td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;">-m (mein/mich/mir)</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;">2. Sg.</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">ـَت = اَت</span></td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;">-t (dein/dich/dir)</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;">3. Sg.</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">ـَش = اَش</span></td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;">-sch (sein/ihr/ihn/sie/ihm/ihr)</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;">1. Pl.</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">ـِمان = ِمان</span></td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;">-mān (unser/uns)</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;">2. Pl.</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">ـِتان = ِتان</span></td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;">-tān (euer/Ihr/euch/Ihnen)</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;">3. Pl.</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">ـِشان = ِشان</span></td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: white;">-schān (ihr/sie/ihnen)</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div style="background: #ffe6e6; padding: 20px; border-radius: 8px; margin: 15px 0; border-left: 5px solid #f44336;">
+                    <h4 style="color: #f44336;">⚠️ WICHTIG: Schreibweise der Suffix-Pronomen</h4>
+                    
+                    <div style="margin: 15px 0;">
+                        <p style="line-height: 1.8; margin: 10px 0;">
+                            Bei <strong>Singular-Pronomen (ام، ات، اش)</strong> gibt es spezielle Regeln:<br>
+                            → Die Form hängt vom <strong>letzten Buchstaben</strong> des Wortes ab!
+                        </p>
+                    </div>
+
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <h5 style="color: #667eea; margin-bottom: 10px;">📋 Die drei Regeln:</h5>
+                        
+                        <div style="margin: 10px 0; padding: 10px; background: #ffebee; border-radius: 5px;">
+                            <strong>❌ REGEL 1: Bei د ذ ز ر و ژ → Kurze Form zusammen!</strong><br>
+                            → <span class="persian" dir="rtl" style="font-size: 1.3em;">د ذ ز ر و ژ</span> (d, ẕ, z, r, w, zh)<br>
+                            → Diese Buchstaben verbinden sich nicht<br>
+                            → <strong>Kurze Form (م، ت، ش) zusammenschreiben!</strong><br>
+                            Beispiele:<br>
+                            <span class="persian" dir="rtl" style="font-size: 1.2em;">برادرم، مادرت، روزش، خودش</span> ✓ (kurz, zusammen)<br>
+                            <span class="persian" dir="rtl" style="font-size: 1.2em; text-decoration: line-through; color: #f44336;">برادر‌ام، مادر‌ات، روز‌اش</span> ✗ (FALSCH)
+                        </div>
+
+                        <div style="margin: 10px 0; padding: 10px; background: #e8f5e9; border-radius: 5px;">
+                            <strong>✅ REGEL 2: Bei stummen ه → Lange Form getrennt!</strong><br>
+                            → <span class="persian" dir="rtl" style="font-size: 1.3em;">ه</span> (hā-ye sāmet / ه‌ی صامت = stummes he am Wortende)<br>
+                            → <strong>Lange Form (ام، ات، اش) mit Halbgeviert trennen!</strong><br>
+                            Beispiele:<br>
+                            <span class="persian" dir="rtl" style="font-size: 1.2em;">خانه‌ام، خانه‌ات، خانه‌اش، خانواده‌مان</span> ✓ (lang, getrennt)<br>
+                            <span class="persian" dir="rtl" style="font-size: 1.2em; text-decoration: line-through; color: #f44336;">خانهم، خانهت، خانهش</span> ✗ (FALSCH)
+                        </div>
+
+                        <div style="margin: 10px 0; padding: 10px; background: #fff3cd; border-radius: 5px;">
+                            <strong>🔄 REGEL 3: Bei allen anderen → Zwei Möglichkeiten!</strong><br>
+                            → Alle anderen Buchstaben (ب پ ت ث ج چ ح خ س ش ص ض ط ظ ع غ ف ق ک گ ل م ن ی)<br>
+                            → <strong>1️⃣ Zusammenschreiben:</strong> کتابم، معلمش، دوستت ✓<br>
+                            → <strong>2️⃣ Getrennt schreiben:</strong> Dann lange Form (ام، ات، اش) mit Halbgeviert! کتاب‌ام، معلم‌اش، دوست‌ات ✓<br>
+                            Beispiele:<br>
+                            <span class="persian" dir="rtl" style="font-size: 1.2em;">کتاب‌ام، معلم‌اش، دوست‌ات</span> ✓ (getrennt mit alef)<br>
+                            <span class="persian" dir="rtl" style="font-size: 1.2em;">کتابم، معلمش، دوستت</span> ✓ (zusammen)<br>
+                            <span class="persian" dir="rtl" style="font-size: 1.2em; text-decoration: line-through; color: #f44336;">کتابم، معلمش</span> ✗ (getrennt OHNE alef - FALSCH!)
+                        </div>
+                    </div>
+
+                    <div style="background: #f0f7ff; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <strong>💡 Merksatz:</strong><br>
+                        <strong style="color: #f44336;">Bei د ذ ز ر و ژ:</strong> Nur zusammen möglich (م، ت، ش)!<br>
+                        <strong style="color: #4CAF50;">Bei stummen ه:</strong> Nur getrennt möglich (ام، ات، اش)!<br>
+                        <strong style="color: #ff9800;">Bei allen anderen:</strong> Beides erlaubt! Zusammen (م، ت، ش) ODER getrennt (ام، ات، اش)
+                    </div>
+
+                    <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <strong>📌 Bei Plural-Pronomen (مان، تان، شان):</strong><br>
+                        Diese haben kein ا am Anfang.<br>
+                        Zusammenschreiben ist erlaubt, aber der <strong>Trend geht zur Trennung mit Halbgeviert</strong>.<br>
+                        Beispiele:<br>
+                        <span class="persian" dir="rtl" style="font-size: 1.2em;">کتاب‌مان، معلمان‌شان، خانه‌تان</span> ✓ (getrennt - Trend!)<br>
+                        <span class="persian" dir="rtl" style="font-size: 1.2em;">کتابمان، معلمانشان، خانهتان</span> ✓ (zusammen - auch richtig)
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; margin: 15px 0;">
+                    <h4 style="color: #667eea;">Beispiele für Kurzpronomen in verschiedenen Fällen:</h4>
+                    
+                    <div style="margin: 15px 0; padding: 15px; background: #f0f7ff; border-radius: 8px;">
+                        <strong>1️⃣ Genitiv (Besitz):</strong>
+                        <p class="persian" dir="rtl" style="margin: 10px 0; font-size: 1.2em;">برادرم، اتاقت، دانشگاه‌اش، خوابگاه‌مان، مادرتان، پدرشان</p>
+                        <p style="margin: 5px 0; color: #666;">mein Bruder, dein Zimmer, seine Uni, unser Wohnheim, eure Mutter, ihr Vater</p>
+                    </div>
+
+                    <div style="margin: 15px 0; padding: 15px; background: #f0f7ff; border-radius: 8px;">
+                        <strong>2️⃣ Dativ (mit Präposition "به" = zu):</strong>
+                        <p class="persian" dir="rtl" style="margin: 10px 0; font-size: 1.2em;">به‌ام\بهم، به‌ات\بهت، به‌اش\بهش، به‌مان\بهمان، به‌تان\بهتان، به‌شان\بهشان</p>
+                        <p style="margin: 5px 0; color: #666;">zu mir, zu dir, zu ihm/ihr, zu uns, zu euch, zu ihnen</p>
+                    </div>
+
+                    <div style="margin: 15px 0; padding: 15px; background: #f0f7ff; border-radius: 8px;">
+                        <strong>3️⃣ Mit Präposition "از" (von):</strong>
+                        <p class="persian" dir="rtl" style="margin: 10px 0; font-size: 1.2em;">ازم، ازت، ازش، ازمان، ازتان، ازشان</p>
+                        <p style="margin: 5px 0; color: #666;">von mir, von dir, von ihm/ihr, von uns, von euch, von ihnen</p>
+                    </div>
+
+                    <div style="margin: 15px 0; padding: 15px; background: #ffe6e6; border-radius: 8px;">
+                        <strong>4️⃣ Akkusativ (an Verb gehängt):</strong>
+                        <p style="margin: 10px 0;">⚠️ <strong>Wichtig:</strong> Ist das Akkusativobjekt ein Kurzpronomen, dann hängt man es an das Verb!</p>
+                        <p class="persian" dir="rtl" style="margin: 10px 0; font-size: 1.2em;">دیدی‌ام، دیدم‌ات، دیدم‌اش، دیدی‌مان، دیدم‌تان، دیدم‌شان</p>
+                        <p style="margin: 5px 0; color: #666;">
+                            <strong>دیدی‌ام</strong> = Du sahst mich<br>
+                            <strong>دیدم‌ات</strong> = Ich sah dich
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="color: #667eea; margin: 40px 0 20px 0;">Übung 1: Paare bilden</h3>
+            <p style="margin: 10px 0; color: #666;">Verbinden Sie die persischen Wörter mit den deutschen Übersetzungen</p>
+
+            <div class="exercise">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                    <div>
+                        <h4 style="margin-bottom: 15px;">Persisch:</h4>
+                        <div id="persianWords">
+                            <div class="pair-word persian" data-id="1" onclick="selectPairWord(this)">خواهرم</div>
+                            <div class="pair-word persian" data-id="2" onclick="selectPairWord(this)">کتاب‌اش</div>
+                            <div class="pair-word persian" data-id="3" onclick="selectPairWord(this)">خانه‌ات</div>
+                            <div class="pair-word persian" data-id="4" onclick="selectPairWord(this)">ماشینمان</div>
+                            <div class="pair-word persian" data-id="5" onclick="selectPairWord(this)">معلمتان</div>
+                            <div class="pair-word persian" data-id="6" onclick="selectPairWord(this)">پدرشان</div>
+                            <div class="pair-word persian" data-id="7" onclick="selectPairWord(this)">دوستم</div>
+                            <div class="pair-word persian" data-id="8" onclick="selectPairWord(this)">مادرت</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 style="margin-bottom: 15px;">Deutsch:</h4>
+                        <div id="germanWords">
+                            <div class="pair-word" data-id="1" onclick="selectPairWord(this)">meine Schwester</div>
+                            <div class="pair-word" data-id="2" onclick="selectPairWord(this)">sein/ihr Buch</div>
+                            <div class="pair-word" data-id="3" onclick="selectPairWord(this)">dein Haus</div>
+                            <div class="pair-word" data-id="4" onclick="selectPairWord(this)">unser Auto</div>
+                            <div class="pair-word" data-id="5" onclick="selectPairWord(this)">euer/Ihr Lehrer</div>
+                            <div class="pair-word" data-id="6" onclick="selectPairWord(this)">ihr Vater (Plural)</div>
+                            <div class="pair-word" data-id="7" onclick="selectPairWord(this)">mein Freund</div>
+                            <div class="pair-word" data-id="8" onclick="selectPairWord(this)">deine Mutter</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin: 20px 0;">
+                    <p style="color: #666; margin: 10px 0;">Richtige Paare: <span id="pairScore">0</span> / 8</p>
+                    <button class="btn" onclick="resetPairs()">Zurücksetzen</button>
+                </div>
+                
+                <div class="feedback" id="pairfeedback"></div>
+            </div>
+
+            <h3 style="color: #667eea; margin: 40px 0 20px 0;">Übung 2: Schreiben Sie auf Persisch</h3>
+
+            <div class="exercise">
+                <h4>1. "Mein Buch" = ?</h4>
+                <input type="text" class="input-box persian" id="pron1" placeholder="پاسخ">
+                <button class="btn" onclick="checkPronMulti(['کتاب‌ام', 'کتابم'], 1)">بررسی</button>
+                <div class="feedback" id="pronfeedback1"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>2. "Dein Haus" = ?</h4>
+                <input type="text" class="input-box persian" id="pron2" placeholder="پاسخ">
+                <button class="btn" onclick="checkPron('خانه‌ات', 2)">بررسی</button>
+                <div class="feedback" id="pronfeedback2"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>3. "Sein/Ihr Lehrer" = ?</h4>
+                <input type="text" class="input-box persian" id="pron3" placeholder="پاسخ">
+                <button class="btn" onclick="checkPronMulti(['معلم‌اش', 'معلمش'], 3)">بررسی</button>
+                <div class="feedback" id="pronfeedback3"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>4. "Unser Auto" = ?</h4>
+                <input type="text" class="input-box persian" id="pron4" placeholder="پاسخ">
+                <button class="btn" onclick="checkPronMulti(['ماشینمان', 'ماشین‌مان'], 4)">بررسی</button>
+                <div class="feedback" id="pronfeedback4"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>5. "Euer/Ihr Unterricht" = ?</h4>
+                <input type="text" class="input-box persian" id="pron5" placeholder="پاسخ">
+                <button class="btn" onclick="checkPronMulti(['کلاستان', 'کلاس‌تان'], 5)">بررسی</button>
+                <div class="feedback" id="pronfeedback5"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>6. "Ihr (Plural) Vater" = ?</h4>
+                <input type="text" class="input-box persian" id="pron6" placeholder="پاسخ">
+                <button class="btn" onclick="checkPron('پدرشان', 6)">بررسی</button>
+                <div class="feedback" id="pronfeedback6"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>7. "Meine Schwester" = ?</h4>
+                <input type="text" class="input-box persian" id="pron7" placeholder="پاسخ">
+                <button class="btn" onclick="checkPron('خواهرم', 7)">بررسی</button>
+                <div class="feedback" id="pronfeedback7"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>8. "Deine Mutter" = ?</h4>
+                <input type="text" class="input-box persian" id="pron8" placeholder="پاسخ">
+                <button class="btn" onclick="checkPron('مادرت', 8)">بررسی</button>
+                <div class="feedback" id="pronfeedback8"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>9. "Sein/Ihr Bruder" = ?</h4>
+                <input type="text" class="input-box persian" id="pron9" placeholder="پاسخ">
+                <button class="btn" onclick="checkPron('برادرش', 9)">بررسی</button>
+                <div class="feedback" id="pronfeedback9"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>10. "Unsere Familie" = ?</h4>
+                <input type="text" class="input-box persian" id="pron10" placeholder="پاسخ">
+                <button class="btn" onclick="checkPron('خانواده‌مان', 10)">بررسی</button>
+                <div class="feedback" id="pronfeedback10"></div>
+            </div>
+
+            <h3 style="color: #667eea; margin: 40px 0 20px 0;">🔍 Fehler finden und korrigieren</h3>
+            
+            <div class="exercise error-correction">
+                <h4>11. Finden Sie die Fehler im persischen Satz und korrigieren Sie sie</h4>
+                <p style="color: #666; margin: 10px 0;">Deutsch: Mein Lehrer hat mir sein Buch gegeben</p>
+                <div class="error-sentence persian" dir="rtl">
+                    <span class="error-word wrong" data-exercise="pron_11" onclick="clickErrorWord(this, 'معلم‌ام', 'pron_11')">معلمت</span>
+                    <span class="error-word" data-exercise="pron_11">کتاب‌اش</span>
+                    <span class="error-word" data-exercise="pron_11">را</span>
+                    <span class="error-word" data-exercise="pron_11">به</span>
+                    <span class="error-word wrong" data-exercise="pron_11" onclick="clickErrorWord(this, 'من', 'pron_11')">تو</span>
+                    <span class="error-word" data-exercise="pron_11">داد</span>
+                </div>
+                <p style="color: #f44336; margin: 10px 0; font-size: 0.9em;">💡 Tipp: 2 Fehler! Pronomen-Bedeutung und Personalpronomen</p>
+                <div class="feedback" id="feedback_pron_11"></div>
+            </div>
+        </div>
+
+        <!-- BEREICH 4: PLURAL -->
+        <div class="content" id="section3">
+            <h2>🔢 Teil 4: Plural (جَمع)</h2>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="plurProgress">0%</div>
+            </div>
+
+            <div class="score-display">
+                نمره: <span id="plurScore">0</span> / 11
+            </div>
+
+            <!-- GRAMMATIK-LEKTION -->
+            <div style="background: #fff3cd; padding: 25px; border-radius: 10px; margin: 30px 0; border-left: 5px solid #667eea;">
+                <h3 style="color: #667eea; margin-bottom: 20px;">📖 Grammatik: Pluralbildung & Definit/Indefinit</h3>
+                
+                <div style="background: #ffe6e6; padding: 20px; border-radius: 8px; margin: 15px 0; border: 2px solid #f44336;">
+                    <h4 style="color: #c62828;">⚠️ WICHTIGSTE REGEL:</h4>
+                    <p style="margin: 10px 0; font-size: 1.2em; font-weight: bold;">
+                        Die Pluralform wird NUR für definite/bestimmte Nomen verwendet!
+                    </p>
+                    <p style="margin: 10px 0;">
+                        <span class="persian" dir="rtl">کتاب‌ها</span> = die Bücher (bestimmt)<br>
+                        <span class="persian" dir="rtl">کتاب</span> = Bücher (unbestimmt, aus Kontext klar)
+                    </p>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; margin: 15px 0;">
+                    <h4 style="color: #667eea;">A) Pluralbildung - 3 Kategorien:</h4>
+                    
+                    <div style="margin: 20px 0;">
+                        <h5 style="color: #764ba2; margin: 15px 0;">1️⃣ Pluralbildung mit <span class="persian" dir="rtl">ها</span>:</h5>
+                        <p style="margin: 10px 0;">✅ <span class="persian" dir="rtl">ها</span> ist zulässiges Suffix für <strong>fast alle Substantive</strong></p>
+                        <div style="background: #f0f7ff; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            <p class="persian" dir="rtl" style="font-size: 1.2em; margin: 10px 0;">آدم‌ها، کتاب‌ها، دختر‌ها</p>
+                            <p style="color: #666; margin: 5px 0;">Menschen, Bücher, Mädchen</p>
+                        </div>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <h5 style="color: #764ba2; margin: 15px 0;">2️⃣ Pluralbildung mit <span class="persian" dir="rtl">ان</span>:</h5>
+                        <p style="margin: 10px 0;">✅ Für: <strong>Personen, Berufe, Tiere und Pflanzen, Körperteile</strong></p>
+                        <div style="background: #f0f7ff; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            <p class="persian" dir="rtl" style="font-size: 1.2em; margin: 10px 0;">معلمان، مهندسان، مادران، پدران، خواهران، دستان، چشمان</p>
+                            <p style="color: #666; margin: 5px 0;">Lehrer, Ingenieure, Mütter, Väter, Schwestern, Hände, Augen</p>
+                        </div>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <h5 style="color: #764ba2; margin: 15px 0;">3️⃣ Arabische Pluralformen:</h5>
+                        <p style="margin: 10px 0;">✅ Unregelmäßig, häufig in <strong>Bildungssprache</strong></p>
+                        <p style="margin: 10px 0;">⚠️ Die Endung <span class="persian" dir="rtl">ات</span> gehört hierzu</p>
+                        <div style="background: #f0f7ff; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            <p class="persian" dir="rtl" style="font-size: 1.2em; margin: 10px 0;">کُتُب = کتاب‌ها، دروس = درس‌ها، سبزیجات = Gemüse، اِطّلاعات = Information(en)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; margin: 15px 0;">
+                    <h4 style="color: #667eea;">B) Definit und Indefinit:</h4>
+                    
+                    <div style="margin: 15px 0; padding: 15px; background: #e8f5e9; border-radius: 8px;">
+                        <p style="margin: 10px 0;">✅ Substantive sind <strong>an sich definit</strong></p>
+                        <p style="margin: 10px 0;">✅ Um indefinit (ein/eine) zu bilden:</p>
+                        <ul style="margin: 10px 0; padding-left: 30px;">
+                            <li><span class="persian" dir="rtl">یک</span> VOR dem Substantiv ODER</li>
+                            <li><span class="persian" dir="rtl">ی</span> als Suffix hinzufügen</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin: 15px 0; padding: 15px; background: #fff3cd; border-radius: 8px;">
+                        <h5 style="color: #667eea; margin: 10px 0;">⚠️ Besonderheiten bei Endungen:</h5>
+                        <ul style="margin: 10px 0; padding-left: 30px; line-height: 2;">
+                            <li>Endet mit <span class="persian" dir="rtl">و، ا</span> → Suffix <span class="persian" dir="rtl">یــــی</span> (statt <span class="persian" dir="rtl">ی</span>)</li>
+                            <li>Endet mit <span class="persian" dir="rtl">ــه</span> → Suffix <span class="persian" dir="rtl">ای</span> (statt <span class="persian" dir="rtl">ی</span>)</li>
+                        </ul>
+                    </div>
+
+                    <h5 style="color: #667eea; margin: 20px 0 10px 0;">📊 Übersichtstabelle:</h5>
+                    <div style="background: white; padding: 15px; border-radius: 8px; overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; margin: 0;">
+                            <tr style="background: #f8f9fa;">
+                                <th style="padding: 10px; border: 1px solid #ddd;"></th>
+                                <th style="padding: 10px; border: 1px solid #ddd;">Singular/Bestimmt</th>
+                                <th style="padding: 10px; border: 1px solid #ddd;">Singular/Unbestimmt</th>
+                                <th style="padding: 10px; border: 1px solid #ddd;">Plural/Bestimmt</th>
+                                <th style="padding: 10px; border: 1px solid #ddd;">Plural/Unbestimmt</th>
+                            </tr>
+                            <tr style="background: white;">
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><strong>Frau</strong></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">زن</span></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">زنــی، یک زن</span></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">زنان، زن‌ها</span></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">زن</span></td>
+                            </tr>
+                            <tr style="background: white;">
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><strong>Buch</strong></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">کتاب</span></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">کتابــی، یک کتاب</span></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">کتاب‌ها</span></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">کتاب</span></td>
+                            </tr>
+                            <tr style="background: white;">
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><strong>Straße</strong></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">خیابان</span></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">خیابانــی، یک خیابان</span></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">خیابان‌ها</span></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">خیابان</span></td>
+                            </tr>
+                            <tr style="background: white;">
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><strong>Knie</strong></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">زانو</span></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">زانویــی، یک زانو</span></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">زانو‌ها، زانوان</span></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">زانو</span></td>
+                            </tr>
+                            <tr style="background: white;">
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><strong>Haus</strong></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">خانه</span></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">خانه‌ای، یک خانه</span></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">خانه‌ها</span></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; background: white;"><span class="persian" dir="rtl">خانه</span></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div style="margin: 15px 0; padding: 15px; background: #f0f7ff; border-radius: 8px;">
+                        <strong>💡 Merksatz:</strong>
+                        <p style="margin: 10px 0;">
+                            <span class="persian" dir="rtl">زانو</span> endet mit <span class="persian" dir="rtl">و</span> → Indefinit: <span class="persian" dir="rtl">زانویــی</span> (mit <span class="persian" dir="rtl">یــــی</span>)<br>
+                            <span class="persian" dir="rtl">خانه</span> endet mit <span class="persian" dir="rtl">ه</span> → Indefinit: <span class="persian" dir="rtl">خانه‌ای</span> (mit <span class="persian" dir="rtl">ای</span>)
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="color: #667eea; margin: 40px 0 20px 0;">Übungen:</h3>
+
+            <div class="exercise">
+                <h4>1. Bilde den Plural: <span class="persian" dir="rtl">کتاب</span></h4>
+                <input type="text" class="input-box persian" id="plur1" placeholder="پاسخ">
+                <button class="btn" onclick="checkPlurMulti(['کتاب‌ها', 'کتابها'], 1)">بررسی</button>
+                <div class="feedback" id="plurfeedback1"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>2. Bilde den Plural: <span class="persian" dir="rtl">معلم</span> (Lehrer - Person)</h4>
+                <p style="color: #666; margin: 5px 0;">Zwei Möglichkeiten! Beide mit ، trennen</p>
+                <input type="text" class="input-box persian" id="plur2" placeholder="پاسخ">
+                <button class="btn" onclick="checkPlurMulti(['معلم‌ها', 'معلمان', 'معلمها'], 2)">بررسی</button>
+                <div class="feedback" id="plurfeedback2"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>3. Bilde den Plural: <span class="persian" dir="rtl">خانه</span></h4>
+                <input type="text" class="input-box persian" id="plur3" placeholder="پاسخ">
+                <button class="btn" onclick="checkPlur('خانه‌ها', 3)">بررسی</button>
+                <div class="feedback" id="plurfeedback3"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>4. Ist "<span class="persian" dir="rtl">کتاب</span>" (ohne ها) Singular oder Plural?</h4>
+                <div class="option" onclick="checkPlurMC(this, false, 4)">
+                    Nur Singular
+                </div>
+                <div class="option" onclick="checkPlurMC(this, true, 4)">
+                    Kann beides sein - aus Kontext klar
+                </div>
+                <div class="option" onclick="checkPlurMC(this, false, 4)">
+                    Nur Plural
+                </div>
+                <div class="feedback" id="plurfeedback4"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>5. Welche Form ist DEFINIT/bestimmt?</h4>
+                <div class="option" onclick="checkPlurMC(this, true, 5)">
+                    <span class="persian" dir="rtl">دانشجویان</span>
+                </div>
+                <div class="option" onclick="checkPlurMC(this, false, 5)">
+                    <span class="persian" dir="rtl">دانشجو</span> (kann unbestimmt sein)
+                </div>
+                <div class="option" onclick="checkPlurMC(this, false, 5)">
+                    <span class="persian" dir="rtl">یک دانشجو</span>
+                </div>
+                <div class="feedback" id="plurfeedback5"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>6. Bilde den Plural: <span class="persian" dir="rtl">دانشجو</span></h4>
+                <input type="text" class="input-box persian" id="plur6" placeholder="پاسخ">
+                <button class="btn" onclick="checkPlurMulti(['دانشجو‌ها', 'دانشجویان', 'دانشجوها'], 6)">بررسی</button>
+                <div class="feedback" id="plurfeedback6"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>7. Gibt es "unbestimmten Plural" im Persischen?</h4>
+                <div class="option" onclick="checkPlurMC(this, false, 7)">
+                    <span class="persian" dir="rtl">Ja, z.B. کتاب‌هایی</span>
+                </div>
+                <div class="option" onclick="checkPlurMC(this, true, 7)">
+                    Nein, Plural ist immer bestimmt
+                </div>
+                <div class="feedback" id="plurfeedback7"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>8. Bilde den Plural: <span class="persian" dir="rtl">برادر</span></h4>
+                <p style="color: #666; margin: 5px 0;">Zwei Möglichkeiten!</p>
+                <input type="text" class="input-box persian" id="plur8" placeholder="پاسخ">
+                <button class="btn" onclick="checkPlurMulti(['برادر‌ها، برادران', 'برادران، برادر‌ها'], 8)">بررسی</button>
+                <div class="feedback" id="plurfeedback8"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>9. Bilde den Plural: <span class="persian" dir="rtl">دست</span> (Hand - Körperteil)</h4>
+                <p style="color: #666; margin: 5px 0;">Zwei Möglichkeiten!</p>
+                <input type="text" class="input-box persian" id="plur9" placeholder="پاسخ">
+                <button class="btn" onclick="checkPlurMulti(['دست‌ها، دستان', 'دستان، دست‌ها'], 9)">بررسی</button>
+                <div class="feedback" id="plurfeedback9"></div>
+            </div>
+
+            <div class="exercise">
+                <h4>10. Was bedeutet "<span class="persian" dir="rtl">کتاب‌ها</span>"?</h4>
+                <div class="option" onclick="checkPlurMC(this, false, 10)">
+                    Ein Buch
+                </div>
+                <div class="option" onclick="checkPlurMC(this, true, 10)">
+                    Die Bücher (bestimmt)
+                </div>
+                <div class="option" onclick="checkPlurMC(this, false, 10)">
+                    Bücher (unbestimmt)
+                </div>
+                <div class="feedback" id="plurfeedback10"></div>
+            </div>
+
+            <h3 style="color: #667eea; margin: 40px 0 20px 0;">🔍 Fehler finden und korrigieren</h3>
+            
+            <div class="exercise error-correction">
+                <h4>11. Finden Sie die Fehler im persischen Satz und korrigieren Sie sie</h4>
+                <p style="color: #666; margin: 10px 0;">Deutsch: Die Lehrer haben den Schülern die Bücher gegeben</p>
+                <div class="error-sentence persian" dir="rtl">
+                    <span class="error-word wrong" data-exercise="plur_11" onclick="clickErrorWord(this, 'معلمان', 'plur_11')">معلم</span>
+                    <span class="error-word wrong" data-exercise="plur_11" onclick="clickErrorWord(this, 'کتاب‌ها', 'plur_11')">کتاب</span>
+                    <span class="error-word" data-exercise="plur_11">را</span>
+                    <span class="error-word" data-exercise="plur_11">به</span>
+                    <span class="error-word wrong" data-exercise="plur_11" onclick="clickErrorWord(this, 'دانش‌آموزان', 'plur_11')">دانش‌آموز</span>
+                    <span class="error-word" data-exercise="plur_11">دادند</span>
+                </div>
+                <p style="color: #f44336; margin: 10px 0; font-size: 0.9em;">💡 Tipp: 3 Fehler! Alle sollten Plural sein</p>
+                <div class="feedback" id="feedback_plur_11"></div>
+            </div>
+        </div>
+
+        <!-- BEREICH 5: QUIZ/TEST -->
+        <div class="content" id="section4">
+            <h2>🎯 Teil 5: Abschlusstest / Hausaufgabe</h2>
+            
+            <div id="quizStart">
+                <div style="text-align: center; padding: 40px;">
+                    <h3>26 gemischte Aufgaben</h3>
+                    <p style="margin: 20px 0;">Bitte gib deinen Namen ein:</p>
+                    <input type="text" id="studentName" class="input-box" placeholder="Dein Name" style="max-width: 400px; margin: 20px auto;">
+                    <br>
+                    <button class="btn" onclick="startQuiz()">Test starten 🚀</button>
+                </div>
+            </div>
+
+            <div id="quizContent" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="quizProgress">0 / 25</div>
+                </div>
+
+                <div class="score-display">
+                    نمره: <span id="quizScore">0</span> / 25
+                </div>
+
+                <div id="quizQuestions">
+                    <!-- Quiz-Fragen werden dynamisch generiert -->
+                </div>
+
+                <button class="btn" onclick="finishQuiz()" id="finishQuizBtn" style="display: none;">Test beenden & Zertifikat</button>
+            </div>
+
+            <!-- Review-Seite -->
+            <div id="quizReview" style="display: none;">
+                <div style="max-width: 900px; margin: 0 auto; padding: 20px;">
+                    <h2 style="color: #667eea; text-align: center;">📊 Deine Ergebnisse</h2>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <h3>Score: <span id="reviewScore">0</span>/26 (<span id="reviewPercentage">0</span>%)</h3>
+                    </div>
+                    
+                    <div id="reviewContent" style="margin: 30px 0;">
+                        <!-- Wird dynamisch gefüllt -->
+                    </div>
+                    
+                    <div style="text-align: center; margin: 30px 0;">
+                        <button class="btn" onclick="showCertificate()" style="font-size: 1.2em; padding: 15px 30px;">
+                            ✓ Weiter zum Zertifikat
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="quizResult" style="display: none;">
+                <div class="quiz-result">
+                    <div class="certificate" id="certificate">
+                        <h2>🎓 گواهی‌نامه</h2>
+                        <h2>Certificate of Completion</h2>
+                        <p style="margin: 20px 0;">This certifies that</p>
+                        <div class="name" id="certName">Student Name</div>
+                        <p style="margin: 20px 0;">has successfully completed</p>
+                        <h3 style="color: #667eea;"><span class="persian" dir="rtl">گفتگوی سینا و ترانه</span></h3>
+                        <p style="margin: 10px 0; font-size: 0.9em;">Goftogu-ye Sina va Taraneh</p>
+                        <p style="margin: 20px 0;">Persisch Grammatik & Übungen</p>
+                        <div class="score" id="certScore">Score: 0/25</div>
+                        <p style="margin: 20px 0; color: #666;">Datum: <span id="certDate"></span></p>
+                    </div>
+                    <button class="btn" onclick="downloadCertificate()">📥 Zertifikat als PNG herunterladen</button>
+                    <button class="btn" onclick="location.reload()" style="background: #764ba2;">🔄 Lektion wiederholen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        // Global Variables
+        let currentSection = 0;
+        let textScore = 0;
+        let praetScore = 0;
+        let praetAnswered = new Set();
+        let pronScore = 0;
+        let pronAnswered = new Set();
+        let plurScore = 0;
+        let plurAnswered = new Set();
+        let quizScore = 0;
+        let quizAnswered = new Set();
+        
+        // Paare-bilden
+        let selectedPair = null;
+        let matchedPairs = new Set();
+        let pairScore = 0;
+
+        // Vokabeln
+        const vocab = [
+            {persian: 'مَمنون', german: 'Danke'},
+            {persian: 'خوب', german: 'gut'},
+            {persian: 'کُجا', german: 'wo'},
+            {persian: 'یازدَه', german: '11'},
+            {persian: 'دوازدَه', german: '12'},
+            {persian: 'هَمکِلاسی', german: 'Kommilitone/in'},
+            {persian: 'قَرار داشتن', german: 'verabredet sein'},
+            {persian: 'سالُنِ غَذاخوری', german: 'Speisesaal'},
+            {persian: 'ناهار', german: 'Mittagessen'},
+            {persian: 'شام', german: 'Abendessen'},
+            {persian: 'ساندویچ', german: 'Sandwich'},
+            {persian: 'شُروع شُدن', german: 'beginnen'},
+            {persian: 'تَمام شدن', german: 'enden'},
+            {persian: 'هَم', german: 'auch'},
+            {persian: 'با هَم', german: 'zusammen'},
+            {persian: 'زود', german: 'früh/bald'},
+            {persian: 'چه', german: 'was'},
+            {persian: 'چَند', german: 'wie viel/wann'},
+            {persian: 'تَنها', german: 'allein'},
+            {persian: 'مَرکَز', german: 'Zentrum'},
+            {persian: 'شَهر', german: 'Stadt'},
+            {persian: 'پیش', german: 'bei'},
+            {persian: 'آن', german: 'das/jenes'},
+            {persian: 'آنجا', german: 'dort'},
+            {persian: 'دُرُست کردن', german: 'machen/zubereiten'},
+            {persian: 'سِفارش دادن', german: 'bestellen'},
+            {persian: 'آنلاین', german: 'online'},
+            {persian: 'فردا', german: 'morgen'},
+            {persian: 'تا', german: 'bis'}
+        ];
+
+        let currentCardIndex = 0;
+        let isCardFlipped = false;
+
+        // Initialize
+        // Randomisiere Wörter in word-banks
+        function shuffleWordBanks() {
+            // Aufgaben 11-20 haben word-banks
+            for (let i = 11; i <= 20; i++) {
+                const wordbank = document.getElementById('wordbank' + i);
+                if (!wordbank) continue;
+                
+                const words = Array.from(wordbank.children);
+                
+                // Fisher-Yates Shuffle
+                for (let j = words.length - 1; j > 0; j--) {
+                    const k = Math.floor(Math.random() * (j + 1));
+                    wordbank.insertBefore(words[k], words[j]);
+                }
+            }
+            
+            // Shuffle Paare-bilden Übung
+            const persianWords = document.getElementById('persianWords');
+            const germanWords = document.getElementById('germanWords');
+            
+            if (persianWords) {
+                const words = Array.from(persianWords.children);
+                for (let j = words.length - 1; j > 0; j--) {
+                    const k = Math.floor(Math.random() * (j + 1));
+                    persianWords.insertBefore(words[k], words[j]);
+                }
+            }
+            
+            if (germanWords) {
+                const words = Array.from(germanWords.children);
+                for (let j = words.length - 1; j > 0; j--) {
+                    const k = Math.floor(Math.random() * (j + 1));
+                    germanWords.insertBefore(words[k], words[j]);
+                }
+            }
+        }
+
+        window.onload = function() {
+            showCard(0);
+            shuffleWordBanks(); // Randomisiere Wörter in Ordnen-Aufgaben
+        };
+
+        function showCard(index) {
+            const container = document.getElementById('vocabStack');
+            const word = vocab[index];
+            
+            container.innerHTML = `
+                <div class="vocab-card" onclick="flipCard()" style="cursor: pointer; margin: 0;">
+                    <div class="persian">${word.persian}</div>
+                </div>
+            `;
+            
+            isCardFlipped = false;
+            currentCardIndex = index;
+            
+            // Update counter
+            document.getElementById('cardCounter').textContent = `${index + 1} / ${vocab.length}`;
+            
+            // Update button states
+            document.getElementById('prevBtn').disabled = (index === 0);
+            document.getElementById('nextBtn').disabled = (index === vocab.length - 1);
+        }
+
+        function flipCard() {
+            const card = document.querySelector('#vocabStack .vocab-card');
+            const word = vocab[currentCardIndex];
+            
+            if (!isCardFlipped) {
+                card.innerHTML = `<div>${word.german}</div>`;
+                card.classList.add('flipped');
+                isCardFlipped = true;
+            } else {
+                card.innerHTML = `<div class="persian">${word.persian}</div>`;
+                card.classList.remove('flipped');
+                isCardFlipped = false;
+            }
+        }
+
+        function nextCard() {
+            if (currentCardIndex < vocab.length - 1) {
+                showCard(currentCardIndex + 1);
+            }
+        }
+
+        function previousCard() {
+            if (currentCardIndex > 0) {
+                showCard(currentCardIndex - 1);
+            }
+        }
+
+        function showSection(index) {
+            const sections = document.querySelectorAll('.content');
+            const buttons = document.querySelectorAll('.nav-btn');
+            
+            sections.forEach(s => s.classList.remove('active'));
+            buttons.forEach(b => b.classList.remove('active'));
+            
+            sections[index].classList.add('active');
+            buttons[index].classList.add('active');
+            
+            currentSection = index;
+        }
+
+        // FEHLERKORREKTUR-ÜBUNGEN
+        let currentErrorWord = null;
+        let errorFixedCount = {};
+
+        function clickErrorWord(element, correct, exerciseId) {
+            if (element.classList.contains('fixed')) return;
+            
+            currentErrorWord = {element, correct, exerciseId};
+            element.classList.add('clicked');
+            
+            // Zeige Popup
+            document.getElementById('errorPopup').classList.add('show');
+            document.getElementById('errorOverlay').classList.add('show');
+            document.getElementById('errorInput').value = '';
+            document.getElementById('errorInput').focus();
+            document.getElementById('errorCurrentWord').textContent = element.textContent;
+        }
+
+        function submitCorrection() {
+            if (!currentErrorWord) return;
+            
+            const {element, correct, exerciseId} = currentErrorWord;
+            const input = document.getElementById('errorInput');
+            const answer = input.value.trim();
+            
+            // Vergleich ohne Leerzeichen
+            if (normalizeSpaces(answer) === normalizeSpaces(correct)) {
+                element.textContent = correct;
+                element.classList.remove('wrong', 'clicked');
+                element.classList.add('fixed');
+                
+                // Zähle korrigierte Fehler
+                if (!errorFixedCount[exerciseId]) errorFixedCount[exerciseId] = 0;
+                errorFixedCount[exerciseId]++;
+                
+                // Prüfe ob alle Fehler korrigiert
+                const totalErrors = document.querySelectorAll(`.error-word.wrong[data-exercise="${exerciseId}"]`).length;
+                const fixedErrors = document.querySelectorAll(`.error-word.fixed[data-exercise="${exerciseId}"]`).length;
+                
+                if (fixedErrors === totalErrors) {
+                    // Alle Fehler korrigiert!
+                    const section = exerciseId.split('_')[0]; // z.B. "praet" aus "praet_21"
+                    
+                    if (section === 'praet') {
+                        praetScore++;
+                        updatePraetProgress();
+                    } else if (section === 'pron') {
+                        pronScore++;
+                        updatePronProgress();
+                    } else if (section === 'plur') {
+                        plurScore++;
+                        updatePlurProgress();
+                    } else if (section === 'quiz') {
+                        quizScore++;
+                        updateQuizProgress();
+                    }
+                    
+                    showFeedback('feedback_' + exerciseId, true, '🎉 عالی! Alle Fehler korrigiert!');
+                }
+                
+                closeErrorPopup();
+            } else {
+                showFeedback('errorFeedback', false, '✗ Nicht ganz richtig, versuche es nochmal');
+            }
+        }
+
+        function closeErrorPopup() {
+            document.getElementById('errorPopup').classList.remove('show');
+            document.getElementById('errorOverlay').classList.remove('show');
+            if (currentErrorWord) {
+                currentErrorWord.element.classList.remove('clicked');
+            }
+            currentErrorWord = null;
+            document.getElementById('errorFeedback').classList.remove('show');
+        }
+
+        // Enter-Taste im Popup
+        document.addEventListener('DOMContentLoaded', function() {
+            const errorInput = document.getElementById('errorInput');
+            if (errorInput) {
+                errorInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        submitCorrection();
+                    }
+                });
+            }
+        });
+
+        // TEXT FRAGEN
+        function checkTextAnswer(element, isCorrect, num) {
+            if (document.getElementById('textfeedback' + num).classList.contains('show')) return;
+            
+            const options = element.parentElement.querySelectorAll('.option');
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            
+            if (isCorrect) {
+                element.classList.add('correct');
+                textScore++;
+                showFeedback('textfeedback' + num, true, '✓ درست!');
+            } else {
+                element.classList.add('wrong');
+                showFeedback('textfeedback' + num, false, '✗ غلط! پاسخ درست علامت‌گذاری شده.');
+                options.forEach(opt => {
+                    if (opt.onclick.toString().includes('true')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+            
+            document.getElementById('textScore').textContent = textScore;
+        }
+
+        // HILFSFUNKTION: Normalisiert Text für Vergleich (entfernt alle Leerzeichen)
+        function normalizeSpaces(text) {
+            return text.replace(/\s+/g, '');
+        }
+
+        // PRÄTERITUM
+        function checkPraet(correct, num) {
+            if (praetAnswered.has(num)) return;
+            
+            const input = document.getElementById('praet' + num);
+            const answer = input.value.trim();
+            
+            // Handle multiple verbs (with comma)
+            const correctAnswers = correct.includes('،') ? correct.split('،').map(v => v.trim()) : [correct];
+            const userAnswers = answer.includes('،') ? answer.split('،').map(v => v.trim()) : [answer];
+            
+            let isCorrect = false;
+            if (correctAnswers.length === userAnswers.length) {
+                // Vergleich ohne Leerzeichen
+                isCorrect = correctAnswers.every((c, i) => normalizeSpaces(c) === normalizeSpaces(userAnswers[i]));
+            } else {
+                // Vergleich ohne Leerzeichen
+                isCorrect = normalizeSpaces(answer) === normalizeSpaces(correct);
+            }
+            
+            if (isCorrect) {
+                praetScore++;
+                showFeedback('praetfeedback' + num, true, '✓ عالی!');
+                input.style.borderColor = '#4CAF50';
+            } else {
+                showFeedback('praetfeedback' + num, false, '✗ پاسخ درست: ' + correct);
+                input.style.borderColor = '#f44336';
+            }
+            
+            praetAnswered.add(num);
+            input.disabled = true;
+            updatePraetProgress();
+        }
+
+        function selectWord(element, sentenceNum) {
+            if (praetAnswered.has(sentenceNum)) return;
+            
+            const sentence = document.getElementById('sentence' + sentenceNum);
+            const word = element.textContent;
+            
+            // Add word to sentence
+            const wordChip = document.createElement('div');
+            wordChip.className = 'word-chip selected';
+            wordChip.textContent = word;
+            wordChip.onclick = function() {
+                // Remove from sentence, add back to bank
+                this.remove();
+                element.style.display = 'inline-block';
+            };
+            
+            sentence.appendChild(wordChip);
+            element.style.display = 'none';
+        }
+
+        function clearSentence(num) {
+            const sentence = document.getElementById('sentence' + num);
+            const wordbank = document.getElementById('wordbank' + num);
+            
+            sentence.innerHTML = '';
+            wordbank.querySelectorAll('.word-chip').forEach(chip => {
+                chip.style.display = 'inline-block';
+            });
+        }
+
+        function checkSentence(correct, num) {
+            if (praetAnswered.has(num)) return;
+            
+            const sentence = document.getElementById('sentence' + num);
+            const words = Array.from(sentence.querySelectorAll('.word-chip')).map(chip => chip.textContent);
+            const userSentence = words.join(' ');
+            
+            // Vergleich ohne Leerzeichen
+            if (normalizeSpaces(userSentence) === normalizeSpaces(correct)) {
+                praetScore++;
+                showFeedback('praetfeedback' + num, true, '✓ عالی!');
+                sentence.style.borderColor = '#4CAF50';
+            } else {
+                showFeedback('praetfeedback' + num, false, '✗ پاسخ درست: ' + correct);
+                sentence.style.borderColor = '#f44336';
+            }
+            
+            praetAnswered.add(num);
+            document.getElementById('wordbank' + num).style.pointerEvents = 'none';
+            updatePraetProgress();
+        }
+
+        // Für flexible Satzordnung (Subjekt und Zeit können Position tauschen)
+        function checkSentenceMulti(correctArray, num) {
+            if (praetAnswered.has(num)) return;
+            
+            const sentence = document.getElementById('sentence' + num);
+            const words = Array.from(sentence.querySelectorAll('.word-chip')).map(chip => chip.textContent);
+            const userSentence = words.join(' ');
+            
+            // Vergleich ohne Leerzeichen gegen alle möglichen Antworten
+            const isCorrect = correctArray.some(correct => normalizeSpaces(userSentence) === normalizeSpaces(correct));
+            
+            if (isCorrect) {
+                praetScore++;
+                showFeedback('praetfeedback' + num, true, '✓ عالی!');
+                sentence.style.borderColor = '#4CAF50';
+            } else {
+                showFeedback('praetfeedback' + num, false, '✗ مثال: ' + correctArray[0]);
+                sentence.style.borderColor = '#f44336';
+            }
+            
+            praetAnswered.add(num);
+            document.getElementById('wordbank' + num).style.pointerEvents = 'none';
+            updatePraetProgress();
+        }
+
+        function updatePraetProgress() {
+            const progress = (praetAnswered.size / 22) * 100;
+            document.getElementById('praetProgress').style.width = progress + '%';
+            document.getElementById('praetProgress').textContent = praetAnswered.size + ' / 22';
+            document.getElementById('praetScore').textContent = praetScore;
+        }
+
+        // PRONOMEN
+        function checkPron(correct, num) {
+            if (pronAnswered.has(num)) return;
+            
+            const input = document.getElementById('pron' + num);
+            const answer = input.value.trim();
+            
+            // Vergleich ohne Leerzeichen
+            if (normalizeSpaces(answer) === normalizeSpaces(correct)) {
+                pronScore++;
+                showFeedback('pronfeedback' + num, true, '✓ عالی!');
+                input.style.borderColor = '#4CAF50';
+            } else {
+                showFeedback('pronfeedback' + num, false, '✗ پاسخ درست: ' + correct);
+                input.style.borderColor = '#f44336';
+            }
+            
+            pronAnswered.add(num);
+            input.disabled = true;
+            updatePronProgress();
+        }
+
+        // Für Pronomen mit alternativen Schreibweisen (mit/ohne alef)
+        function checkPronMulti(correctArray, num) {
+            if (pronAnswered.has(num)) return;
+            
+            const input = document.getElementById('pron' + num);
+            const answer = input.value.trim();
+            
+            // Vergleich ohne Leerzeichen gegen alle möglichen Schreibweisen
+            const isCorrect = correctArray.some(correct => normalizeSpaces(answer) === normalizeSpaces(correct));
+            
+            if (isCorrect) {
+                pronScore++;
+                showFeedback('pronfeedback' + num, true, '✓ عالی!');
+                input.style.borderColor = '#4CAF50';
+            } else {
+                // Zeige alle Schreibweisen
+                const options = correctArray.join(' یا ');
+                showFeedback('pronfeedback' + num, false, '✗ مثلاً: ' + options);
+                input.style.borderColor = '#f44336';
+            }
+            
+            pronAnswered.add(num);
+            input.disabled = true;
+            updatePronProgress();
+        }
+
+        function updatePronProgress() {
+            const progress = (pronAnswered.size / 11) * 100;
+            document.getElementById('pronProgress').style.width = progress + '%';
+            document.getElementById('pronProgress').textContent = pronAnswered.size + ' / 11';
+            document.getElementById('pronScore').textContent = pronScore;
+        }
+
+        // PLURAL
+        function checkPlur(correct, num) {
+            if (plurAnswered.has(num)) return;
+            
+            const input = document.getElementById('plur' + num);
+            const answer = input.value.trim();
+            
+            // Vergleich ohne Leerzeichen
+            if (normalizeSpaces(answer) === normalizeSpaces(correct)) {
+                plurScore++;
+                showFeedback('plurfeedback' + num, true, '✓ عالی!');
+                input.style.borderColor = '#4CAF50';
+            } else {
+                showFeedback('plurfeedback' + num, false, '✗ پاسخ درست: ' + correct);
+                input.style.borderColor = '#f44336';
+            }
+            
+            plurAnswered.add(num);
+            input.disabled = true;
+            updatePlurProgress();
+        }
+
+        function checkPlurMulti(correctArray, num) {
+            if (plurAnswered.has(num)) return;
+            
+            const input = document.getElementById('plur' + num);
+            const answer = input.value.trim();
+            
+            // Vergleich ohne Leerzeichen
+            const isCorrect = correctArray.some(correct => normalizeSpaces(answer) === normalizeSpaces(correct));
+            
+            if (isCorrect) {
+                plurScore++;
+                showFeedback('plurfeedback' + num, true, '✓ عالی!');
+                input.style.borderColor = '#4CAF50';
+            } else {
+                const options = correctArray.join(' یا ');
+                showFeedback('plurfeedback' + num, false, '✗ مثلاً: ' + options);
+                input.style.borderColor = '#f44336';
+            }
+            
+            plurAnswered.add(num);
+            input.disabled = true;
+            updatePlurProgress();
+        }
+
+        function checkPlurMC(element, isCorrect, num) {
+            if (plurAnswered.has(num)) return;
+            
+            const options = element.parentElement.querySelectorAll('.option');
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            
+            if (isCorrect) {
+                element.classList.add('correct');
+                plurScore++;
+                showFeedback('plurfeedback' + num, true, '✓ درست!');
+            } else {
+                element.classList.add('wrong');
+                showFeedback('plurfeedback' + num, false, '✗ غلط!');
+                options.forEach(opt => {
+                    if (opt.onclick.toString().includes('true')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+            
+            plurAnswered.add(num);
+            updatePlurProgress();
+        }
+
+        function updatePlurProgress() {
+            const progress = (plurAnswered.size / 11) * 100;
+            document.getElementById('plurProgress').style.width = progress + '%';
+            document.getElementById('plurProgress').textContent = plurAnswered.size + ' / 11';
+            document.getElementById('plurScore').textContent = plurScore;
+        }
+
+        // QUIZ
+        const quizQuestions = [
+            {type: 'praet', q: 'Ich bin gestern nach Hause ... (gehen)', qp: 'من دیروز به خانه ............ (رفتن)', a: 'رفتم'},
+            {type: 'pron', q: '"Mein Buch" = ?', a: 'کتاب‌ام', alt: 'کتابم'},
+            {type: 'plur', q: 'Plural von کتاب = ?', a: 'کتاب‌ها', alt: 'کتابها'},
+            {type: 'praet', q: 'Er/Sie hat das Buch ... (lesen)', qp: 'او کتاب را ............ (خواندن)', a: 'خواند'},
+            {type: 'pron', q: '"Dein Haus" = ?', a: 'خانه‌ات'},
+            {type: 'mc', q: 'Plural ist im Persischen nur für:', options: ['Definite Nomen', 'Indefinite Nomen', 'Alle Nomen'], correct: 0},
+            {type: 'praet', q: 'Wir haben Abendessen ... (essen)', qp: 'ما شام ............ (خوردن)', a: 'خوردیم'},
+            {type: 'pron', q: '"Sein/Ihr Lehrer" = ?', a: 'معلم‌اش', alt: 'معلمش'},
+            {type: 'plur', q: 'Plural von معلم = ?', a: 'معلم‌ها', alt: 'معلمان، معلمها'},
+            {type: 'praet', q: 'Sie sind gestern ... (kommen)', qp: 'آنها دیروز ............ (آمدن)', a: 'آمدند'},
+            {type: 'pron', q: '"Unser Auto" = ?', a: 'ماشین‌مان', alt: 'ماشینمان'},
+            {type: 'mc', q: 'Was bedeutet کتاب‌ها?', options: ['Ein Buch', 'Die Bücher (bestimmt)', 'Bücher (unbestimmt)'], correct: 1},
+            {type: 'praet', q: 'Du hast morgens ... (duschen)', qp: 'تو صبح ............ (دوش گرفتن)', a: 'دوش گرفتی'},
+            {type: 'pron', q: '"Euer Unterricht" = ?', a: 'کلاس‌تان', alt: 'کلاستان'},
+            {type: 'plur', q: 'Plural von خانه = ?', a: 'خانه‌ها'},
+            {type: 'praet', q: 'Ich habe meine Schwester ... (sehen)', qp: 'من خواهرم را ............ (دیدن)', a: 'دیدم'},
+            {type: 'pron', q: '"Euer Vater" = ?', a: 'پدرتان'},
+            {type: 'mc', q: 'کتاب (ohne ها) kann sein:', options: ['Nur Singular', 'Singular oder Plural (aus Kontext)', 'Nur Plural'], correct: 1},
+            {type: 'praet', q: 'Was habt ihr ...? (essen)', qp: 'شما چی ............? (خوردن)', a: 'خوردید'},
+            {type: 'pron', q: '"Meine Schwester" = ?', a: 'خواهرم'},
+            {type: 'plur', q: 'Plural von دانشجو = ?', a: 'دانشجو‌ها', alt: 'دانشجویان، دانشجوها'},
+            {type: 'praet', q: 'Er/Sie hat früh ... (schlafen)', qp: 'او زود ............ (خوابیدن)', a: 'خوابید'},
+            {type: 'pron', q: '"Deine Mutter" = ?', a: 'مادرت'},
+            {type: 'mc', q: 'Gibt es unbestimmten Plural im Persischen?', options: ['Ja', 'Nein, Plural ist immer bestimmt'], correct: 1},
+            {type: 'praet', q: 'Wir sind ins Stadtzentrum ... (gehen)', qp: 'ما به مرکز شهر ............ (رفتن)', a: 'رفتیم'}
+        ];
+
+        function startQuiz() {
+            try {
+                const name = document.getElementById('studentName').value.trim();
+                if (!name) {
+                    alert('Bitte gib deinen Namen ein!');
+                    return;
+                }
+                
+                document.getElementById('quizStart').style.display = 'none';
+                document.getElementById('quizContent').style.display = 'block';
+                
+                generateQuizQuestions();
+                
+                // Event Listener für Texteingaben um Progress zu aktualisieren
+                setTimeout(() => {
+                    const inputs = document.querySelectorAll('input[id^="quiz"]');
+                    inputs.forEach(input => {
+                        // Nur für quiz0, quiz1, quiz2, etc. (nicht quizScore, quizProgress, etc.)
+                        if (input.id.match(/^quiz\d+$/)) {
+                            input.addEventListener('input', updateQuizProgress);
+                        }
+                    });
+                }, 100);
+            } catch (error) {
+                console.error('Fehler beim Starten des Quiz:', error);
+                alert('Ein Fehler ist aufgetreten. Bitte lade die Seite neu.');
+            }
+        }
+
+        function generateQuizQuestions() {
+            const container = document.getElementById('quizQuestions');
+            if (!container || typeof quizQuestions === 'undefined' || !quizQuestions.length) {
+                console.error('Quiz container oder Fragen nicht gefunden');
+                return;
+            }
+            
+            quizQuestions.forEach((q, index) => {
+                const div = document.createElement('div');
+                div.className = 'exercise';
+                
+                if (q.type === 'mc') {
+                    div.innerHTML = `
+                        <h4>${index + 1}. ${q.q}</h4>
+                        ${q.options.map((opt, i) => `
+                            <div class="option" data-question="${index}" data-correct="${i === q.correct}" onclick="selectQuizMC(this, ${index})">
+                                ${opt}
+                            </div>
+                        `).join('')}
+                        <div class="feedback" id="quizfeedback${index}"></div>
+                    `;
+                } else {
+                    // Add Persian question line if it exists
+                    const persianLine = q.qp ? `<p class="persian" dir="rtl" style="margin: 10px 0;">${q.qp}</p>` : '';
+                    
+                    div.innerHTML = `
+                        <h4>${index + 1}. ${q.q}</h4>
+                        ${persianLine}
+                        <input type="text" class="input-box persian" id="quiz${index}" placeholder="پاسخ" data-correct="${q.a}" data-alt="${q.alt || ''}">
+                        <div class="feedback" id="quizfeedback${index}"></div>
+                    `;
+                }
+                
+                container.appendChild(div);
+            });
+        }
+
+        // Auswahl bei MC-Fragen (ohne sofortige Prüfung)
+        function selectQuizMC(element, num) {
+            if (!element || !element.parentElement) return;
+            
+            // Entferne vorherige Auswahl
+            const options = element.parentElement.querySelectorAll('.option');
+            options.forEach(opt => {
+                opt.classList.remove('selected');
+                opt.style.background = '';
+                opt.style.borderColor = '';
+            });
+            
+            // Markiere neue Auswahl
+            element.classList.add('selected');
+            element.style.background = '#e3f2fd';
+            element.style.borderColor = '#667eea';
+            
+            // Update Progress
+            updateQuizProgress();
+        }
+
+        function updateQuizProgress() {
+            try {
+                // Zähle wie viele beantwortet wurden (MC-Auswahl + Texteingaben)
+                const mcAnswered = document.querySelectorAll('.option.selected').length;
+                
+                // Nur Input-Elemente mit quiz[nummer] ID zählen
+                const inputs = document.querySelectorAll('input[id^="quiz"]');
+                const inputAnswered = Array.from(inputs).filter(input => {
+                    // Prüfe ob es eine Nummer-ID ist (quiz0, quiz1, etc.)
+                    const idMatch = input.id.match(/^quiz\d+$/);
+                    return idMatch && input.value.trim() !== '';
+                }).length;
+                
+                const totalAnswered = mcAnswered + inputAnswered;
+                
+                const progress = (totalAnswered / 25) * 100; // 25 normale Quiz-Fragen
+                const progressBar = document.getElementById('quizProgress');
+                if (progressBar) {
+                    progressBar.style.width = progress + '%';
+                    progressBar.textContent = totalAnswered + ' / 25';
+                }
+                
+                // Button ist immer sichtbar
+                const finishBtn = document.getElementById('finishQuizBtn');
+                if (finishBtn) {
+                    finishBtn.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Fehler in updateQuizProgress:', error);
+            }
+        }
+
+
+        function finishQuiz() {
+            try {
+                const reviewData = [];
+                quizScore = 0;
+            
+                // Prüfe alle MC-Fragen
+                if (typeof quizQuestions !== 'undefined' && quizQuestions.length > 0) {
+                    quizQuestions.forEach((q, index) => {
+                        if (q.type === 'mc') {
+                            const selected = document.querySelector(`.option.selected[data-question="${index}"]`);
+                            let userAnswer = '';
+                            let isCorrect = false;
+                            let correctAnswer = '';
+                            
+                            if (selected) {
+                                userAnswer = selected.textContent.trim();
+                                isCorrect = selected.getAttribute('data-correct') === 'true';
+                                
+                                if (isCorrect) {
+                                    quizScore++;
+                                    selected.style.background = '#c8e6c9';
+                                    selected.style.borderColor = '#4CAF50';
+                                } else {
+                                    selected.style.background = '#ffcdd2';
+                                    selected.style.borderColor = '#f44336';
+                                    const correct = document.querySelector(`.option[data-question="${index}"][data-correct="true"]`);
+                                    if (correct) {
+                                        correctAnswer = correct.textContent.trim();
+                                        correct.style.background = '#c8e6c9';
+                                        correct.style.borderColor = '#4CAF50';
+                                    }
+                                }
+                            } else {
+                                userAnswer = '(nicht beantwortet)';
+                                const correct = document.querySelector(`.option[data-question="${index}"][data-correct="true"]`);
+                                if (correct) correctAnswer = correct.textContent.trim();
+                            }
+                            
+                            reviewData.push({
+                                question: q.q,
+                                userAnswer: userAnswer,
+                                correctAnswer: isCorrect ? userAnswer : correctAnswer,
+                                isCorrect: isCorrect,
+                                type: 'mc'
+                            });
+                        }
+                    });
+                    
+                    // Prüfe alle Text-Eingabe-Fragen
+                    quizQuestions.forEach((q, index) => {
+                        if (q.type !== 'mc') {
+                            const input = document.getElementById('quiz' + index);
+                            if (input) {
+                                const answer = input.value.trim();
+                                const correct = input.getAttribute('data-correct');
+                                const alt = input.getAttribute('data-alt');
+                                
+                                const alternatives = [];
+                                if (alt && alt !== '') {
+                                    const parts = alt.split('، ');
+                                    parts.forEach(part => {
+                                        alternatives.push(part.trim());
+                                    });
+                                }
+                                
+                                let isCorrect = normalizeSpaces(answer) === normalizeSpaces(correct);
+                                if (!isCorrect && alternatives.length > 0) {
+                                    for (let i = 0; i < alternatives.length; i++) {
+                                        if (normalizeSpaces(answer) === normalizeSpaces(alternatives[i])) {
+                                            isCorrect = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                
+                                if (isCorrect) {
+                                    quizScore++;
+                                    input.style.borderColor = '#4CAF50';
+                                    input.style.background = '#e8f5e9';
+                                } else {
+                                    input.style.borderColor = '#f44336';
+                                    input.style.background = '#ffebee';
+                                }
+                                
+                                let correctAnswerText = correct;
+                                if (alternatives.length > 0) {
+                                    correctAnswerText = correct + ' oder ' + alternatives.join(' oder ');
+                                }
+                                
+                                reviewData.push({
+                                    question: q.q + (q.qp ? ' (' + q.qp + ')' : ''),
+                                    userAnswer: answer || '(nicht beantwortet)',
+                                    correctAnswer: correctAnswerText,
+                                    isCorrect: isCorrect,
+                                    type: 'input'
+                                });
+                            }
+                        }
+                    });
+                }
+                
+                generateReview(reviewData);
+                
+                const scoreDisplay = document.getElementById('quizScore');
+                if (scoreDisplay) {
+                    scoreDisplay.textContent = quizScore;
+                }
+                
+                const quizContent = document.getElementById('quizContent');
+                const quizReview = document.getElementById('quizReview');
+                if (quizContent) quizContent.style.display = 'none';
+                if (quizReview) quizReview.style.display = 'block';
+                
+            } catch (error) {
+                console.error('Fehler in finishQuiz:', error);
+                alert('Ein Fehler ist beim Auswerten aufgetreten: ' + error.message);
+            }
+        }
+        
+        function generateReview(reviewData) {
+            const reviewContent = document.getElementById('reviewContent');
+            const reviewScore = document.getElementById('reviewScore');
+            const reviewPercentage = document.getElementById('reviewPercentage');
+            
+            if (!reviewContent) return;
+            
+            const percentage = Math.round((quizScore / 25) * 100);
+            reviewScore.textContent = quizScore;
+            reviewPercentage.textContent = percentage;
+            
+            let html = '';
+            for (let i = 0; i < reviewData.length; i++) {
+                const item = reviewData[i];
+                const statusIcon = item.isCorrect ? '✓' : '✗';
+                const statusColor = item.isCorrect ? '#4CAF50' : '#f44336';
+                const bgColor = item.isCorrect ? '#e8f5e9' : '#ffebee';
+                
+                html += '<div style="background: ' + bgColor + '; padding: 15px; margin: 10px 0; border-radius: 8px; border-left: 4px solid ' + statusColor + ';">';
+                html += '<div style="display: flex; align-items: center; margin-bottom: 10px;">';
+                html += '<span style="font-size: 1.5em; color: ' + statusColor + '; margin-right: 10px;">' + statusIcon + '</span>';
+                html += '<strong style="color: ' + statusColor + ';">' + (i + 1) + '. ' + item.question + '</strong>';
+                html += '</div>';
+                html += '<div style="margin-left: 35px;">';
+                html += '<div style="margin: 5px 0;">';
+                html += '<strong>Deine Antwort:</strong> ';
+                html += '<span class="persian" dir="rtl" style="color: ' + (item.isCorrect ? '#4CAF50' : '#f44336') + '; font-size: 1.1em;">';
+                html += item.userAnswer;
+                html += '</span>';
+                html += '</div>';
+                if (!item.isCorrect) {
+                    html += '<div style="margin: 5px 0;">';
+                    html += '<strong>Richtige Antwort:</strong> ';
+                    html += '<span class="persian" dir="rtl" style="color: #4CAF50; font-size: 1.1em;">';
+                    html += item.correctAnswer;
+                    html += '</span>';
+                    html += '</div>';
+                }
+                html += '</div>';
+                html += '</div>';
+            }
+            
+            reviewContent.innerHTML = html;
+        }
+        
+        function showCertificate() {
+            const name = document.getElementById('studentName').value;
+            const percentage = Math.round((quizScore / 25) * 100);
+            
+            const quizReview = document.getElementById('quizReview');
+            const quizResult = document.getElementById('quizResult');
+            if (quizReview) quizReview.style.display = 'none';
+            if (quizResult) quizResult.style.display = 'block';
+            
+            const certName = document.getElementById('certName');
+            const certScore = document.getElementById('certScore');
+            const certDate = document.getElementById('certDate');
+            
+            if (certName) certName.textContent = name;
+            if (certScore) certScore.textContent = 'Score: ' + quizScore + '/25 (' + percentage + '%)';
+            if (certDate) certDate.textContent = new Date().toLocaleDateString('de-DE');
+        }
+        function downloadCertificate() {
+            const certificate = document.getElementById('certificate');
+            
+            html2canvas(certificate, {
+                scale: 2,
+                backgroundColor: '#ffffff'
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'lektion4_zertifikat.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+
+        function showFeedback(id, isCorrect, message) {
+            const feedback = document.getElementById(id);
+            feedback.textContent = message;
+            feedback.className = 'feedback show ' + (isCorrect ? 'correct' : 'wrong');
+        }
+
+        // PAARE-BILDEN
+        function selectPairWord(element) {
+            // Ignore matched pairs
+            if (element.classList.contains('matched')) return;
+            
+            const wordId = element.getAttribute('data-id');
+            
+            // If no selection yet
+            if (!selectedPair) {
+                // Deselect all
+                document.querySelectorAll('.pair-word').forEach(w => {
+                    if (!w.classList.contains('matched')) {
+                        w.classList.remove('selected');
+                    }
+                });
+                
+                element.classList.add('selected');
+                selectedPair = {element: element, id: wordId};
+                return;
+            }
+            
+            // If clicking the same word again, deselect
+            if (selectedPair.element === element) {
+                element.classList.remove('selected');
+                selectedPair = null;
+                return;
+            }
+            
+            // If selecting second word
+            const firstId = selectedPair.id;
+            const secondId = wordId;
+            
+            // Check if they match
+            if (firstId === secondId) {
+                // Match!
+                selectedPair.element.classList.add('matched');
+                selectedPair.element.classList.remove('selected');
+                element.classList.add('matched');
+                
+                matchedPairs.add(firstId);
+                pairScore++;
+                
+                document.getElementById('pairScore').textContent = pairScore;
+                
+                // Check if all pairs matched
+                if (pairScore === 8) {
+                    showFeedback('pairfeedback', true, '🎉 عالی! Alle Paare richtig zugeordnet!');
+                    pronScore += 2; // Bonus points
+                    document.getElementById('pronScore').textContent = pronScore;
+                    updatePronProgress();
+                }
+                
+                selectedPair = null;
+            } else {
+                // Wrong match - shake animation
+                selectedPair.element.style.animation = 'shake 0.5s';
+                element.style.animation = 'shake 0.5s';
+                
+                setTimeout(() => {
+                    selectedPair.element.style.animation = '';
+                    element.style.animation = '';
+                    selectedPair.element.classList.remove('selected');
+                }, 500);
+                
+                selectedPair = null;
+            }
+        }
+
+        function resetPairs() {
+            document.querySelectorAll('.pair-word').forEach(w => {
+                w.classList.remove('matched', 'selected');
+            });
+            
+            selectedPair = null;
+            matchedPairs.clear();
+            pairScore = 0;
+            document.getElementById('pairScore').textContent = '0';
+            document.getElementById('pairfeedback').classList.remove('show');
+        }
+    </script>
+
+    <!-- Fehlerkorrektur Popup -->
+    <div class="popup-overlay" id="errorOverlay" onclick="closeErrorPopup()"></div>
+    <div class="correction-popup" id="errorPopup">
+        <h3 style="color: #667eea; margin-bottom: 15px;">Fehler korrigieren</h3>
+        <p style="margin: 10px 0;">Falsches Wort:</p>
+        <p style="font-size: 1.3em; color: #f44336; margin: 10px 0;" id="errorCurrentWord"></p>
+        <p style="margin: 15px 0 5px 0;">Schreiben Sie das richtige Wort:</p>
+        <input type="text" class="input-box persian" id="errorInput" placeholder="پاسخ" style="width: 100%; margin: 10px 0;">
+        <div class="feedback" id="errorFeedback" style="margin: 10px 0;"></div>
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button class="btn" onclick="submitCorrection()" style="flex: 1;">✓ Prüfen</button>
+            <button class="btn" onclick="closeErrorPopup()" style="flex: 1; background: #f44336;">✗ Abbrechen</button>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍳 Küchen-Vokabeln Matching-Spiel 🥘</title>
+    <script data-goatcounter="https://aguitoo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 30px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .score-board {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .score-item {
+            text-align: center;
+        }
+
+        .score-item .label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .score-item .value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .start-screen {
+            text-align: center;
+        }
+
+        .start-screen p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .game-area {
+            display: none;
+        }
+
+        .columns {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .column {
+            flex: 1;
+        }
+
+        .column h3 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .word-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-size: 16px;
+            border: 2px solid transparent;
+        }
+
+        .word-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .word-item.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+            transform: scale(1.05);
+        }
+
+        .word-item.matched {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+            color: white;
+            cursor: default;
+            opacity: 0.7;
+        }
+
+        .word-item.wrong {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            color: white;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .persian {
+            font-size: 20px;
+            direction: rtl;
+            font-family: 'B Nazanin', 'Tahoma', sans-serif;
+        }
+
+        .next-btn {
+            display: none;
+            margin: 20px auto;
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+        }
+
+        .feedback {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 18px;
+            font-weight: bold;
+            min-height: 30px;
+        }
+
+        .feedback.success {
+            color: #56ab2f;
+        }
+
+        .feedback.error {
+            color: #eb3349;
+        }
+
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 80px;
+            animation: celebrate 1s ease-in-out;
+            z-index: 1000;
+        }
+
+        @keyframes celebrate {
+            0% { transform: translate(-50%, -50%) scale(0); }
+            50% { transform: translate(-50%, -50%) scale(1.5); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .columns {
+                flex-direction: column;
+            }
+
+            .word-item {
+                font-size: 14px;
+                padding: 12px;
+            }
+
+            .persian {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍳 Küchen-Vokabeln Matching-Spiel 🥘</h1>
+        </div>
+
+        <div class="score-board">
+            <div class="score-item">
+                <div class="label">Runde</div>
+                <div class="value" id="round">0</div>
+            </div>
+            <div class="score-item">
+                <div class="label">Richtig</div>
+                <div class="value" id="correct">0</div>
+            </div>
+            <div class="score-item">
+                <div class="label">Score</div>
+                <div class="value" id="score">0</div>
+            </div>
+        </div>
+
+        <div class="start-screen" id="startScreen">
+            <p>🎯 <strong>Willkommen zum Vokabel-Matching-Spiel!</strong></p>
+            <p>📝 Du siehst 5 deutsche und 5 persische Wörter.<br>
+            Klicke auf die richtigen Paare, um sie zuzuordnen!</p>
+            <p>⭐ Für jede richtige Zuordnung bekommst du Punkte!</p>
+            <button class="btn" onclick="startGame()">🚀 Spiel starten</button>
+        </div>
+
+        <div class="game-area" id="gameArea">
+            <div class="feedback" id="feedback"></div>
+            
+            <div class="columns">
+                <div class="column">
+                    <h3>🇩🇪 Deutsch</h3>
+                    <div id="germanColumn"></div>
+                </div>
+                <div class="column">
+                    <h3>🇮🇷 فارسی</h3>
+                    <div id="persianColumn"></div>
+                </div>
+            </div>
+
+            <button class="btn next-btn" id="nextBtn" onclick="nextRound()">
+                ➡️ Nächste Runde
+            </button>
+        </div>
+    </div>
+
+    <div class="celebration" id="celebration"></div>
+
+    <script>
+        // Vokabelliste
+        const vocabulary = [
+            // Grundnahrungsmittel
+            { de: 'das Brot', fa: 'نان' },
+            { de: 'der Reis', fa: 'بِرِنج' },
+            { de: 'die Nudeln', fa: 'ماکارونی' },
+            { de: 'das Öl', fa: 'روغَن' },
+            { de: 'die Butter', fa: 'کَرِه' },
+            { de: 'der Käse', fa: 'پَنیر' },
+            { de: 'die Milch', fa: 'شیر' },
+            { de: 'das Ei', fa: 'تُخمِ‌مُرغ' },
+            
+            // Fleisch/Proteine
+            { de: 'das Fleisch', fa: 'گوشت' },
+            { de: 'das Hähnchen', fa: 'مُرغ' },
+            { de: 'der Fisch', fa: 'ماهی' },
+            { de: 'der Joghurt', fa: 'ماست' },
+            
+            // Obst
+            { de: 'das Obst', fa: 'میوِه' },
+            { de: 'der Apfel', fa: 'سیب' },
+            { de: 'die Banane', fa: 'موز' },
+            { de: 'die Orange', fa: 'پرتقال' },
+            { de: 'die Traube', fa: 'انگور' },
+            { de: 'der Granatapfel', fa: 'انار' },
+            { de: 'der Pfirsich', fa: 'هُلو' },
+            { de: 'die Wassermelone', fa: 'هِندِوانه' },
+            
+            // Gemüse
+            { de: 'die Tomate', fa: 'گوجه‌فَرَنگی' },
+            { de: 'die Gurke', fa: 'خیار' },
+            { de: 'die Zwiebel', fa: 'پیاز' },
+            { de: 'der Knoblauch', fa: 'سیر' },
+            { de: 'die Karotte', fa: 'هَویج' },
+            { de: 'die Kartoffel', fa: 'سیب‌زَمینی' },
+            { de: 'der Spinat', fa: 'اسفِناج' },
+            { de: 'der Salat', fa: 'کاهو' },
+            { de: 'die Paprika', fa: 'فِلفِل‌دُلمه‌ای' },
+            { de: 'die Aubergine', fa: 'بادِنجان' },
+            { de: 'die Bohnen', fa: 'لوبیا' },
+            { de: 'der Kohl', fa: 'کَلَم' },
+            { de: 'der Blumenkohl', fa: 'گُل‌کَلَم' },
+            { de: 'die Pilze', fa: 'قارچ' },
+            { de: 'der Lauch', fa: 'پیازچِه' },
+            { de: 'die Zucchini', fa: 'کَدو سَبز' },
+            
+            // Koch- und Essgeschirr
+            { de: 'die Pfanne', fa: 'تابه' },
+            { de: 'der Topf', fa: 'قابلَمه' },
+            { de: 'der Kochtopf', fa: 'دیگ' },
+            { de: 'der Deckel', fa: 'دَرِ قابلمه' },
+            { de: 'der Backofen', fa: 'فِر' },
+            { de: 'der Herd', fa: 'اُجاقِ گاز' },
+            { de: 'der Kühlschrank', fa: 'یَخچال' },
+            { de: 'die Mikrowelle', fa: 'مایکروویو' },
+            { de: 'der Wasserkocher', fa: 'کِتری بَرقی' },
+            { de: 'der Mixer', fa: 'مَخلُوط‌کن' },
+            { de: 'das Schneidebrett', fa: 'تَخته‌ی آشپَزی' },
+            { de: 'das Sieb', fa: 'آبکِش' },
+            { de: 'der Löffel', fa: 'قاشُق' },
+            { de: 'die Gabel', fa: 'چَنگال' },
+            { de: 'das Messer', fa: 'چاقو' },
+            { de: 'der Teller', fa: 'بُشقاب' },
+            { de: 'die Schüssel', fa: 'کاسِه' },
+            { de: 'das Glas', fa: 'لیوان' },
+            { de: 'die Tasse', fa: 'فِنجان' },
+            { de: 'das Tablett', fa: 'سینی' },
+            
+            // Verben
+            { de: 'schneiden', fa: 'بُریدَن' },
+            { de: 'klein schneiden', fa: 'خُرد کردن' },
+            { de: 'kochen', fa: 'پُختَن' },
+            { de: 'braten', fa: 'سرخ کردن' },
+            { de: 'backen', fa: 'پختن در فِر' },
+            { de: 'waschen', fa: 'شُستَن' },
+            { de: 'schälen', fa: 'پوست کَندَن' },
+            { de: 'mischen', fa: 'مَخلوط کردن' },
+            { de: 'rühren', fa: 'هَم زَدَن' },
+            { de: 'würzen', fa: 'اَدویه زدن' },
+            { de: 'probieren', fa: 'مزه کردن' },
+            { de: 'aufwärmen', fa: 'گرم کردن' },
+            { de: 'spülen', fa: 'ظرف شُستَن' },
+            { de: 'Tisch decken', fa: 'میز چیدن' },
+            { de: 'Tisch abräumen', fa: 'میز جمع کردن' },
+            { de: 'öffnen', fa: 'باز کردن' },
+            { de: 'schließen', fa: 'بَستَن' },
+            { de: 'anmachen', fa: 'روشن کردن' },
+            { de: 'ausmachen', fa: 'خاموش کردن' },
+            { de: 'legen', fa: 'گُذاشتن' }
+        ];
+
+        let currentRound = 0;
+        let correctMatches = 0;
+        let totalScore = 0;
+        let currentPairs = [];
+        let selectedGerman = null;
+        let selectedPersian = null;
+        let matchedPairs = new Set();
+
+        function startGame() {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('gameArea').style.display = 'block';
+            nextRound();
+        }
+
+        function getRandomPairs(count) {
+            const shuffled = [...vocabulary].sort(() => Math.random() - 0.5);
+            return shuffled.slice(0, count);
+        }
+
+        function shuffleArray(array) {
+            return [...array].sort(() => Math.random() - 0.5);
+        }
+
+        function nextRound() {
+            currentRound++;
+            document.getElementById('round').textContent = currentRound;
+            document.getElementById('nextBtn').style.display = 'none';
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('feedback').className = 'feedback';
+            
+            matchedPairs.clear();
+            selectedGerman = null;
+            selectedPersian = null;
+            
+            currentPairs = getRandomPairs(5);
+            
+            const germanWords = shuffleArray(currentPairs.map(pair => pair.de));
+            const persianWords = shuffleArray(currentPairs.map(pair => pair.fa));
+            
+            renderColumn('germanColumn', germanWords, false);
+            renderColumn('persianColumn', persianWords, true);
+        }
+
+        function renderColumn(columnId, words, isPersian) {
+            const column = document.getElementById(columnId);
+            column.innerHTML = '';
+            
+            words.forEach((word, index) => {
+                const div = document.createElement('div');
+                div.className = 'word-item' + (isPersian ? ' persian' : '');
+                div.textContent = word;
+                div.dataset.word = word;
+                div.onclick = () => selectWord(word, isPersian, div);
+                column.appendChild(div);
+            });
+        }
+
+        function selectWord(word, isPersian, element) {
+            if (matchedPairs.has(word)) return;
+            
+            if (isPersian) {
+                if (selectedPersian === word) {
+                    selectedPersian = null;
+                    element.classList.remove('selected');
+                } else {
+                    document.querySelectorAll('.persian.selected').forEach(el => el.classList.remove('selected'));
+                    selectedPersian = word;
+                    element.classList.add('selected');
+                }
+            } else {
+                if (selectedGerman === word) {
+                    selectedGerman = null;
+                    element.classList.remove('selected');
+                } else {
+                    document.querySelectorAll('.word-item:not(.persian).selected').forEach(el => el.classList.remove('selected'));
+                    selectedGerman = word;
+                    element.classList.add('selected');
+                }
+            }
+            
+            if (selectedGerman && selectedPersian) {
+                checkMatch();
+            }
+        }
+
+        function checkMatch() {
+            const isCorrect = currentPairs.some(pair => 
+                pair.de === selectedGerman && pair.fa === selectedPersian
+            );
+            
+            if (isCorrect) {
+                handleCorrectMatch();
+            } else {
+                handleWrongMatch();
+            }
+        }
+
+        function handleCorrectMatch() {
+            matchedPairs.add(selectedGerman);
+            matchedPairs.add(selectedPersian);
+            
+            document.querySelectorAll('.word-item').forEach(el => {
+                if (el.dataset.word === selectedGerman || el.dataset.word === selectedPersian) {
+                    el.classList.remove('selected');
+                    el.classList.add('matched');
+                }
+            });
+            
+            correctMatches++;
+            totalScore += 10;
+            document.getElementById('correct').textContent = correctMatches;
+            document.getElementById('score').textContent = totalScore;
+            
+            showCelebration('🎉');
+            
+            selectedGerman = null;
+            selectedPersian = null;
+            
+            if (matchedPairs.size === 10) {
+                setTimeout(() => {
+                    document.getElementById('feedback').textContent = '🎊 Perfekt! Alle Paare gefunden!';
+                    document.getElementById('feedback').className = 'feedback success';
+                    document.getElementById('nextBtn').style.display = 'block';
+                    showCelebration('🏆');
+                }, 300);
+            }
+        }
+
+        function handleWrongMatch() {
+            document.querySelectorAll('.word-item.selected').forEach(el => {
+                el.classList.add('wrong');
+                setTimeout(() => {
+                    el.classList.remove('wrong', 'selected');
+                }, 500);
+            });
+            
+            document.getElementById('feedback').textContent = '❌ Nicht richtig, versuche es nochmal!';
+            document.getElementById('feedback').className = 'feedback error';
+            
+            setTimeout(() => {
+                document.getElementById('feedback').textContent = '';
+                document.getElementById('feedback').className = 'feedback';
+            }, 2000);
+            
+            selectedGerman = null;
+            selectedPersian = null;
+        }
+
+        function showCelebration(emoji) {
+            const celebration = document.getElementById('celebration');
+            celebration.textContent = emoji;
+            celebration.style.display = 'block';
+            setTimeout(() => {
+                celebration.style.display = 'none';
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

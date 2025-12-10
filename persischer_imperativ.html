@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persischer Imperativ - Lernapp</title>
+    <script data-goatcounter="https://aguitoo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            direction: ltr;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            min-height: 600px;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            color: #667eea;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: #667eea;
+            color: white;
+        }
+
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .menu-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-card h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .menu-card p {
+            font-size: 1em;
+            opacity: 0.95;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Grammar Section */
+        .grammar-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
+        }
+
+        .grammar-box h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .grammar-box p, .grammar-box ul {
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .persian-text {
+            direction: rtl;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #764ba2;
+        }
+
+        /* Multiple Choice */
+        .question-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .option-btn {
+            background: white;
+            border: 3px solid #ddd;
+            padding: 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .option-btn:hover {
+            border-color: #667eea;
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .option-btn.correct {
+            background: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+
+        .option-btn.wrong {
+            background: #dc3545;
+            color: white;
+            border-color: #dc3545;
+        }
+
+        .option-btn.disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Next Button */
+        .next-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .next-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Recipe Section */
+        .recipe-container {
+            direction: rtl;
+            text-align: right;
+        }
+
+        .recipe-title {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .recipe-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .recipe-section h3 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .clickable-word {
+            cursor: pointer;
+            color: #667eea;
+            font-weight: bold;
+            padding: 2px 5px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .clickable-word:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .translation-popup {
+            position: fixed;
+            background: white;
+            border: 3px solid #667eea;
+            padding: 15px 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            font-size: 1.1em;
+            color: #333;
+            display: none;
+        }
+
+        /* Flashcards */
+        .flashcard-container {
+            perspective: 1000px;
+            margin: 20px 0;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .flashcard-front {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .flashcard-back {
+            background: white;
+            color: #667eea;
+            border: 3px solid #667eea;
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .flashcard-btn {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            padding: 10px 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .flashcard-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Gap Fill Exercise */
+        .gap-exercise {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .gap-sentence {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .gap-sentence.persian {
+            direction: rtl;
+            text-align: right;
+        }
+
+        .gap-input {
+            display: inline-block;
+            min-width: 150px;
+            padding: 5px 10px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: white;
+            font-size: 1em;
+            direction: rtl;
+            text-align: center;
+        }
+
+        .gap-input.correct {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .gap-input.wrong {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+
+        .check-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .check-btn:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+
+        /* Sentence Construction */
+        .construction-area {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .target-sentence {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-bottom: 25px;
+            border: 3px solid #667eea;
+        }
+
+        .construction-box {
+            background: white;
+            min-height: 80px;
+            padding: 15px;
+            border-radius: 15px;
+            border: 3px dashed #667eea;
+            margin-bottom: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            direction: rtl;
+        }
+
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .word-tile {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .word-tile:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+        }
+
+        .word-tile.used {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .word-tile.in-construction {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        /* Score Display */
+        .score-display {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+            color: #667eea;
+            z-index: 999;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.5s ease;
+        }
+
+        /* Info Page */
+        .info-box {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-box h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .info-box p {
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-buttons {
+                position: static;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+
+            .score-display {
+                position: static;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+        }
+
+        .hint {
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        .feedback-message {
+            padding: 15px;
+            border-radius: 15px;
+            margin: 15px 0;
+            font-weight: bold;
+            text-align: center;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .feedback-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+
+        .feedback-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-buttons" id="navButtons">
+        <button class="nav-btn" onclick="goHome()">🏠 Home</button>
+        <button class="nav-btn" onclick="goBack()" id="backBtn" style="display: none;">⬅ Zurück</button>
+    </div>
+
+    <div class="score-display" id="scoreDisplay" style="display: none;">
+        Punkte: <span id="scoreValue">0</span>
+    </div>
+
+    <div class="container">
+        <!-- Main Menu -->
+        <div id="mainMenu" class="content-section active">
+            <div class="header">
+                <h1>🎯 Persischer Imperativ</h1>
+                <p>Interaktive Lernapp für deutsche Lernende</p>
+            </div>
+
+            <div class="menu-grid">
+                <div class="menu-card" onclick="showSection('grammar')">
+                    <h2>📚 Baustein 1</h2>
+                    <p>Grammatikerklärung & Übungen</p>
+                </div>
+                <div class="menu-card" onclick="showSection('recipe1')">
+                    <h2>🥣 Baustein 2</h2>
+                    <p>Rezept: Mirza Ghasemi</p>
+                </div>
+                <div class="menu-card" onclick="showSection('recipe2')">
+                    <h2>🍚 Baustein 3</h2>
+                    <p>Rezept: Adas Polo (Lückentext)</p>
+                </div>
+                <div class="menu-card" onclick="showSection('gapfill')">
+                    <h2>✍️ Baustein 4</h2>
+                    <p>Lückentextübungen</p>
+                </div>
+                <div class="menu-card" onclick="showSection('construction')">
+                    <h2>🧩 Baustein 5</h2>
+                    <p>Satzkonstruktion</p>
+                </div>
+                <div class="menu-card" onclick="showSection('info')">
+                    <h2>ℹ️ Info</h2>
+                    <p>Über diese App</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Baustein 1: Grammar & Quiz -->
+        <div id="grammar" class="content-section">
+            <div class="header">
+                <h1>📚 Grammatikerklärung</h1>
+                <p>Der Imperativ im Persischen</p>
+            </div>
+
+            <div id="grammarContent">
+                <div class="grammar-box">
+                    <h3>🔹 2. Person Singular (du)</h3>
+                    <p><strong>Bildung:</strong> ب + Präsensstamm (be- + Stamm)</p>
+                    <p><strong>Beispiele:</strong></p>
+                    <ul>
+                        <li><span class="persian-text">برو</span> (be-ro) = Geh! (رفتن)</li>
+                        <li><span class="persian-text">بنویس</span> (be-nevis) = Schreib! (نوشتن)</li>
+                        <li><span class="persian-text">بخور</span> (be-khor) = Iss! (خوردن)</li>
+                    </ul>
+                </div>
+
+                <div class="grammar-box">
+                    <h3>🔹 2. Person Plural / Höflichkeitsform (Sie)</h3>
+                    <p><strong>Bildung:</strong> ب + Präsensstamm + ید (be- + Stamm + -id)</p>
+                    <p><strong>Beispiele:</strong></p>
+                    <ul>
+                        <li><span class="persian-text">بروید</span> (be-ro-id) = Gehen Sie!</li>
+                        <li><span class="persian-text">بنویسید</span> (be-nevis-id) = Schreiben Sie!</li>
+                        <li><span class="persian-text">بخورید</span> (be-khor-id) = Essen Sie!</li>
+                    </ul>
+                </div>
+
+                <div class="grammar-box">
+                    <h3>🔹 Negativer Imperativ (Verneinung)</h3>
+                    <p><strong>Bildung:</strong> ن + Präsensstamm (na- + Stamm) für Singular<br>
+                    ن + Präsensstamm + ید (na- + Stamm + -id) für Plural</p>
+                    <p><strong>Beispiele:</strong></p>
+                    <ul>
+                        <li><span class="persian-text">نرو</span> (na-ro) = Geh nicht!</li>
+                        <li><span class="persian-text">نخور</span> (na-khor) = Iss nicht!</li>
+                        <li><span class="persian-text">نروید</span> (na-ro-id) = Gehen Sie nicht!</li>
+                        <li><span class="persian-text">نخورید</span> (na-khor-id) = Essen Sie nicht!</li>
+                    </ul>
+                </div>
+
+                <div class="grammar-box">
+                    <h3>🔹 Wenn das Verb mit آ (Ā) beginnt</h3>
+                    <p><strong>Regel:</strong> Dann kommt ی dazwischen</p>
+                    <p><strong>Beispiele:</strong></p>
+                    <ul>
+                        <li>آمدن → <span class="persian-text">بیا</span> (be-yā) = Komm!</li>
+                        <li>آوردن → <span class="persian-text">بیاور</span> (be-yāvar) = Bring!</li>
+                    </ul>
+                </div>
+
+                <div class="grammar-box">
+                    <h3>🔹 Verben, bei denen das „b" wegfällt</h3>
+                    <p><strong>Bei manchen Verben fällt das b- im Imperativ ganz weg:</strong></p>
+                    <ul>
+                        <li>کردن → بکن / <span class="persian-text">کن</span> (be-kon / kon)</li>
+                        <li>شدن → بشو / <span class="persian-text">شو</span> (be-šo / šo)</li>
+                    </ul>
+                    <p><strong>Beispiele:</strong></p>
+                    <ul>
+                        <li><span class="persian-text">کن!</span> = Mach!</li>
+                        <li><span class="persian-text">شو!</span> = Werde!</li>
+                    </ul>
+                </div>
+
+                <div class="grammar-box">
+                    <h3>🔹 Wichtigste Ausnahme: داشتن (haben)</h3>
+                    <p>„Haben" bildet keinen normalen Imperativ, sondern benutzt „باش" (sein).</p>
+                    <ul>
+                        <li><span class="persian-text">داشته باش</span> = Hab!</li>
+                        <li><span class="persian-text">داشته باشید</span> = Haben Sie!</li>
+                        <li><span class="persian-text">نداشته باش</span> = Hab nicht!</li>
+                        <li><span class="persian-text">نداشته باشید</span> = Haben Sie nicht!</li>
+                    </ul>
+                </div>
+
+                <button class="next-btn" onclick="startQuiz()">Jetzt üben! 🎯</button>
+            </div>
+
+            <div id="quizContent" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="quizProgress"></div>
+                </div>
+                <div id="quizQuestion"></div>
+            </div>
+        </div>
+
+        <!-- Baustein 2: Recipe Mirza Ghasemi -->
+        <div id="recipe1" class="content-section">
+            <div class="header">
+                <h1>🥣 میرزا قاسمی</h1>
+                <p>Rezept aus dem Norden Irans</p>
+            </div>
+
+            <div class="recipe-container" id="mirzaRecipe">
+                <!-- Recipe content will be added by JavaScript -->
+            </div>
+
+            <div style="margin-top: 30px;">
+                <h2 style="text-align: center; color: #667eea; margin-bottom: 20px;">📘 Flashcards</h2>
+                <div class="flashcard-container">
+                    <div class="flashcard" id="mirzaFlashcard" onclick="flipCard('mirzaFlashcard')">
+                        <div class="flashcard-face flashcard-front">
+                            <span id="mirzaFront"></span>
+                        </div>
+                        <div class="flashcard-face flashcard-back">
+                            <span id="mirzaBack"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flashcard-controls">
+                    <button class="flashcard-btn" onclick="prevCard('mirza')">⬅ Zurück</button>
+                    <button class="flashcard-btn" onclick="flipCard('mirzaFlashcard')">🔄 Umdrehen</button>
+                    <button class="flashcard-btn" onclick="nextCard('mirza')">Weiter ➡</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Baustein 3: Recipe Adas Polo -->
+        <div id="recipe2" class="content-section">
+            <div class="header">
+                <h1>🍚 عدس‌پلو</h1>
+                <p>Iranisches vegetarisches Gericht</p>
+            </div>
+
+            <div id="adasPoloExercise">
+                <!-- Content will be added by JavaScript -->
+            </div>
+
+            <div style="margin-top: 30px;">
+                <h2 style="text-align: center; color: #667eea; margin-bottom: 20px;">📘 Flashcards</h2>
+                <div class="flashcard-container">
+                    <div class="flashcard" id="adasFlashcard" onclick="flipCard('adasFlashcard')">
+                        <div class="flashcard-face flashcard-front">
+                            <span id="adasFront"></span>
+                        </div>
+                        <div class="flashcard-face flashcard-back">
+                            <span id="adasBack"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flashcard-controls">
+                    <button class="flashcard-btn" onclick="prevCard('adas')">⬅ Zurück</button>
+                    <button class="flashcard-btn" onclick="flipCard('adasFlashcard')">🔄 Umdrehen</button>
+                    <button class="flashcard-btn" onclick="nextCard('adas')">Weiter ➡</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Baustein 4: Gap Fill -->
+        <div id="gapfill" class="content-section">
+            <div class="header">
+                <h1>✍️ Lückentextübungen</h1>
+                <p>Fülle die Lücken mit der richtigen Imperativform aus</p>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="gapProgress"></div>
+            </div>
+
+            <div id="gapFillContent"></div>
+        </div>
+
+        <!-- Baustein 5: Sentence Construction -->
+        <div id="construction" class="content-section">
+            <div class="header">
+                <h1>🧩 Satzkonstruktion</h1>
+                <p>Konstruiere den persischen Satz</p>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="constructionProgress"></div>
+            </div>
+
+            <div id="constructionContent"></div>
+        </div>
+
+        <!-- Info Page -->
+        <div id="info" class="content-section">
+            <div class="header">
+                <h1>ℹ️ Information</h1>
+                <p>Über diese Lernapp</p>
+            </div>
+
+            <div class="info-box">
+                <h3>🎯 Ziel der App</h3>
+                <p>Diese interaktive Anwendung wurde entwickelt, um deutschen Lernenden den Imperativ (Befehlsform) in der persischen Sprache beizubringen. Die App bietet verschiedene Lernmethoden:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Detaillierte Grammatikerklärungen</li>
+                    <li>Multiple-Choice-Übungen</li>
+                    <li>Authentische persische Rezepte</li>
+                    <li>Interaktive Flashcards</li>
+                    <li>Lückentextübungen</li>
+                    <li>Satzkonstruktionsaufgaben</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h3>📱 Bedienung</h3>
+                <p><strong>Navigation:</strong> Nutze die Home-Taste (🏠) oben rechts, um jederzeit zum Hauptmenü zurückzukehren. Die Zurück-Taste (⬅) bringt dich zur vorherigen Seite.</p>
+                <p><strong>Flashcards:</strong> Klicke auf die Karte, um sie umzudrehen. Nutze die Pfeiltasten, um zwischen den Karten zu wechseln.</p>
+                <p><strong>Übungen:</strong> Dein Fortschritt wird automatisch gespeichert. Du kannst jederzeit eine Pause machen und später weitermachen.</p>
+            </div>
+
+            <div class="info-box">
+                <h3>🌟 Tipps zum Lernen</h3>
+                <p>• Beginne mit der Grammatikerklärung, um die Regeln zu verstehen</p>
+                <p>• Übe regelmäßig mit den Flashcards</p>
+                <p>• Die Rezepte bieten authentischen Kontext für die Imperativformen</p>
+                <p>• Wiederhole Übungen, bei denen du Schwierigkeiten hattest</p>
+                <p>• Achte auf die Richtung: Persisch wird von rechts nach links geschrieben!</p>
+            </div>
+
+            <div class="info-box">
+                <h3>🔤 Persische Schrift</h3>
+                <p>Persisch wird von rechts nach links geschrieben. Die App berücksichtigt dies automatisch. Alle persischen Texte werden korrekt von rechts nach links dargestellt.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="translation-popup" id="translationPopup"></div>
+
+    <script>
+        // Global Variables
+        let currentSection = 'mainMenu';
+        let previousSection = '';
+        let score = 0;
+
+        // Quiz Data
+        const quizData = [
+            { question: "Geh!", options: ["برو", "بروید", "بیا", "بیایید"], correct: 0 },
+            { question: "Gehen Sie!", options: ["برو", "بروید", "بیا", "بیایید"], correct: 1 },
+            { question: "Komm!", options: ["برو", "بروید", "بیا", "بیایید"], correct: 2 },
+            { question: "Kommen Sie!", options: ["برو", "بروید", "بیا", "بیایید"], correct: 3 },
+            { question: "Iss!", options: ["بخور", "بخورید", "نخور", "نخورید"], correct: 0 },
+            { question: "Essen Sie!", options: ["بخور", "بخورید", "نخور", "نخورید"], correct: 1 },
+            { question: "Iss nicht!", options: ["بخور", "بخورید", "نخور", "نخورید"], correct: 2 },
+            { question: "Essen Sie nicht!", options: ["بخور", "بخورید", "نخور", "نخورید"], correct: 3 },
+            { question: "Schreib!", options: ["بنویس", "بنویسید", "ننویس", "ننویسید"], correct: 0 },
+            { question: "Schreiben Sie!", options: ["بنویس", "بنویسید", "ننویس", "ننویسید"], correct: 1 },
+            { question: "Bring!", options: ["بیاور", "بیاورید", "نیاور", "نیاورید"], correct: 0 },
+            { question: "Bringen Sie!", options: ["بیاور", "بیاورید", "نیاور", "نیاورید"], correct: 1 },
+            { question: "Mach!", options: ["کن", "کنید", "نکن", "نکنید"], correct: 0 },
+            { question: "Machen Sie!", options: ["کن", "کنید", "نکن", "نکنید"], correct: 1 },
+            { question: "Mach nicht!", options: ["کن", "کنید", "نکن", "نکنید"], correct: 2 },
+            { question: "Lies!", options: ["بخوان", "بخوانید", "نخوان", "نخوانید"], correct: 0 },
+            { question: "Lesen Sie!", options: ["بخوان", "بخوانید", "نخوان", "نخوانید"], correct: 1 },
+            { question: "Sag!", options: ["بگو", "بگویید", "نگو", "نگویید"], correct: 0 },
+            { question: "Sagen Sie!", options: ["بگو", "بگویید", "نگو", "نگویید"], correct: 1 },
+            { question: "Hab!", options: ["داشته باش", "داشته باشید", "نداشته باش", "نداشته باشید"], correct: 0 }
+        ];
+
+        let currentQuizIndex = 0;
+
+        // Mirza Ghasemi Vocabulary Data
+        const mirzaVocab = [
+            { persian: "بادِمجان", german: "Aubergine" },
+            { persian: "گوجه‌فَرَنگی", german: "Tomate" },
+            { persian: "سیر", german: "Knoblauch" },
+            { persian: "روغَن", german: "Öl" },
+            { persian: "نَمَک", german: "Salz" },
+            { persian: "فِلفِل", german: "Pfeffer" },
+            { persian: "زَردچوبه", german: "Kurkuma" },
+            { persian: "جَعفَری", german: "Petersilie" },
+            { persian: "گِشنیز", german: "Koriander" },
+            { persian: "بشوی", german: "wasch" },
+            { persian: "بِپَز", german: "koch/brat" },
+            { persian: "بِِکَن", german: "schäl ab" },
+            { persian: "لِه کن", german: "zerdrück" },
+            { persian: "خُرد کن", german: "schneide klein" },
+            { persian: "گرم کن", german: "erhitz" },
+            { persian: "بریز", german: "gieß hinein" },
+            { persian: "سُرخ کن", german: "brat an" },
+            { persian: "اِضافِه کن", german: "füg hinzu" },
+            { persian: "هَم بزن", german: "rühr um" },
+            { persian: "مَخلوط کن", german: "vermisch" },
+            { persian: "بِچِش", german: "probier" },
+            { persian: "سِرو کُن", german: "serviere" },
+            { persian: "بُخُور", german: "iss" }
+        ];
+
+        let currentMirzaCardIndex = 0;
+
+        // Adas Polo Vocabulary
+        const adasVocab = [
+            { persian: "عدس", german: "Linsen" },
+            { persian: "برنج", german: "Reis" },
+            { persian: "پیاز", german: "Zwiebel" },
+            { persian: "کشمش", german: "Rosinen" },
+            { persian: "زردچوبه", german: "Kurkuma" },
+            { persian: "دارچین", german: "Zimt" },
+            { persian: "بشوی", german: "wasch" },
+            { persian: "بریز", german: "gieß" },
+            { persian: "بپز", german: "koch" },
+            { persian: "بخیسان", german: "weich ein" },
+            { persian: "پوست بکن", german: "schäl" },
+            { persian: "خُرد کن", german: "hack klein" },
+            { persian: "گرم کن", german: "erhitz" },
+            { persian: "سرخ کن", german: "brat" },
+            { persian: "اضافه کن", german: "füg hinzu" },
+            { persian: "هم بزن", german: "rühr um" },
+            { persian: "مخلوط کن", german: "vermisch" },
+            { persian: "دم بگذار", german: "lass dämpfen" },
+            { persian: "صبر کن", german: "warte" },
+            { persian: "بکش", german: "gib auf (Teller)" },
+            { persian: "تزیین کن", german: "garniere" }
+        ];
+
+        let currentAdasCardIndex = 0;
+
+        // Gap Fill Data
+        const gapFillData = [
+            // Page 1
+            [
+                { german: "Mach das Fenster auf!", persian: "پنجره را ...............", answer: "باز کن", hint: "باز کردن / باز کنـ" },
+                { german: "Macht bitte die Tür zu!", persian: "در را ....…", answer: "ببندید", hint: "بستن / بند" },
+                { german: "Gib mir das Salz!", persian: "نمک را به من .............", answer: "بده", hint: "دادن / ده" },
+                { german: "Achte genau!", persian: "خوب ..........", answer: "توجه کن", hint: "توجه کردن / توجه کن" },
+                { german: "Schneide die Zwiebel fein!", persian: "پیاز را..............", answer: "خرد کن", hint: "خرد کردن / خرد کن" }
+            ],
+            // Page 2
+            [
+                { german: "Schneidet die Tomaten!", persian: "گوجه‌فرنگی‌ها را .............", answer: "خرد کنید", hint: "خرد کردن / خرد کن" },
+                { german: "Warte eine Minute!", persian: "یک دقیقه .............", answer: "صبر کن", hint: "صبر کردن / صبر کن" },
+                { german: "Wartet auf mich!", persian: "منتظرِم .............", answer: "باشید", hint: "بودن / باش" },
+                { german: "Lies den Text nochmal!", persian: "متن را دوباره .........", answer: "بخوان", hint: "خواندن / خوان" },
+                { german: "Lest die Aufgabe!", persian: "تمرین را …!", answer: "بخوانید", hint: "خواندن / خوان" }
+            ],
+            // Page 3
+            [
+                { german: "Trink etwas Wasser!", persian: "کمی آب …!", answer: "بنوش", hint: "نوشیدن / نوش" },
+                { german: "Trinkt genug Wasser!", persian: "به اندازه آب …!", answer: "بنوشید", hint: "نوشیدن / نوش" },
+                { german: "Schreib deinen Namen!", persian: "نامت را …!", answer: "بنویس", hint: "نوشتن / نویس" },
+                { german: "Schreibt bitte deutlicher!", persian: "واضح‌تر …!", answer: "بنویسید", hint: "نوشتن / نویس" },
+                { german: "Bring das Buch mit!", persian: "کتاب را …!", answer: "بیاور", hint: "آوردن / آور" }
+            ],
+            // Page 4
+            [
+                { german: "Bringt eure Sachen mit!", persian: "وسایلتان را …!", answer: "بیاورید", hint: "آوردن / آور" },
+                { german: "Mach dir keine Sorgen!", persian: "نگران …!", answer: "نباش", hint: "بودن / باش" },
+                { german: "Macht kein Chaos!", persian: "بی‌نظمی …!", answer: "ایجاد نکنید", hint: "ایجاد کردن / ایجاد کن" },
+                { german: "Koch das Gemüse weich!", persian: "سبزیجات را نرم …!", answer: "بپز", hint: "پختن / پز" },
+                { german: "Kocht die Linsen bis sie fertig sind!", persian: "عدس‌ها را تا آماده شوند …!", answer: "بپزید", hint: "پختن / پز" }
+            ],
+            // Page 5
+            [
+                { german: "Komm bitte her!", persian: "لطفاً این‌جا …!", answer: "بیا", hint: "آمدن / آ" },
+                { german: "Kommt alle hierher!", persian: "همه این‌جا …!", answer: "بیایید", hint: "آمدن / آ" },
+                { german: "Geh geradeaus!", persian: "مستقیم …!", answer: "برو", hint: "رفتن / رو" },
+                { german: "Geht nach links!", persian: "به چپ …!", answer: "بروید", hint: "رفتن / رو" },
+                { german: "Lass das!", persian: "این کار را …!", answer: "رها کن", hint: "رها کردن / رها کن" }
+            ],
+            // Page 6
+            [
+                { german: "Lasst das bitte!", persian: "لطفاً این کار را …!", answer: "رها کنید", hint: "رها کردن / رها کن" },
+                { german: "Öffne das Buch auf Seite zehn!", persian: "کتاب را در صفحهٔ ده …!", answer: "باز کن", hint: "باز کردن / باز کن" },
+                { german: "Öffnet eure Hefte!", persian: "دفترهایتان را …!", answer: "باز کنید", hint: "باز کردن / باز کن" },
+                { german: "Schlaf!", persian: "............!", answer: "بخواب", hint: "خوابیدن / خواب" },
+                { german: "Schlaft nicht so spät!", persian: "خیلی دیر …!", answer: "نخوابید", hint: "خوابیدن / خواب" }
+            ],
+            // Page 7
+            [
+                { german: "Rühr die Suppe um!", persian: "سوپ را …!", answer: "هم بزن", hint: "هم زدن / هم بزن" },
+                { german: "Rührt das Öl ein!", persian: "روغن را …!", answer: "اضافه کنید", hint: "اضافه کردن / اضافه کن" },
+                { german: "Pass auf!", persian: "مراقب …!", answer: "باش", hint: "بودن / باش" },
+                { german: "Passt bitte auf!", persian: "لطفاً مراقب …!", answer: "باشید", hint: "بودن / باش" },
+                { german: "Sag die Wahrheit!", persian: "حقیقت را …!", answer: "بگو", hint: "گفتن / گو" }
+            ],
+            // Page 8
+            [
+                { german: "Sagt nichts!", persian: "چیزی …!", answer: "نگویید", hint: "گفتن / گو" },
+                { german: "Wasch das Gemüse!", persian: "سبزیجات را …!", answer: "بشوی", hint: "شستن / شوی" },
+                { german: "Wascht eure Hände!", persian: "دست‌هایتان را …!", answer: "بشویید", hint: "شستن / شوی" },
+                { german: "Nimm deine Tasche nicht!", persian: "کیفت را …!", answer: "بردار نکن", hint: "برداشتن / بردار" },
+                { german: "Nehmt eure Bücher mit!", persian: "کتاب‌هایتان را …!", answer: "بردارید", hint: "برداشتن / بردار" }
+            ]
+        ];
+
+        let currentGapPage = 0;
+
+        // Sentence Construction Data
+        const constructionData = [
+            {
+                german: "Geh von hier geradeaus.",
+                persian: "از این‌جا مستقیم برو.",
+                words: ["از", "این‌جا", "مستقیم", "برو"],
+                distractors: ["بروید", "راست"]
+            },
+            {
+                german: "Bieg an der Kreuzung rechts ab.",
+                persian: "از چهارراه به راست بپیچ.",
+                words: ["از", "چهارراه", "به", "راست", "بپیچ"],
+                distractors: ["چپ"]
+            },
+            {
+                german: "Biegen Sie an der nächsten Station links ab.",
+                persian: "در ایستگاه بعدی به چپ بپیچید.",
+                words: ["در", "ایستگاه", "بعدی", "به", "چپ", "بپیچید"],
+                distractors: ["راست", "بپیچ"]
+            },
+            {
+                german: "Gehen Sie bis zur Ampel.",
+                persian: "تا چراغ قرمز بروید.",
+                words: ["تا", "چراغ", "قرمز", "بروید"],
+                distractors: ["برو", "سبز"]
+            },
+            {
+                german: "Geh am Park vorbei.",
+                persian: "از کنارِ پارک رد شو.",
+                words: ["از", "کنارِ", "پارک", "رد", "شو"],
+                distractors: ["شوید", "باغ"]
+            },
+            {
+                german: "Gehen Sie über die Brücke.",
+                persian: "از پل رد شوید.",
+                words: ["از", "پل", "رد", "شوید"],
+                distractors: ["شو", "خیابان"]
+            },
+            {
+                german: "Warte an der Straßenecke.",
+                persian: "سر خیابان منتظر بمان.",
+                words: ["سر", "خیابان", "منتظر", "بمان"],
+                distractors: ["بمانید", "کوچه"]
+            },
+            {
+                german: "Gehen Sie zurück zur Bushaltestelle.",
+                persian: "به ایستگاهِ اتوبوس برگردید.",
+                words: ["به", "ایستگاهِ", "اتوبوس", "برگردید"],
+                distractors: ["برگرد", "متro"]
+            },
+            {
+                german: "Folge der Hauptstraße.",
+                persian: "خیابانِ اصلی را دنبال کن.",
+                words: ["خیابانِ", "اصلی", "را", "دنبال", "کن"],
+                distractors: ["کنید", "فرعی"]
+            },
+            {
+                german: "Gehen Sie weiter nach links.",
+                persian: "به سمتِ چپ ادامه دهید.",
+                words: ["به", "سمتِ", "چپ", "ادامه", "دهید"],
+                distractors: ["راست", "بده"]
+            },
+            {
+                german: "Stell dich vor die Bank.",
+                persian: "روبروی بانک بایست.",
+                words: ["روبروی", "بانک", "بایست"],
+                distractors: ["بایستید", "پشت"]
+            },
+            {
+                german: "Gehen Sie die Treppe hinauf.",
+                persian: "از پله‌ها بالا بروید.",
+                words: ["از", "پله‌ها", "بالا", "بروید"],
+                distractors: ["پایین", "برو"]
+            },
+            {
+                german: "Komm die Treppe hinunter.",
+                persian: "از پله‌ها پایین بیا.",
+                words: ["از", "پله‌ها", "پایین", "بیا"],
+                distractors: ["بیایید", "بالا"]
+            },
+            {
+                german: "Schauen Sie auf das Schild.",
+                persian: "به تابلو نگاه کنید.",
+                words: ["به", "تابلو", "نگاه", "کنید"],
+                distractors: ["کن", "عکس"]
+            },
+            {
+                german: "Lies die Adresse noch einmal.",
+                persian: "آدرس را دوباره بخوان.",
+                words: ["آدرس", "را", "دوباره", "بخوان"],
+                distractors: ["بخوانید", "یکبار"]
+            },
+            {
+                german: "Gehen Sie am Supermarkt vorbei.",
+                persian: "از کنارِ سوپرمارکت عبور کنید.",
+                words: ["از", "کنارِ", "سوپرمارکت", "عبور", "کنید"],
+                distractors: ["کن", "مغازه"]
+            },
+            {
+                german: "Geh zur nächsten Straße.",
+                persian: "به خیابانِ بعدی برو.",
+                words: ["به", "خیابانِ", "بعدی", "برو"],
+                distractors: ["بروید", "قبلی"]
+            },
+            {
+                german: "Öffnen Sie die Tür des Gebäudes.",
+                persian: "درِ ساختمان را باز کنید.",
+                words: ["درِ", "ساختمان", "را", "باز", "کنید"],
+                distractors: ["کن", "بسته"]
+            },
+            {
+                german: "Finde die Haustür.",
+                persian: "درِ خانه را پیدا کن.",
+                words: ["درِ", "خانه", "را", "پیدا", "کن"],
+                distractors: ["کنید", "پنجره"]
+            },
+            {
+                german: "Wenn du dich verirrst, frag nach.",
+                persian: "اگر گم شدی، سؤال بپرس.",
+                words: ["اگر", "گم", "شدی،", "سؤال", "بپرس"],
+                distractors: ["بپرسید", "جواب"]
+            }
+        ];
+
+        let currentConstructionIndex = 0;
+        let constructedSentence = [];
+
+        // Navigation Functions
+        function showSection(sectionId) {
+            previousSection = currentSection;
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            currentSection = sectionId;
+
+            // Show/hide back button
+            if (sectionId === 'mainMenu') {
+                document.getElementById('backBtn').style.display = 'none';
+            } else {
+                document.getElementById('backBtn').style.display = 'block';
+            }
+
+            // Initialize sections
+            if (sectionId === 'recipe1') {
+                initMirzaRecipe();
+                updateMirzaFlashcard();
+            } else if (sectionId === 'recipe2') {
+                initAdasPoloExercise();
+                updateAdasFlashcard();
+            } else if (sectionId === 'gapfill') {
+                currentGapPage = 0;
+                showGapFillPage(currentGapPage);
+            } else if (sectionId === 'construction') {
+                currentConstructionIndex = 0;
+                showConstructionExercise(currentConstructionIndex);
+            }
+        }
+
+        function goHome() {
+            showSection('mainMenu');
+        }
+
+        function goBack() {
+            if (currentSection === 'grammar' && document.getElementById('quizContent').style.display === 'block') {
+                // If in quiz, go back to grammar explanation
+                document.getElementById('grammarContent').style.display = 'block';
+                document.getElementById('quizContent').style.display = 'none';
+            } else {
+                showSection('mainMenu');
+            }
+        }
+
+        // Quiz Functions
+        function startQuiz() {
+            currentQuizIndex = 0;
+            score = 0;
+            document.getElementById('grammarContent').style.display = 'none';
+            document.getElementById('quizContent').style.display = 'block';
+            document.getElementById('scoreDisplay').style.display = 'block';
+            updateScore();
+            showQuizQuestion();
+        }
+
+        function showQuizQuestion() {
+            if (currentQuizIndex >= quizData.length) {
+                showQuizResults();
+                return;
+            }
+
+            const question = quizData[currentQuizIndex];
+            const progress = ((currentQuizIndex + 1) / quizData.length) * 100;
+            document.getElementById('quizProgress').style.width = progress + '%';
+
+            let html = `
+                <div class="question-box">
+                    <div class="question-text">${question.question}</div>
+                    <div class="options-grid">
+            `;
+
+            question.options.forEach((option, index) => {
+                html += `
+                    <div class="option-btn" onclick="checkAnswer(${index})">
+                        ${option}
+                    </div>
+                `;
+            });
+
+            html += `
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('quizQuestion').innerHTML = html;
+        }
+
+        function checkAnswer(selectedIndex) {
+            const question = quizData[currentQuizIndex];
+            const options = document.querySelectorAll('.option-btn');
+
+            options.forEach((option, index) => {
+                option.classList.add('disabled');
+                if (index === question.correct) {
+                    option.classList.add('correct');
+                } else if (index === selectedIndex) {
+                    option.classList.add('wrong');
+                }
+            });
+
+            if (selectedIndex === question.correct) {
+                score += 5;
+                updateScore();
+            }
+
+            setTimeout(() => {
+                currentQuizIndex++;
+                showQuizQuestion();
+            }, 1500);
+        }
+
+        function showQuizResults() {
+            const percentage = (score / (quizData.length * 5)) * 100;
+            let message = '';
+            let emoji = '';
+
+            if (percentage >= 90) {
+                message = 'Ausgezeichnet!';
+                emoji = '🌟';
+            } else if (percentage >= 70) {
+                message = 'Sehr gut!';
+                emoji = '👍';
+            } else if (percentage >= 50) {
+                message = 'Gut gemacht!';
+                emoji = '👌';
+            } else {
+                message = 'Weiter üben!';
+                emoji = '💪';
+            }
+
+            document.getElementById('quizQuestion').innerHTML = `
+                <div style="text-align: center; padding: 40px;">
+                    <div style="font-size: 4em; margin-bottom: 20px;">${emoji}</div>
+                    <h2 style="color: #667eea; font-size: 2em; margin-bottom: 20px;">${message}</h2>
+                    <p style="font-size: 1.5em; margin-bottom: 30px;">
+                        Du hast <strong>${score}</strong> von ${quizData.length * 5} Punkten erreicht!
+                    </p>
+                    <p style="font-size: 1.2em; margin-bottom: 30px;">
+                        Das sind <strong>${percentage.toFixed(0)}%</strong>
+                    </p>
+                    <button class="next-btn" onclick="startQuiz()">🔄 Nochmal üben</button>
+                    <button class="next-btn" onclick="goHome()">🏠 Zurück zum Menü</button>
+                </div>
+            `;
+        }
+
+        function updateScore() {
+            document.getElementById('scoreValue').textContent = score;
+        }
+
+        // Mirza Ghasemi Recipe
+        function initMirzaRecipe() {
+            const recipeHTML = `
+                <div class="recipe-section">
+                    <h3>🧺 مواد لازم (برای دو نفر)</h3>
+                    <p>دو <span class="clickable-word" data-translation="Stück">عَدَد</span> <span class="clickable-word" data-translation="Aubergine">بادِمجانِِ</span> <span class="clickable-word" data-translation="groß">دُرُشت</span></p>
+                    <p>سه عَدَد <span class="clickable-word" data-translation="Tomate">گوجه‌فَرَنگی</span></p>
+                    <p>چهار <span class="clickable-word" data-translation="Zehe">حَبّه</span> <span class="clickable-word" data-translation="Knoblauch">سیر</span></p>
+                    <p>دو <span class="clickable-word" data-translation="Esslöffel">قاُشقِ غَذاخوری</span> <span class="clickable-word" data-translation="Öl">روغَن</span></p>
+                    <p><span class="clickable-word" data-translation="Salz">نَمَک</span>، <span class="clickable-word" data-translation="Pfeffer">فِلفِل</span>، <span class="clickable-word" data-translation="Kurkuma">زَردچوبه</span></p>
+                    <p><span class="clickable-word" data-translation="bei Bedarf">در صورتِ تَمایُل</span>: کَمی <span class="clickable-word" data-translation="Petersilie">جَعفَری</span> یا <span class="clickable-word" data-translation="Koriander">گِشنیزِ تازه</span></p>
+                </div>
+
+                <div class="recipe-section">
+                    <h3>👩‍🍳 طرز تهیه:</h3>
+                    <p>۱. بادمجان‌ها را <span class="clickable-word" data-translation="wasch">بشوی</span> و <span class="clickable-word" data-translation="trockne">خُشک کن</span>.</p>
+                    <p>۲. بادمجان‌ها را روی آتَش یا در فر <span class="clickable-word" data-translation="koch/brat">بِپَز</span> تا پوست‌شان سیاه <span class="clickable-word" data-translation="wird">شَوَد</span>.</p>
+                    <p>۳. <span class="clickable-word" data-translation="Schale">پوستِ</span> بادمجان‌ها را <span class="clickable-word" data-translation="schäl ab">بِِکَن</span> و <span class="clickable-word" data-translation="Fruchtfleisch">گوشتِ</span> آن‌ها را با چَنگال <span class="clickable-word" data-translation="zerdrücke">لِه کن</span>.</p>
+                    <p>۴. گوجه‌فرنگی‌ها را پوست بکن و <span class="clickable-word" data-translation="schneide klein">خُرد کن</span>.</p>
+                    <p>۵. سیرها را پوست بکن و <span class="clickable-word" data-translation="fein">ریز</span> خُرد کن.</p>
+                    <p>۶. روغن را در <span class="clickable-word" data-translation="Pfanne">تابِه</span> <span class="clickable-word" data-translation="erhitze">گرم کن</span>.</p>
+                    <p>۷. سیر را در روغَن <span class="clickable-word" data-translation="gieß hinein">بریز</span> و کمی <span class="clickable-word" data-translation="brat an">سُرخ کن</span>.</p>
+                    <p>۸. گوجه‌فرنگی‌ها را <span class="clickable-word" data-translation="füge hinzu">اِضافِه کن</span> و بِپَز تا <span class="clickable-word" data-translation="weich">نَرم</span> شوند.</p>
+                    <p>۹. بادمجان‌ها را اضافه کن و <span class="clickable-word" data-translation="rühr um">هَم بزن</span>.</p>
+                    <p>۱۰. نمک، فلفل و زردچوبه اضافه کن و <span class="clickable-word" data-translation="vermische">مَخلوط کن</span>.</p>
+                    <p>۱۱. غذا را <span class="clickable-word" data-translation="zehn Minuten">دَه دقیقه</span> با <span class="clickable-word" data-translation="niedriger Hitze">حَرارَتِ کَم</span> بِپَز.</p>
+                    <p>۱۲. <span class="clickable-word" data-translation="probiere">بِچِش</span> و در صورت نیاز <span class="clickable-word" data-translation="Gewürze">اَدویه</span> اِضافِه کُن.</p>
+                    <p>۱۳. میرزا قاسمی را گَرم <span class="clickable-word" data-translation="serviere">سِرو کُن</span> و با <span class="clickable-word" data-translation="frisches Brot">نانِ تازه</span> یا <span class="clickable-word" data-translation="Reis">بِرِنج</span> <span class="clickable-word" data-translation="iss">بُخُور</span>.</p>
+                </div>
+            `;
+
+            document.getElementById('mirzaRecipe').innerHTML = recipeHTML;
+
+            // Add click events to clickable words
+            document.querySelectorAll('.clickable-word').forEach(word => {
+                word.addEventListener('click', function(e) {
+                    showTranslation(e, this.getAttribute('data-translation'));
+                });
+            });
+        }
+
+        function showTranslation(event, translation) {
+            const popup = document.getElementById('translationPopup');
+            popup.textContent = translation;
+            popup.style.display = 'block';
+            popup.style.left = event.pageX + 10 + 'px';
+            popup.style.top = event.pageY + 10 + 'px';
+
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 2000);
+        }
+
+        // Flashcard Functions
+        function flipCard(cardId) {
+            const card = document.getElementById(cardId);
+            card.classList.toggle('flipped');
+        }
+
+        function updateMirzaFlashcard() {
+            const vocab = mirzaVocab[currentMirzaCardIndex];
+            document.getElementById('mirzaFront').textContent = vocab.persian;
+            document.getElementById('mirzaBack').textContent = vocab.german;
+            document.getElementById('mirzaFlashcard').classList.remove('flipped');
+        }
+
+        function nextCard(type) {
+            if (type === 'mirza') {
+                currentMirzaCardIndex = (currentMirzaCardIndex + 1) % mirzaVocab.length;
+                updateMirzaFlashcard();
+            } else if (type === 'adas') {
+                currentAdasCardIndex = (currentAdasCardIndex + 1) % adasVocab.length;
+                updateAdasFlashcard();
+            }
+        }
+
+        function prevCard(type) {
+            if (type === 'mirza') {
+                currentMirzaCardIndex = (currentMirzaCardIndex - 1 + mirzaVocab.length) % mirzaVocab.length;
+                updateMirzaFlashcard();
+            } else if (type === 'adas') {
+                currentAdasCardIndex = (currentAdasCardIndex - 1 + adasVocab.length) % adasVocab.length;
+                updateAdasFlashcard();
+            }
+        }
+
+        function updateAdasFlashcard() {
+            const vocab = adasVocab[currentAdasCardIndex];
+            document.getElementById('adasFront').textContent = vocab.persian;
+            document.getElementById('adasBack').textContent = vocab.german;
+            document.getElementById('adasFlashcard').classList.remove('flipped');
+        }
+
+        // Adas Polo Exercise
+        function initAdasPoloExercise() {
+            const exerciseHTML = `
+                <div class="recipe-container">
+                    <div class="recipe-section">
+                        <h3>🧺 مواد لازم (برای دو نفر)</h3>
+                        <p>یک پیمانه <span class="clickable-word" data-translation="Linsen">عدس</span></p>
+                        <p>یک و نیم پیمانه <span class="clickable-word" data-translation="Reis">برنج</span></p>
+                        <p>یک عدد <span class="clickable-word" data-translation="Zwiebel">پیاز</span> بزرگ</p>
+                        <p>نصف پیمانه <span class="clickable-word" data-translation="Rosinen">کشمش</span></p>
+                        <p>دو قاشق غذاخوری روغن</p>
+                        <p>نمک، فلفل، زردچوبه، <span class="clickable-word" data-translation="Zimt">دارچین</span></p>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>👩‍🍳 طرز تهیه:</h3>
+                        <div class="gap-sentence persian" onclick="showSentenceTranslation(this, 'Wasch die Linsen und gib sie in einen Topf.')">
+                            ۱. عدس را <input type="text" class="gap-input" data-answer="بشوی" placeholder="..."> (شستن) و در قابلمه <input type="text" class="gap-input" data-answer="بریز" placeholder="..."> (ریختن).
+                        </div>
+                        <div class="gap-sentence persian" onclick="showSentenceTranslation(this, 'Gib zwei Tassen Wasser dazu und koche sie, bis sie halbgar sind.')">
+                            ۲. دو پیمانه آب <input type="text" class="gap-input" data-answer="اضافه کن" placeholder="..."> (اضافه کردن) و <input type="text" class="gap-input" data-answer="بپز" placeholder="..."> (پختن) تا عدس نیم‌پز شود.
+                        </div>
+                        <div class="gap-sentence persian" onclick="showSentenceTranslation(this, 'Wasch den Reis und weiche ihn in Wasser mit Salz ein.')">
+                            ۳. برنج را <input type="text" class="gap-input" data-answer="بشوی" placeholder="..."> (شستن) و در آب و نمک <input type="text" class="gap-input" data-answer="بخیسان" placeholder="..."> (خیساندن).
+                        </div>
+                        <div class="gap-sentence persian" onclick="showSentenceTranslation(this, 'Schäle die Zwiebel und hacke sie fein.')">
+                            ۴. پیاز را <input type="text" class="gap-input" data-answer="پوست بکن" placeholder="..."> (پوست کندن) و ریز <input type="text" class="gap-input" data-answer="خُرد کن" placeholder="..."> (خُرد کردن).
+                        </div>
+                        <div class="gap-sentence persian" onclick="showSentenceTranslation(this, 'Erhitze das Öl in einer Pfanne und brate die Zwiebel, bis sie goldbraun ist.')">
+                            ۵. روغن را در تابه <input type="text" class="gap-input" data-answer="گرم کن" placeholder="..."> (گرم کردن) و پیاز را <input type="text" class="gap-input" data-answer="سرخ کن" placeholder="..."> (سرخ کردن) تا طلایی شود.
+                        </div>
+                        <div class="gap-sentence persian" onclick="showSentenceTranslation(this, 'Füg etwas Kurkuma und Pfeffer hinzu und rühr um.')">
+                            ۶. کمی زردچوبه و فلفل <input type="text" class="gap-input" data-answer="اضافه کن" placeholder="..."> (اضافه کردن) و <input type="text" class="gap-input" data-answer="هم بزن" placeholder="..."> (هم زدن).
+                        </div>
+                        <div class="gap-sentence persian" onclick="showSentenceTranslation(this, 'Gib die Rosinen dazu und brate sie zwei Minuten mit der Zwiebel.')">
+                            ۷. کشمش را <input type="text" class="gap-input" data-answer="اضافه کن" placeholder="..."> (اضافه کردن) و دو دقیقه با پیاز <input type="text" class="gap-input" data-answer="سرخ کن" placeholder="..."> (سرخ کردن).
+                        </div>
+                        <div class="gap-sentence persian" onclick="showSentenceTranslation(this, 'Vermische in einem großen Topf die Linsen mit dem Reis.')">
+                            ۸. در قابلمهٔ بزرگ، عدس و برنج را با هم <input type="text" class="gap-input" data-answer="مخلوط کن" placeholder="..."> (مخلوط کردن).
+                        </div>
+                        <div class="gap-sentence persian" onclick="showSentenceTranslation(this, 'Gib Salz und Zimt dazu und rühr leicht um.')">
+                            ۹. نمک و دارچین <input type="text" class="gap-input" data-answer="اضافه کن" placeholder="..."> (اضافه کردن) و کمی <input type="text" class="gap-input" data-answer="هم بزن" placeholder="..."> (هم زدن).
+                        </div>
+                        <div class="gap-sentence persian" onclick="showSentenceTranslation(this, 'Lass den Reis dämpfen und reduziere die Hitze.')">
+                            ۱۰. برنج را <input type="text" class="gap-input" data-answer="دم بگذار" placeholder="..."> (دم گذاشتن) و حرارت را کم <input type="text" class="gap-input" data-answer="کن" placeholder="..."> (کردن).
+                        </div>
+                        <div class="gap-sentence persian" onclick="showSentenceTranslation(this, 'Warte zwanzig Minuten, bis das Gericht gedämpft ist.')">
+                            ۱۱. بیست دقیقه <input type="text" class="gap-input" data-answer="صبر کن" placeholder="..."> (صبر کردن) تا عدس‌پلو دم بکشد.
+                        </div>
+                        <div class="gap-sentence persian" onclick="showSentenceTranslation(this, 'Gib das Adas Polo auf einen Teller und garniere es mit gebratenen Zwiebeln und Rosinen.')">
+                            ۱۲. عدس‌پلو را در ظرف <input type="text" class="gap-input" data-answer="بکش" placeholder="..."> (کشیدن) و با پیاز داغ و کشمش <input type="text" class="gap-input" data-answer="تزیین کن" placeholder="..."> (تزیین کردن).
+                        </div>
+                    </div>
+
+                    <button class="check-btn" onclick="checkAdasPoloAnswers()">Antworten überprüfen</button>
+                </div>
+            `;
+
+            document.getElementById('adasPoloExercise').innerHTML = exerciseHTML;
+
+            // Add click events to clickable words
+            document.querySelectorAll('#adasPoloExercise .clickable-word').forEach(word => {
+                word.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    showTranslation(e, this.getAttribute('data-translation'));
+                });
+            });
+        }
+
+        function showSentenceTranslation(element, translation) {
+            // Check if click was on input field
+            if (event.target.tagName === 'INPUT') {
+                return;
+            }
+            
+            const existingPopup = element.querySelector('.sentence-translation');
+            if (existingPopup) {
+                existingPopup.remove();
+            } else {
+                const popup = document.createElement('div');
+                popup.className = 'feedback-message success sentence-translation';
+                popup.textContent = translation;
+                popup.style.marginTop = '10px';
+                popup.style.direction = 'ltr';
+                element.appendChild(popup);
+
+                setTimeout(() => {
+                    popup.remove();
+                }, 3000);
+            }
+        }
+
+        function checkAdasPoloAnswers() {
+            const inputs = document.querySelectorAll('#adasPoloExercise .gap-input');
+            let correct = 0;
+            let total = inputs.length;
+
+            inputs.forEach(input => {
+                const userAnswer = input.value.trim();
+                const correctAnswer = input.getAttribute('data-answer');
+
+                if (userAnswer === correctAnswer) {
+                    input.classList.remove('wrong');
+                    input.classList.add('correct');
+                    correct++;
+                } else {
+                    input.classList.remove('correct');
+                    input.classList.add('wrong');
+                }
+            });
+
+            const message = document.createElement('div');
+            message.className = correct === total ? 'feedback-message success' : 'feedback-message error';
+            message.textContent = `${correct} von ${total} richtig! ${correct === total ? '🎉' : 'Versuch es nochmal! 💪'}`;
+            
+            const container = document.getElementById('adasPoloExercise');
+            const existingMessage = container.querySelector('.feedback-message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            container.insertBefore(message, container.lastElementChild);
+        }
+
+        // Gap Fill Functions
+        function showGapFillPage(pageIndex) {
+            const page = gapFillData[pageIndex];
+            const progress = ((pageIndex + 1) / gapFillData.length) * 100;
+            document.getElementById('gapProgress').style.width = progress + '%';
+
+            let html = '<div style="margin-bottom: 20px; text-align: center; color: #667eea; font-weight: bold;">Seite ' + (pageIndex + 1) + ' von ' + gapFillData.length + '</div>';
+
+            page.forEach((exercise, index) => {
+                // Replace any sequence of dots or the ellipsis character with input field
+                const persianWithInput = exercise.persian.replace(/[.…]+/g, '<input type="text" class="gap-input" data-answer="' + exercise.answer + '" id="gap_' + pageIndex + '_' + index + '">');
+                
+                html += `
+                    <div class="gap-exercise">
+                        <div class="gap-sentence">${exercise.german}</div>
+                        <div class="gap-sentence persian">${persianWithInput}</div>
+                        <div class="hint">Hinweis: ${exercise.hint}</div>
+                    </div>
+                `;
+            });
+
+            html += `
+                <div style="display: flex; justify-content: center; gap: 20px; margin-top: 30px;">
+                    ${pageIndex > 0 ? '<button class="check-btn" onclick="prevGapPage()">⬅ Vorherige Seite</button>' : ''}
+                    <button class="check-btn" onclick="checkGapPage()">Überprüfen</button>
+                    ${pageIndex < gapFillData.length - 1 ? '<button class="check-btn" onclick="nextGapPage()">Nächste Seite ➡</button>' : '<button class="check-btn" onclick="goHome()">🏠 Zurück zum Menü</button>'}
+                </div>
+            `;
+
+            document.getElementById('gapFillContent').innerHTML = html;
+        }
+
+        function checkGapPage() {
+            const page = gapFillData[currentGapPage];
+            let correct = 0;
+
+            page.forEach((exercise, index) => {
+                const input = document.getElementById('gap_' + currentGapPage + '_' + index);
+                const userAnswer = input.value.trim();
+                const correctAnswer = exercise.answer;
+
+                if (userAnswer === correctAnswer) {
+                    input.classList.remove('wrong');
+                    input.classList.add('correct');
+                    correct++;
+                } else {
+                    input.classList.remove('correct');
+                    input.classList.add('wrong');
+                }
+            });
+
+            const message = document.createElement('div');
+            message.className = correct === page.length ? 'feedback-message success' : 'feedback-message error';
+            message.textContent = `${correct} von ${page.length} richtig! ${correct === page.length ? '🎉' : 'Versuch es nochmal! 💪'}`;
+            
+            const container = document.getElementById('gapFillContent');
+            const existingMessage = container.querySelector('.feedback-message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            container.insertBefore(message, container.firstChild);
+        }
+
+        function nextGapPage() {
+            if (currentGapPage < gapFillData.length - 1) {
+                currentGapPage++;
+                showGapFillPage(currentGapPage);
+            }
+        }
+
+        function prevGapPage() {
+            if (currentGapPage > 0) {
+                currentGapPage--;
+                showGapFillPage(currentGapPage);
+            }
+        }
+
+        // Sentence Construction Functions
+        function showConstructionExercise(index) {
+            const exercise = constructionData[index];
+            const progress = ((index + 1) / constructionData.length) * 100;
+            document.getElementById('constructionProgress').style.width = progress + '%';
+
+            constructedSentence = [];
+
+            // Combine words with distractors
+            const allWords = [...exercise.words, ...exercise.distractors];
+            // Shuffle array
+            const shuffled = allWords.sort(() => Math.random() - 0.5);
+
+            let html = `
+                <div style="margin-bottom: 20px; text-align: center; color: #667eea; font-weight: bold;">
+                    Aufgabe ${index + 1} von ${constructionData.length}
+                </div>
+                
+                <div class="construction-area">
+                    <div class="target-sentence">${exercise.german}</div>
+                    
+                    <div class="construction-box" id="constructionBox">
+                        <span style="color: #999; font-style: italic;">Klicke auf die Wörter unten...</span>
+                    </div>
+
+                    <div class="word-bank" id="wordBank">
+            `;
+
+            shuffled.forEach((word, wordIndex) => {
+                html += `<div class="word-tile" onclick="addWord('${word}', ${wordIndex})" id="tile_${wordIndex}">${word}</div>`;
+            });
+
+            html += `
+                    </div>
+
+                    <div style="display: flex; justify-content: center; gap: 20px; margin-top: 30px;">
+                        <button class="check-btn" onclick="clearConstruction()">🗑️ Löschen</button>
+                        <button class="check-btn" onclick="checkConstruction()">✓ Überprüfen</button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('constructionContent').innerHTML = html;
+        }
+
+        function addWord(word, tileIndex) {
+            constructedSentence.push(word);
+            document.getElementById('tile_' + tileIndex).classList.add('used');
+            updateConstructionBox();
+        }
+
+        function updateConstructionBox() {
+            const box = document.getElementById('constructionBox');
+            if (constructedSentence.length === 0) {
+                box.innerHTML = '<span style="color: #999; font-style: italic;">Klicke auf die Wörter unten...</span>';
+            } else {
+                let html = '';
+                constructedSentence.forEach((word, index) => {
+                    html += `<div class="word-tile in-construction" onclick="removeWord(${index})">${word}</div>`;
+                });
+                box.innerHTML = html;
+            }
+        }
+
+        function removeWord(index) {
+            const word = constructedSentence[index];
+            constructedSentence.splice(index, 1);
+            
+            // Re-enable the tile
+            const tiles = document.querySelectorAll('.word-tile');
+            tiles.forEach(tile => {
+                if (tile.textContent === word && tile.classList.contains('used')) {
+                    tile.classList.remove('used');
+                }
+            });
+
+            updateConstructionBox();
+        }
+
+        function clearConstruction() {
+            constructedSentence = [];
+            document.querySelectorAll('.word-tile').forEach(tile => {
+                tile.classList.remove('used');
+            });
+            updateConstructionBox();
+        }
+
+        function checkConstruction() {
+            const exercise = constructionData[currentConstructionIndex];
+            const correctWords = exercise.words;
+            
+            // Compare arrays directly instead of joined strings
+            const isCorrect = constructedSentence.length === correctWords.length && 
+                             constructedSentence.every((word, index) => word === correctWords[index]);
+
+            const container = document.getElementById('constructionContent');
+            const existingMessage = container.querySelector('.feedback-message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+
+            if (isCorrect) {
+                const message = document.createElement('div');
+                message.className = 'feedback-message success';
+                message.innerHTML = `
+                    <div style="font-size: 1.5em; margin-bottom: 10px;">🎉 Richtig!</div>
+                    <div style="direction: rtl;">${exercise.persian}</div>
+                `;
+                container.insertBefore(message, container.firstChild);
+
+                setTimeout(() => {
+                    if (currentConstructionIndex < constructionData.length - 1) {
+                        currentConstructionIndex++;
+                        showConstructionExercise(currentConstructionIndex);
+                    } else {
+                        showConstructionResults();
+                    }
+                }, 2000);
+            } else {
+                const userSentence = constructedSentence.join(' ');
+                const message = document.createElement('div');
+                message.className = 'feedback-message error';
+                message.innerHTML = `
+                    <div style="font-size: 1.5em; margin-bottom: 10px;">❌ Nicht ganz richtig</div>
+                    <div><strong>Deine Antwort:</strong> <span style="direction: rtl; display: inline-block;">${userSentence}</span></div>
+                    <div><strong>Richtig wäre:</strong> <span style="direction: rtl; display: inline-block;">${exercise.persian}</span></div>
+                    <div style="margin-top: 10px;">Versuch es nochmal! 💪</div>
+                `;
+                container.insertBefore(message, container.firstChild);
+            }
+        }
+
+        function showConstructionResults() {
+            document.getElementById('constructionContent').innerHTML = `
+                <div style="text-align: center; padding: 40px;">
+                    <div style="font-size: 4em; margin-bottom: 20px;">🎉</div>
+                    <h2 style="color: #667eea; font-size: 2em; margin-bottom: 20px;">Glückwunsch!</h2>
+                    <p style="font-size: 1.3em; margin-bottom: 30px;">
+                        Du hast alle Satzkonstruktionsaufgaben abgeschlossen!
+                    </p>
+                    <button class="next-btn" onclick="currentConstructionIndex = 0; showConstructionExercise(0)">🔄 Nochmal üben</button>
+                    <button class="next-btn" onclick="goHome()">🏠 Zurück zum Menü</button>
+                </div>
+            `;
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            // Any initialization code
+        };
+    </script>
+</body>
+</html>

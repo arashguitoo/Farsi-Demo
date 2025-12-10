@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرفی شغلی | Berufliche Vorstellung - Persisch lernen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script data-goatcounter="https://aguitoo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <style>
+        :root {
+            --primary: #0d7377;
+            --primary-light: #14a3a8;
+            --secondary: #ff6b6b;
+            --accent: #ffe66d;
+            --success: #2ecc71;
+            --error: #e74c3c;
+            --bg: #f0f4f8;
+            --card: #ffffff;
+            --text: #2d3748;
+            --text-light: #718096;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --radius: 16px;
+            --survey-primary: #6366f1;
+            --survey-secondary: #f472b6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            direction: rtl;
+        }
+
+        .german-text {
+            font-family: 'Calibri', 'Segoe UI', sans-serif;
+            direction: ltr;
+            text-align: left;
+        }
+
+        /* Main Header */
+        .main-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .main-header h1 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .main-header p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* Mode Toggle */
+        .mode-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .mode-btn {
+            padding: 12px 25px;
+            border: 2px solid var(--primary);
+            background: white;
+            color: var(--primary);
+            border-radius: 25px;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .mode-btn:hover {
+            background: var(--primary-light);
+            color: white;
+            border-color: var(--primary-light);
+        }
+
+        .mode-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .mode-btn.survey-btn {
+            border-color: var(--survey-primary);
+            color: var(--survey-primary);
+        }
+
+        .mode-btn.survey-btn:hover,
+        .mode-btn.survey-btn.active {
+            background: var(--survey-primary);
+            color: white;
+            border-color: var(--survey-primary);
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            overflow-x: auto;
+            background: white;
+            padding: 10px;
+            gap: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-tab {
+            flex-shrink: 0;
+            padding: 10px 16px;
+            border: none;
+            background: var(--bg);
+            border-radius: 25px;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-tab:hover {
+            background: var(--primary-light);
+            color: white;
+        }
+
+        .nav-tab.active {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Section & Mode */
+        .mode-content {
+            display: none;
+        }
+
+        .mode-content.active {
+            display: block;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Card */
+        .card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .card-title {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Reading Section */
+        .category-title {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            margin: 25px 0 15px;
+            font-size: 1.05rem;
+        }
+
+        /* Task Card */
+        .task-card {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 2px solid var(--success);
+        }
+
+        .task-box {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .task-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-persian {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .task-german {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .notes-section {
+            margin-top: 15px;
+        }
+
+        .notes-title {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .notes-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 1rem;
+            line-height: 1.8;
+            resize: vertical;
+            direction: rtl;
+        }
+
+        .notes-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .notes-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            justify-content: flex-end;
+        }
+
+        .notes-saved {
+            color: var(--success);
+            font-size: 0.9rem;
+            text-align: left;
+            margin-top: 8px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .notes-saved.show {
+            opacity: 1;
+        }
+
+        .question-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-right: 4px solid var(--primary);
+            line-height: 1.9;
+            font-size: 1.02rem;
+        }
+
+        .question-item .translation {
+            color: var(--text-light);
+            font-size: 0.88rem;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed #e2e8f0;
+        }
+
+        .vocab-highlight {
+            background: var(--accent);
+            padding: 2px 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .vocab-highlight:hover {
+            background: #ffd93d;
+            transform: scale(1.05);
+        }
+
+        .vocab-highlight.clicked {
+            background: var(--success);
+            color: white;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: fixed;
+            background: var(--primary);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-size: 1rem;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            animation: tooltipFade 0.3s ease;
+            max-width: 250px;
+            text-align: center;
+        }
+
+        @keyframes tooltipFade {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Flashcard Section */
+        .flashcard-container {
+            perspective: 1000px;
+            margin: 20px 0;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 220px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+
+        .flashcard.flipped {
+            transform: rotateX(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--radius);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .flashcard-front {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+        }
+
+        .flashcard-back {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: rotateX(180deg);
+        }
+
+        .flashcard-word {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .flashcard-hint {
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+
+        .flashcard-translation {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .flashcard-example {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .flashcard-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .fc-btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .fc-btn.know { background: var(--success); color: white; }
+        .fc-btn.repeat { background: var(--secondary); color: white; }
+        .fc-btn:hover { transform: scale(1.05); }
+
+        .progress-info {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .stack-count {
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+
+        /* Matching Exercise */
+        .matching-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .matching-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .matching-item {
+            background: #f8fafc;
+            padding: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .matching-item:hover { border-color: var(--primary-light); }
+        .matching-item.selected { border-color: var(--primary); background: #e6fffa; }
+        .matching-item.correct { background: #d4edda; border-color: var(--success); }
+        .matching-item.wrong { background: #f8d7da; border-color: var(--error); }
+        .matching-item.disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* Gap Fill Exercise */
+        .gap-sentence {
+            background: #f8fafc;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            line-height: 2;
+            font-size: 1.05rem;
+        }
+
+        .gap-input {
+            border: none;
+            border-bottom: 2px solid var(--primary);
+            background: transparent;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.95rem;
+            padding: 5px 10px;
+            width: 140px;
+            text-align: center;
+            direction: rtl;
+        }
+
+        .gap-input:focus { outline: none; border-bottom-color: var(--secondary); }
+        .gap-input.correct { border-bottom-color: var(--success); background: #d4edda; }
+        .gap-input.wrong { border-bottom-color: var(--error); background: #f8d7da; }
+
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+
+        .word-chip {
+            background: white;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid #cbd5e0;
+        }
+
+        .word-chip:hover { background: var(--primary); color: white; }
+        .word-chip.used { opacity: 0.4; text-decoration: line-through; }
+
+        /* Translation Exercise */
+        .translation-exercise { margin-bottom: 20px; }
+
+        .source-sentence {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .translation-input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: 'Calibri', 'Segoe UI', sans-serif;
+            font-size: 0.95rem;
+            resize: vertical;
+            min-height: 70px;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .translation-input:focus { outline: none; border-color: var(--primary); }
+
+        .sample-answer {
+            background: #d4edda;
+            padding: 14px;
+            border-radius: 10px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .sample-answer.show { display: block; }
+
+        /* Comprehension Questions */
+        .comp-question {
+            background: #f8fafc;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .comp-question-text {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        .comp-options { display: flex; flex-direction: column; gap: 10px; }
+
+        .comp-option {
+            padding: 12px 14px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .comp-option:hover { border-color: var(--primary-light); }
+        .comp-option.selected { border-color: var(--primary); background: #e6fffa; }
+        .comp-option.correct { border-color: var(--success); background: #d4edda; }
+        .comp-option.wrong { border-color: var(--error); background: #f8d7da; }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-light); }
+        .btn-secondary { background: #e2e8f0; color: var(--text); }
+        .btn-secondary:hover { background: #cbd5e0; }
+
+        /* Feedback */
+        .feedback-box {
+            padding: 14px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .feedback-box.show { display: block; animation: fadeIn 0.3s; }
+        .feedback-box.success { background: #d4edda; color: #155724; }
+        .feedback-box.error { background: #f8d7da; color: #721c24; }
+
+        /* Score Display */
+        .score-display {
+            background: linear-gradient(135deg, var(--accent), #ffd93d);
+            padding: 18px;
+            border-radius: var(--radius);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .score-display .score { font-size: 2.2rem; font-weight: 700; color: var(--text); }
+        .score-display .label { color: var(--text); font-size: 0.95rem; }
+
+        /* Vocabulary List */
+        .vocab-list { display: grid; gap: 10px; }
+
+        .vocab-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 10px;
+            align-items: center;
+        }
+
+        .vocab-persian { font-size: 1.05rem; font-weight: 600; color: var(--primary); }
+        .vocab-german { font-size: 0.95rem; color: var(--text); text-align: left; direction: ltr; }
+
+        /* ==================== SURVEY STYLES ==================== */
+        .survey-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .survey-screen {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .survey-screen.active { display: block; }
+
+        .survey-start-card {
+            background: linear-gradient(135deg, var(--survey-primary) 0%, var(--survey-secondary) 100%);
+            border-radius: 24px;
+            padding: 35px 25px;
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+        }
+
+        .survey-start-icon { font-size: 3.5rem; margin-bottom: 15px; }
+        .survey-start-title { font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; }
+        .survey-start-subtitle { font-size: 0.95rem; opacity: 0.9; margin-bottom: 20px; line-height: 1.8; }
+
+        .survey-start-info {
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .survey-btn {
+            background: white;
+            color: var(--survey-primary);
+            border: none;
+            padding: 14px 35px;
+            border-radius: 30px;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .survey-btn:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+
+        /* Survey Question */
+        .survey-progress {
+            background: #e2e8f0;
+            border-radius: 10px;
+            height: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .survey-progress-bar {
+            background: linear-gradient(90deg, var(--survey-primary), var(--survey-secondary));
+            height: 100%;
+            transition: width 0.4s ease;
+        }
+
+        .survey-progress-text {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .survey-question-card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .survey-question-number {
+            background: linear-gradient(135deg, var(--survey-primary), var(--survey-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .survey-question-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            line-height: 1.9;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .survey-options { display: flex; flex-direction: column; gap: 10px; }
+
+        .survey-option {
+            background: #f8fafc;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .survey-option:hover {
+            border-color: var(--survey-primary);
+            transform: translateX(-5px);
+        }
+
+        .survey-option.selected {
+            border-color: var(--survey-primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .survey-option-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+        .survey-nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .survey-nav-btn {
+            flex: 1;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .survey-nav-btn.prev { background: #e2e8f0; color: var(--text); }
+        .survey-nav-btn.next { background: linear-gradient(135deg, var(--survey-primary), var(--survey-secondary)); color: white; }
+        .survey-nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .survey-nav-btn:not(:disabled):hover { transform: translateY(-2px); }
+
+        /* Survey Result */
+        .survey-result-card {
+            background: var(--card);
+            border-radius: 24px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .survey-result-icon { font-size: 4rem; margin-bottom: 15px; }
+
+        .survey-result-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--survey-primary), var(--survey-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .survey-result-type {
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 15px;
+            background: #fef3c7;
+            padding: 8px 20px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .survey-result-description {
+            color: var(--text-light);
+            line-height: 2;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .survey-traits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .survey-trait {
+            background: #f0f4f8;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .survey-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .survey-stat {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 12px;
+        }
+
+        .survey-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--survey-primary);
+        }
+
+        .survey-stat-label { font-size: 0.8rem; color: var(--text-light); }
+
+        .survey-vocab-section {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 18px;
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .survey-vocab-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--survey-primary);
+        }
+
+        .survey-vocab-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+        }
+
+        .survey-vocab-item:last-child { border-bottom: none; }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .matching-container { grid-template-columns: 1fr; }
+            .vocab-item { grid-template-columns: 1fr; text-align: center; }
+            .vocab-german { text-align: center; }
+            .flashcard-word { font-size: 1.5rem; }
+            .nav-tab { padding: 8px 12px; font-size: 0.8rem; }
+            .survey-stats { grid-template-columns: 1fr; }
+            .mode-btn { padding: 10px 18px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <h1>📋 معرفی شغلی | Berufliche Vorstellung</h1>
+        <p>Persisch lernen mit Arash</p>
+    </header>
+
+    <!-- Mode Toggle -->
+    <div class="mode-toggle">
+        <button class="mode-btn active" onclick="switchMode('learn')">📚 یادگیری | Lernen</button>
+        <button class="mode-btn survey-btn" onclick="switchMode('survey')">📊 نظرسنجی | Umfrage</button>
+    </div>
+
+    <!-- ==================== LEARNING MODE ==================== -->
+    <div id="learnMode" class="mode-content active">
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="showSection('reading')">📖 متن</button>
+            <button class="nav-tab" onclick="showSection('vocab')">📚 واژگان</button>
+            <button class="nav-tab" onclick="showSection('flashcards')">🎴 کارت‌ها</button>
+            <button class="nav-tab" onclick="showSection('matching')">🔗 تطبیق</button>
+            <button class="nav-tab" onclick="showSection('gapfill')">✏️ جای خالی</button>
+            <button class="nav-tab" onclick="showSection('translation')">🔄 ترجمه</button>
+            <button class="nav-tab" onclick="showSection('comprehension')">❓ درک</button>
+        </nav>
+
+        <main class="container">
+            <!-- READING SECTION -->
+            <section id="reading" class="section active">
+                <div class="card task-card">
+                    <h2 class="card-title">🎯 تکلیف | Aufgabe</h2>
+                    <div class="task-box">
+                        <div class="task-icon">🎤</div>
+                        <div class="task-content">
+                            <p class="task-persian">لطفاً یک سخنرانی کوتاه درباره‌ی خودتان در زمینه‌ی شغلی آماده کنید.</p>
+                            <p class="task-persian"><strong>به ۱۰ سؤال از این پرسشنامه پاسخ دهید.</strong></p>
+                            <p class="task-german german-text">Bereiten Sie einen Kurzvortrag über sich im Zusammenhang des Berufslebens vor. Gehen Sie dabei auf 10 dieser Fragen ein.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="notes-section">
+                        <h3 class="notes-title">📝 یادداشت‌های شما | Ihre Notizen</h3>
+                        <textarea id="userNotes" class="notes-textarea" placeholder="اینجا یادداشت کنید... / Notieren Sie hier..."></textarea>
+                        <div class="notes-actions">
+                            <button class="btn btn-secondary" onclick="clearNotes()">🗑️ پاک کردن</button>
+                            <button class="btn btn-primary" onclick="saveNotes()">💾 ذخیره</button>
+                        </div>
+                        <div class="notes-saved" id="notesSaved">✓ ذخیره شد!</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2 class="card-title">📖 پرسشنامه | Fragebogen</h2>
+                    <p style="color: var(--text-light); margin-bottom: 15px; font-size: 0.9rem;">
+                        روی کلمات زرد کلیک کنید!
+                        <span class="german-text" style="font-size: 0.85rem;"> | Klicken Sie auf die gelben Wörter!</span>
+                    </p>
+                </div>
+
+                <div class="category-title">۱. اطلاعات کلی | Allgemeine Informationen</div>
+                
+                <div class="question-item">
+                    ۱. لطفاً خودتان را به‌طور کوتاه <span class="vocab-highlight" title="vorstellen">معرفی</span> کنید.
+                    <div class="translation german-text">Bitte stellen Sie sich kurz vor.</div>
+                </div>
+                
+                <div class="question-item">
+                    ۲. در حال حاضر چه <span class="vocab-highlight" title="Position">سِمَتی</span> دارید و در کجا <span class="vocab-highlight" title="arbeiten">کار می‌کنید</span>؟
+                    <div class="translation german-text">Welche Position haben Sie derzeit und wo arbeiten Sie?</div>
+                </div>
+                
+                <div class="question-item">
+                    ۳. مهم‌ترین <span class="vocab-highlight" title="Verantwortung">مسئولیَّت‌های</span> شما در <span class="vocab-highlight" title="aktuelle Situation">مُوقِعیَتِ فِعلی</span> شما چیست؟
+                    <div class="translation german-text">Was sind Ihre wichtigsten Verantwortungen in Ihrer aktuellen Position?</div>
+                </div>
+                
+                <div class="question-item">
+                    ۴. چگونه وارد این <span class="vocab-highlight" title="Arbeitsbereich">حُوزِه‌یِ کاری</span> شدید؟
+                    <div class="translation german-text">Wie sind Sie in diesen Arbeitsbereich gekommen?</div>
+                </div>
+
+                <div class="category-title">۲. تَحصیلات و مَسیرِ حِرفِه‌ای | Ausbildung & Karriere</div>
+                
+                <div class="question-item">
+                    ۱. در چه <span class="vocab-highlight" title="Studienfach">رِشتِه‌ای</span> <span class="vocab-highlight" title="studieren">تَحصیل کرده‌اید</span> و چرا این رشته را <span class="vocab-highlight" title="wählen">اِنتخاب کردید</span>؟
+                    <div class="translation german-text">In welchem Fach haben Sie studiert und warum haben Sie dieses Fach gewählt?</div>
+                </div>
+                
+                <div class="question-item">
+                    ۲. چه <span class="vocab-highlight" title="Fähigkeiten">مهارت‌ها</span> یا <span class="vocab-highlight" title="Wissen">دانِشی</span> از دورانِ تَحصیل برای <span class="vocab-highlight" title="aktueller Beruf">شُغلِ فِعلی‌تان</span> مُفید بوده است؟
+                    <div class="translation german-text">Welche Fähigkeiten oder welches Wissen aus dem Studium war nützlich?</div>
+                </div>
+                
+                <div class="question-item">
+                    ۳. <span class="vocab-highlight" title="Berufserfahrung">تَجرُبِه‌های کاری</span> قَبلیِ شما چه بوده‌اند و چه چیزی از آن‌ها یاد گرفتید؟
+                    <div class="translation german-text">Was waren Ihre bisherigen Berufserfahrungen?</div>
+                </div>
+                
+                <div class="question-item">
+                    ۴. مُهِم‌تَرین <span class="vocab-highlight" title="beruflicher Erfolg">مُوَفَقیَّتِ حِرفِه‌ای</span> شما تا امروز چه بوده است؟
+                    <div class="translation german-text">Was war Ihr wichtigster beruflicher Erfolg bis heute?</div>
+                </div>
+
+                <div class="category-title">۳. مَهارَت‌ها و تَوانایی‌ها | Fähigkeiten</div>
+                
+                <div class="question-item">
+                    ۱. سه <span class="vocab-highlight" title="Hauptfähigkeit">مَهارت اَصلی</span> که شما را از دیگران <span class="vocab-highlight" title="unterscheiden">مُتِمایِز</span> می‌کند، کدام‌اند؟
+                    <div class="translation german-text">Welche drei Hauptfähigkeiten unterscheiden Sie von anderen?</div>
+                </div>
+                
+                <div class="question-item">
+                    ۲. چگونه مهارت‌های <span class="vocab-highlight" title="fachlich">فَنّی</span> یا <span class="vocab-highlight" title="sprachlich">زبانی</span> خود را به‌روز نِگَه می‌دارید؟
+                    <div class="translation german-text">Wie halten Sie Ihre fachlichen oder sprachlichen Fähigkeiten aktuell?</div>
+                </div>
+                
+                <div class="question-item">
+                    ۳. چه تجربه‌ای در <span class="vocab-highlight" title="Teamarbeit">کار گروهی</span> دارید؟
+                    <div class="translation german-text">Welche Erfahrungen haben Sie in Teamarbeit?</div>
+                </div>
+                
+                <div class="question-item">
+                    ۴. در محیط کاری <span class="vocab-highlight" title="unter Druck">تحت فشار</span> چگونه عمل می‌کنید؟
+                    <div class="translation german-text">Wie arbeiten Sie unter Druck?</div>
+                </div>
+
+                <div class="category-title">۴. انگیزه و اهداف شغلی | Motivation & Ziele</div>
+                
+                <div class="question-item">
+                    ۱. چه چیز شما را بیش از همه <span class="vocab-highlight" title="motivieren">انگیزه می‌دهد</span>؟
+                    <div class="translation german-text">Was motiviert Sie am meisten?</div>
+                </div>
+                
+                <div class="question-item">
+                    ۲. در <span class="vocab-highlight" title="in fünf Jahren">پنج سال آینده</span> خودتان را در چه موقعیتی می‌بینید؟
+                    <div class="translation german-text">Wo sehen Sie sich in fünf Jahren?</div>
+                </div>
+                
+                <div class="question-item">
+                    ۳. چرا این <span class="vocab-highlight" title="Organisation">سازمان</span> را برای <span class="vocab-highlight" title="Karriereweg">مسیر حرفه‌ای</span> خود انتخاب کرده‌اید؟
+                    <div class="translation german-text">Warum haben Sie diese Organisation gewählt?</div>
+                </div>
+                
+                <div class="question-item">
+                    ۴. چه <span class="vocab-highlight" title="Erwartungen">انتظاراتی</span> از <span class="vocab-highlight" title="Arbeitsumfeld">محیط کار</span> یا <span class="vocab-highlight" title="Kollegen">همکاران</span> خود دارید؟
+                    <div class="translation german-text">Welche Erwartungen haben Sie an Ihr Arbeitsumfeld?</div>
+                </div>
+
+                <div class="category-title">۵. حل مسئله | Problemlösung</div>
+                
+                <div class="question-item">
+                    ۱. مثالی بزنید از یک <span class="vocab-highlight" title="Herausforderung">چالش</span> جدی. چگونه آن را <span class="vocab-highlight" title="lösen">حل کردید</span>؟
+                    <div class="translation german-text">Nennen Sie ein Beispiel für eine Herausforderung. Wie haben Sie sie gelöst?</div>
+                </div>
+                
+                <div class="question-item">
+                    ۲. چگونه <span class="vocab-highlight" title="Prioritäten setzen">اولویت‌بندی</span> می‌کنید؟
+                    <div class="translation german-text">Wie setzen Sie Prioritäten?</div>
+                </div>
+                
+                <div class="question-item">
+                    ۳. آیا مجبور شده‌اید <span class="vocab-highlight" title="schwierige Entscheidung">تصمیم سختی</span> بگیرید؟ چگونه <span class="vocab-highlight" title="managen">مدیریت کردید</span>؟
+                    <div class="translation german-text">Mussten Sie eine schwierige Entscheidung treffen?</div>
+                </div>
+
+                <div class="category-title">۶. ارتباطات | Kommunikation</div>
+                
+                <div class="question-item">
+                    ۱. <span class="vocab-highlight" title="Kommunikationsstil">سَبکِ اِرتِباطی</span> شما چگونه است؟
+                    <div class="translation german-text">Wie ist Ihr Kommunikationsstil?</div>
+                </div>
+                
+                <div class="question-item">
+                    ۲. چگونه با همکارانی که <span class="vocab-highlight" title="unterschiedliche Meinung">دیدگاه متفاوتی</span> دارند همکاری می‌کنید؟
+                    <div class="translation german-text">Wie arbeiten Sie mit Kollegen mit anderer Meinung?</div>
+                </div>
+                
+                <div class="question-item">
+                    ۳. آیا تجربه‌ی <span class="vocab-highlight" title="Teamleitung">هدایت تیم</span> داشته‌اید؟
+                    <div class="translation german-text">Haben Sie Erfahrung in Teamleitung?</div>
+                </div>
+
+                <div class="category-title">۷. یادگیری | Lernen</div>
+                
+                <div class="question-item">
+                    ۱. چه <span class="vocab-highlight" title="Kurse">دوره‌ها</span> یا <span class="vocab-highlight" title="Weiterbildung">آموزش‌هایی</span> گذرانده‌اید؟
+                    <div class="translation german-text">Welche Kurse oder Weiterbildungen haben Sie absolviert?</div>
+                </div>
+                
+                <div class="question-item">
+                    ۲. چه <span class="vocab-highlight" title="Trends">روندها</span> یا <span class="vocab-highlight" title="Veränderungen">تغییراتی</span> را دنبال می‌کنید؟
+                    <div class="translation german-text">Welche Trends verfolgen Sie?</div>
+                </div>
+                
+                <div class="question-item">
+                    ۳. چه مهارتی را می‌خواهید <span class="vocab-highlight" title="verbessern">تقویت</span> کنید؟
+                    <div class="translation german-text">Welche Fähigkeit möchten Sie verbessern?</div>
+                </div>
+
+                <div class="category-title">۸. ارزش‌ها | Werte</div>
+                
+                <div class="question-item">
+                    ۱. چه <span class="vocab-highlight" title="Werte">ارزش‌هایی</span> در محیط کار برای شما اهمیت دارند؟
+                    <div class="translation german-text">Welche Werte sind Ihnen wichtig?</div>
+                </div>
+                
+                <div class="question-item">
+                    ۲. چه چیزی یک <span class="vocab-highlight" title="gutes Arbeitsumfeld">محیط کاری خوب</span> را تعریف می‌کند؟
+                    <div class="translation german-text">Was definiert ein gutes Arbeitsumfeld?</div>
+                </div>
+                
+                <div class="question-item">
+                    ۳. <span class="vocab-highlight" title="Rolle">نقش</span> شما در ایجاد <span class="vocab-highlight" title="positives Arbeitsklima">فضای کاری مثبت</span> چیست؟
+                    <div class="translation german-text">Was ist Ihre Rolle bei einem positiven Arbeitsklima?</div>
+                </div>
+            </section>
+
+            <!-- VOCABULARY LIST -->
+            <section id="vocab" class="section">
+                <div class="card">
+                    <h2 class="card-title">📚 لیست واژگان | Vokabelliste</h2>
+                    <div class="vocab-list" id="vocabList"></div>
+                </div>
+            </section>
+
+            <!-- FLASHCARDS -->
+            <section id="flashcards" class="section">
+                <div class="card">
+                    <h2 class="card-title">🎴 کارت‌های آموزشی | Lernkarten</h2>
+                    <p style="color: var(--text-light); margin-bottom: 10px; font-size: 0.9rem;">
+                        روی کارت کلیک کنید | Klicken Sie auf die Karte
+                    </p>
+                    
+                    <div class="progress-info">
+                        <span class="stack-count" id="stackCount">۳۵ کارت</span>
+                    </div>
+                    
+                    <div class="flashcard-container">
+                        <div class="flashcard" id="flashcard" onclick="flipCard()">
+                            <div class="flashcard-front">
+                                <div class="flashcard-word" id="fcWord">واژه</div>
+                                <div class="flashcard-hint" id="fcHint">کلیک کنید</div>
+                            </div>
+                            <div class="flashcard-back">
+                                <div class="flashcard-translation german-text" id="fcTranslation">Übersetzung</div>
+                                <div class="flashcard-example" id="fcExample">مثال</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flashcard-controls">
+                        <button class="fc-btn repeat" onclick="repeatCard()">🔄 تکرار</button>
+                        <button class="fc-btn know" onclick="knowCard()">✓ بلدم</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MATCHING -->
+            <section id="matching" class="section">
+                <div class="card">
+                    <h2 class="card-title">🔗 تطبیق واژگان | Zuordnung</h2>
+                    
+                    <div class="score-display">
+                        <div class="score" id="matchScore">۰ / ۸</div>
+                        <div class="label">امتیاز</div>
+                    </div>
+                    
+                    <div class="matching-container" id="matchingContainer"></div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn btn-primary" onclick="resetMatching()">🔄 شروع مجدد</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GAP FILL -->
+            <section id="gapfill" class="section">
+                <div class="card">
+                    <h2 class="card-title">✏️ جای خالی | Lückentext</h2>
+                    
+                    <div class="word-bank" id="wordBank"></div>
+                    <div id="gapExercises"></div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn btn-primary" onclick="checkGaps()">✓ بررسی</button>
+                        <button class="btn btn-secondary" onclick="resetGaps()">🔄 مجدد</button>
+                    </div>
+                    
+                    <div class="feedback-box" id="gapFeedback"></div>
+                </div>
+            </section>
+
+            <!-- TRANSLATION -->
+            <section id="translation" class="section">
+                <div class="card">
+                    <h2 class="card-title">🔄 ترجمه | Übersetzung</h2>
+                    <div id="translationExercises"></div>
+                </div>
+            </section>
+
+            <!-- COMPREHENSION -->
+            <section id="comprehension" class="section">
+                <div class="card">
+                    <h2 class="card-title">❓ درک مطلب | Textverständnis</h2>
+                    <div id="compQuestions"></div>
+                    
+                    <div class="score-display" id="compScore" style="display: none;">
+                        <div class="score" id="compScoreValue">۰ / ۵</div>
+                        <div class="label">نتیجه</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ==================== SURVEY MODE ==================== -->
+    <div id="surveyMode" class="mode-content">
+        <div class="survey-container">
+            <!-- Start -->
+            <div id="surveyStart" class="survey-screen active">
+                <div class="survey-start-card">
+                    <div class="survey-start-icon">📊</div>
+                    <h2 class="survey-start-title">نظرسنجی شغلی</h2>
+                    <p class="survey-start-subtitle">
+                        Berufs-Meinungsumfrage<br>
+                        شخصیت کاری خود را کشف کنید!
+                    </p>
+                    <div class="survey-start-info">
+                        ۲۰ سؤال | بدون پاسخ درست یا غلط<br>
+                        فقط نظر خودتان را بگویید! 🎯
+                    </div>
+                    <button class="survey-btn" onclick="startSurvey()">شروع نظرسنجی 🚀</button>
+                </div>
+            </div>
+
+            <!-- Questions -->
+            <div id="surveyQuestions" class="survey-screen">
+                <div class="survey-progress">
+                    <div class="survey-progress-bar" id="surveyProgressBar"></div>
+                </div>
+                <div class="survey-progress-text" id="surveyProgressText">سؤال ۱ از ۲۰</div>
+
+                <div class="survey-question-card">
+                    <div class="survey-question-number" id="surveyQNumber">سؤال ۱</div>
+                    <div class="survey-question-text" id="surveyQText">سؤال</div>
+                    <div class="survey-options" id="surveyOptions"></div>
+                </div>
+
+                <div class="survey-nav">
+                    <button class="survey-nav-btn prev" id="surveyPrev" onclick="surveyPrev()">→ قبلی</button>
+                    <button class="survey-nav-btn next" id="surveyNext" onclick="surveyNext()">بعدی ←</button>
+                </div>
+            </div>
+
+            <!-- Result -->
+            <div id="surveyResult" class="survey-screen">
+                <div class="survey-result-card">
+                    <div class="survey-result-icon" id="surveyResultIcon">🦁</div>
+                    <h2 class="survey-result-title">نتیجه‌ی شما</h2>
+                    <div class="survey-result-type" id="surveyResultType">نوع شخصیت</div>
+                    <p class="survey-result-description" id="surveyResultDesc">توضیحات</p>
+                    
+                    <div class="survey-traits" id="surveyTraits"></div>
+                    <div class="survey-stats" id="surveyStats"></div>
+
+                    <div class="survey-vocab-section">
+                        <div class="survey-vocab-title">📚 واژگان این نظرسنجی</div>
+                        <div id="surveyVocabList"></div>
+                    </div>
+
+                    <button class="survey-btn" onclick="restartSurvey()" style="margin-top: 20px;">🔄 دوباره</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== VOCABULARY DATA ====================
+        const vocabulary = [
+            { persian: "معرفی", german: "Vorstellung", example: "لطفاً خودتان را معرفی کنید" },
+            { persian: "سِمَت", german: "Position, Stelle", example: "سِمَت من مدیر است" },
+            { persian: "مسئولیَّت", german: "Verantwortung", example: "مسئولیت‌های شغلی من زیاد است" },
+            { persian: "موقعیَّت فعلی", german: "aktuelle Position", example: "در موقعیت فعلی چه می‌کنید؟" },
+            { persian: "حوزه‌ی کاری", german: "Arbeitsbereich", example: "حوزه‌ی کاری من IT است" },
+            { persian: "رِشتِه", german: "Studienfach", example: "رشته‌ی من پزشکی بود" },
+            { persian: "تحصیل کردن", german: "studieren", example: "من در آلمان تحصیل کردم" },
+            { persian: "انتخاب کردن", german: "wählen", example: "چرا این رشته را انتخاب کردید؟" },
+            { persian: "مهارت", german: "Fähigkeit", example: "مهارت اصلی من زبان است" },
+            { persian: "دانش", german: "Wissen", example: "دانش فنی خوبی دارم" },
+            { persian: "شغل فعلی", german: "aktueller Beruf", example: "شغل فعلی من معلمی است" },
+            { persian: "تجربه‌ی کاری", german: "Berufserfahrung", example: "ده سال تجربه‌ی کاری دارم" },
+            { persian: "موفقیَّت حرفه‌ای", german: "beruflicher Erfolg", example: "بزرگ‌ترین موفقیت من چه بود؟" },
+            { persian: "متمایز کردن", german: "unterscheiden", example: "چه چیز شما را متمایز می‌کند؟" },
+            { persian: "فنّی", german: "fachlich, technisch", example: "مهارت‌های فنی مهم هستند" },
+            { persian: "زبانی", german: "sprachlich", example: "توانایی زبانی خوبی دارم" },
+            { persian: "کار گروهی", german: "Teamarbeit", example: "من کار گروهی را دوست دارم" },
+            { persian: "تحت فشار", german: "unter Druck", example: "تحت فشار خوب کار می‌کنم" },
+            { persian: "انگیزه", german: "Motivation", example: "انگیزه‌ی من کمک به دیگران است" },
+            { persian: "پنج سال آینده", german: "in fünf Jahren", example: "در پنج سال آینده کجا هستید؟" },
+            { persian: "سازمان", german: "Organisation", example: "این سازمان بسیار بزرگ است" },
+            { persian: "مسیر حرفه‌ای", german: "Karriereweg", example: "مسیر حرفه‌ای من جالب بود" },
+            { persian: "انتظارات", german: "Erwartungen", example: "انتظارات شما چیست؟" },
+            { persian: "محیط کار", german: "Arbeitsumfeld", example: "محیط کار باید مثبت باشد" },
+            { persian: "همکاران", german: "Kollegen", example: "همکاران من بسیار خوب هستند" },
+            { persian: "چالش", german: "Herausforderung", example: "این کار یک چالش بزرگ بود" },
+            { persian: "حل کردن", german: "lösen", example: "مشکل را حل کردم" },
+            { persian: "اولویت‌بندی", german: "Prioritäten setzen", example: "اولویت‌بندی مهم است" },
+            { persian: "تصمیم سخت", german: "schwierige Entscheidung", example: "تصمیم سختی گرفتم" },
+            { persian: "مدیریت کردن", german: "managen", example: "پروژه را مدیریت کردم" },
+            { persian: "سبک ارتباطی", german: "Kommunikationsstil", example: "سبک ارتباطی من صمیمی است" },
+            { persian: "دیدگاه", german: "Meinung, Ansicht", example: "دیدگاه‌های متفاوتی داریم" },
+            { persian: "هدایت تیم", german: "Teamleitung", example: "تجربه‌ی هدایت تیم دارم" },
+            { persian: "دوره / آموزش", german: "Kurs / Weiterbildung", example: "دوره‌های زیادی گذراندم" },
+            { persian: "ارزش‌ها", german: "Werte", example: "ارزش‌های من احترام است" }
+        ];
+
+        // ==================== SURVEY DATA ====================
+        const surveyQuestions = [
+            { question: "صبح‌ها چگونه به سر کار می‌روید؟", options: [
+                { icon: "☀️", text: "با انرژی و خوشحال!", type: "E" },
+                { icon: "😴", text: "به سختی از خواب بیدار می‌شوم", type: "I" },
+                { icon: "🎧", text: "با موسیقی و قهوه", type: "C" },
+                { icon: "🏃", text: "عجله‌ای! همیشه دیر می‌رسم", type: "S" }
+            ], vocab: { persian: "صبح", german: "Morgen" }},
+            { question: "در جلسات کاری چه نقشی دارید؟", options: [
+                { icon: "🎤", text: "من رهبر بحث هستم", type: "L" },
+                { icon: "👂", text: "بیشتر گوش می‌دهم", type: "I" },
+                { icon: "📝", text: "یادداشت می‌کنم", type: "A" },
+                { icon: "💡", text: "ایده‌های جدید می‌دهم", type: "C" }
+            ], vocab: { persian: "جلسه", german: "Meeting" }},
+            { question: "وقتی همکارتان مشکلی دارد، چه می‌کنید؟", options: [
+                { icon: "🤝", text: "فوراً کمک می‌کنم", type: "E" },
+                { icon: "🤔", text: "اگر بخواهد، کمک می‌کنم", type: "I" },
+                { icon: "📞", text: "به مدیر اطلاع می‌دهم", type: "A" },
+                { icon: "💪", text: "یادش می‌دهم خودش حل کند", type: "L" }
+            ], vocab: { persian: "همکار", german: "Kollege" }},
+            { question: "محیط کار ایده‌آل شما چگونه است؟", options: [
+                { icon: "🏢", text: "دفتر شلوغ با همکاران زیاد", type: "E" },
+                { icon: "🏠", text: "کار از خانه، آرام و ساکت", type: "I" },
+                { icon: "☕", text: "کافه یا فضای مشترک", type: "C" },
+                { icon: "🌳", text: "هر جایی که طبیعت باشد", type: "S" }
+            ], vocab: { persian: "محیط کار", german: "Arbeitsumfeld" }},
+            { question: "چگونه تصمیم می‌گیرید؟", options: [
+                { icon: "🧠", text: "با تحلیل و منطق", type: "A" },
+                { icon: "❤️", text: "با احساس و شهود", type: "C" },
+                { icon: "👥", text: "با مشورت دیگران", type: "E" },
+                { icon: "⚡", text: "سریع و بدون فکر زیاد", type: "S" }
+            ], vocab: { persian: "تصمیم", german: "Entscheidung" }},
+            { question: "پاداش کاری ایده‌آل برای شما چیست؟", options: [
+                { icon: "💰", text: "پول و حقوق بالا", type: "A" },
+                { icon: "🏆", text: "تقدیر و احترام", type: "L" },
+                { icon: "🎉", text: "مرخصی بیشتر", type: "S" },
+                { icon: "📈", text: "ارتقای شغلی", type: "L" }
+            ], vocab: { persian: "پاداش", german: "Belohnung" }},
+            { question: "وقتی کار زیاد است، چه می‌کنید؟", options: [
+                { icon: "📋", text: "لیست می‌نویسم و اولویت‌بندی می‌کنم", type: "A" },
+                { icon: "😰", text: "استرس می‌گیرم", type: "S" },
+                { icon: "☕", text: "اول استراحت، بعد کار", type: "I" },
+                { icon: "🦸", text: "همه را انجام می‌دهم!", type: "E" }
+            ], vocab: { persian: "استرس", german: "Stress" }},
+            { question: "رابطه‌ی شما با رئیس‌تان چگونه است؟", options: [
+                { icon: "😊", text: "دوستانه و صمیمی", type: "E" },
+                { icon: "📏", text: "رسمی و حرفه‌ای", type: "A" },
+                { icon: "😬", text: "کمی ترسناک!", type: "I" },
+                { icon: "🤷", text: "رئیس؟ من خودم رئیسم!", type: "L" }
+            ], vocab: { persian: "رئیس", german: "Chef" }},
+            { question: "در زمان استراحت ناهار چه می‌کنید؟", options: [
+                { icon: "👥", text: "با همکاران غذا می‌خورم", type: "E" },
+                { icon: "📱", text: "تنها و با گوشی", type: "I" },
+                { icon: "🚶", text: "پیاده‌روی می‌کنم", type: "S" },
+                { icon: "💻", text: "کار می‌کنم! استراحت ندارم", type: "A" }
+            ], vocab: { persian: "استراحت", german: "Pause" }},
+            { question: "اگر اشتباهی کنید، چه می‌کنید؟", options: [
+                { icon: "🙋", text: "سریع اعتراف می‌کنم", type: "E" },
+                { icon: "🔧", text: "آرام حل می‌کنم", type: "I" },
+                { icon: "📊", text: "تحلیل می‌کنم چرا اشتباه شد", type: "A" },
+                { icon: "😅", text: "امیدوارم کسی نفهمد!", type: "S" }
+            ], vocab: { persian: "اشتباه", german: "Fehler" }},
+            { question: "چه نوع پروژه‌ای را دوست دارید؟", options: [
+                { icon: "🎨", text: "خلاقانه و هنری", type: "C" },
+                { icon: "📊", text: "تحلیلی و با اعداد", type: "A" },
+                { icon: "👥", text: "گروهی و تیمی", type: "E" },
+                { icon: "🏃", text: "سریع و کوتاه‌مدت", type: "S" }
+            ], vocab: { persian: "پروژه", german: "Projekt" }},
+            { question: "ساعت کاری ایده‌آل شما چیست؟", options: [
+                { icon: "🌅", text: "صبح زود شروع، زود تمام", type: "A" },
+                { icon: "🌙", text: "دیر شروع، دیر تمام", type: "C" },
+                { icon: "🕐", text: "ساعت انعطاف‌پذیر", type: "I" },
+                { icon: "⏰", text: "۹ تا ۵ کلاسیک", type: "S" }
+            ], vocab: { persian: "ساعت کاری", german: "Arbeitszeit" }},
+            { question: "وقتی ایده‌ی جدیدی دارید، چه می‌کنید؟", options: [
+                { icon: "📢", text: "فوراً به همه می‌گویم", type: "E" },
+                { icon: "📝", text: "اول می‌نویسم و فکر می‌کنم", type: "I" },
+                { icon: "🚀", text: "شروع می‌کنم به اجرا!", type: "L" },
+                { icon: "🤝", text: "با یک نفر مشورت می‌کنم", type: "C" }
+            ], vocab: { persian: "ایده", german: "Idee" }},
+            { question: "چه چیزی شما را در کار ناراحت می‌کند؟", options: [
+                { icon: "🐌", text: "کار کند و بی‌هدف", type: "L" },
+                { icon: "😤", text: "همکاران بی‌احترام", type: "E" },
+                { icon: "📋", text: "قوانین سخت و بی‌منطق", type: "C" },
+                { icon: "⏰", text: "اضافه‌کاری زیاد", type: "S" }
+            ], vocab: { persian: "ناراحت", german: "verärgert" }},
+            { question: "پنج سال آینده خودتان را کجا می‌بینید؟", options: [
+                { icon: "👔", text: "مدیر یک تیم بزرگ", type: "L" },
+                { icon: "🌴", text: "در ساحل، بازنشسته!", type: "S" },
+                { icon: "🎓", text: "در حال یادگیری چیز جدید", type: "C" },
+                { icon: "💼", text: "همین‌جا، ولی بهتر", type: "A" }
+            ], vocab: { persian: "آینده", german: "Zukunft" }},
+            { question: "چگونه با انتقاد برخورد می‌کنید؟", options: [
+                { icon: "🙏", text: "تشکر می‌کنم و یاد می‌گیرم", type: "A" },
+                { icon: "😢", text: "ناراحت می‌شوم", type: "I" },
+                { icon: "🤨", text: "بستگی دارد کی انتقاد کند", type: "E" },
+                { icon: "💪", text: "انگیزه می‌گیرم!", type: "L" }
+            ], vocab: { persian: "انتقاد", german: "Kritik" }},
+            { question: "غذای محبوب شما در محل کار چیست؟", options: [
+                { icon: "🥗", text: "سالاد سالم", type: "A" },
+                { icon: "🍕", text: "پیتزا با همکاران", type: "E" },
+                { icon: "☕", text: "فقط قهوه کافی است!", type: "C" },
+                { icon: "🍱", text: "غذای خانگی", type: "I" }
+            ], vocab: { persian: "غذا", german: "Essen" }},
+            { question: "اگر لاتاری ببرید، چه می‌کنید؟", options: [
+                { icon: "🏃", text: "فوراً استعفا می‌دهم!", type: "S" },
+                { icon: "💼", text: "همان کار را ادامه می‌دهم", type: "A" },
+                { icon: "🏢", text: "شرکت خودم را می‌زنم", type: "L" },
+                { icon: "🌍", text: "سفر می‌کنم و بعد فکر می‌کنم", type: "C" }
+            ], vocab: { persian: "لاتاری", german: "Lotterie" }},
+            { question: "چه موسیقی‌ای هنگام کار گوش می‌دهید؟", options: [
+                { icon: "🎵", text: "پاپ و شاد", type: "E" },
+                { icon: "🎻", text: "کلاسیک و آرام", type: "I" },
+                { icon: "🔇", text: "سکوت! تمرکز لازم دارم", type: "A" },
+                { icon: "🎸", text: "هر چیزی که انرژی بدهد", type: "C" }
+            ], vocab: { persian: "موسیقی", german: "Musik" }},
+            { question: "جمله‌ی مورد علاقه‌ی شما کدام است؟", options: [
+                { icon: "🌟", text: "تلاش کن تا موفق شوی!", type: "L" },
+                { icon: "😌", text: "آرامش مهم‌تر از پول است", type: "S" },
+                { icon: "🤝", text: "با هم قوی‌تریم", type: "E" },
+                { icon: "🧠", text: "دانش قدرت است", type: "A" }
+            ], vocab: { persian: "موفق", german: "erfolgreich" }}
+        ];
+
+        const personalities = {
+            L: { icon: "🦁", title: "رهبر | Der Anführer", description: "شما یک رهبر طبیعی هستید! دوست دارید تصمیم بگیرید و تیم را هدایت کنید.", traits: ["جاه‌طلب", "قاطع", "الهام‌بخش"], germanTraits: ["ehrgeizig", "entschlossen", "inspirierend"] },
+            E: { icon: "🦋", title: "اجتماعی | Der Teamplayer", description: "شما عاشق کار با دیگران هستید! ارتباطات انسانی برای شما مهم است.", traits: ["صمیمی", "همدل", "همکار"], germanTraits: ["freundlich", "empathisch", "kooperativ"] },
+            A: { icon: "🦉", title: "تحلیل‌گر | Der Analytiker", description: "شما منطقی و دقیق هستید! داده‌ها و اعداد را دوست دارید.", traits: ["دقیق", "منطقی", "سازمان‌یافته"], germanTraits: ["genau", "logisch", "organisiert"] },
+            C: { icon: "🦚", title: "خلاق | Der Kreative", description: "شما سرشار از ایده‌های جدید هستید! از تفکر خارج از چارچوب لذت می‌برید.", traits: ["خلاق", "نوآور", "متفاوت"], germanTraits: ["kreativ", "innovativ", "anders"] },
+            I: { icon: "🐢", title: "متفکر | Der Denker", description: "شما آرام و عمیق فکر می‌کنید! ترجیح می‌دهید تنها کار کنید.", traits: ["متفکر", "مستقل", "دقیق"], germanTraits: ["nachdenklich", "unabhängig", "sorgfältig"] },
+            S: { icon: "🐨", title: "آرام‌طلب | Der Entspannte", description: "برای شما تعادل بین کار و زندگی مهم است!", traits: ["آرام", "صبور", "متعادل"], germanTraits: ["ruhig", "geduldig", "ausgeglichen"] }
+        };
+
+        // ==================== STATE ====================
+        let currentMode = 'learn';
+        let flashcardStack = [];
+        let matchedPairs = 0;
+        let selectedPersian = null;
+        let selectedGerman = null;
+        let surveyCurrentQ = 0;
+        let surveyAnswers = [];
+
+        // ==================== MODE SWITCHING ====================
+        function switchMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.getElementById('learnMode').classList.toggle('active', mode === 'learn');
+            document.getElementById('surveyMode').classList.toggle('active', mode === 'survey');
+        }
+
+        // ==================== LEARNING FUNCTIONS ====================
+        function showSection(sectionId) {
+            document.querySelectorAll('#learnMode .section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+            
+            if (sectionId === 'vocab') initVocabList();
+            if (sectionId === 'flashcards') initFlashcards();
+            if (sectionId === 'matching') initMatching();
+            if (sectionId === 'gapfill') initGapFill();
+            if (sectionId === 'translation') initTranslation();
+            if (sectionId === 'comprehension') initComprehension();
+        }
+
+        function shuffleArray(arr) {
+            const newArr = [...arr];
+            for (let i = newArr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+            }
+            return newArr;
+        }
+
+        function initVocabList() {
+            document.getElementById('vocabList').innerHTML = vocabulary.map(v => `
+                <div class="vocab-item">
+                    <div class="vocab-persian">${v.persian}</div>
+                    <div class="vocab-german">${v.german}</div>
+                </div>
+            `).join('');
+        }
+
+        function initFlashcards() {
+            flashcardStack = shuffleArray([...vocabulary]);
+            updateFlashcard();
+        }
+
+        function updateFlashcard() {
+            document.getElementById('flashcard').classList.remove('flipped');
+            if (flashcardStack.length === 0) {
+                document.getElementById('fcWord').textContent = "🎉 تبریک!";
+                document.getElementById('fcHint').textContent = "همه کارت‌ها را یاد گرفتید!";
+                document.getElementById('stackCount').textContent = "تمام! ✓";
+                return;
+            }
+            const c = flashcardStack[0];
+            document.getElementById('fcWord').textContent = c.persian;
+            document.getElementById('fcHint').textContent = "کلیک کنید";
+            document.getElementById('fcTranslation').textContent = c.german;
+            document.getElementById('fcExample').textContent = c.example;
+            document.getElementById('stackCount').textContent = `${flashcardStack.length} کارت`;
+        }
+
+        function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+        function knowCard() { if (flashcardStack.length > 0) { flashcardStack.shift(); updateFlashcard(); } }
+        function repeatCard() {
+            if (flashcardStack.length > 0) {
+                const card = flashcardStack.shift();
+                flashcardStack.splice(Math.min(3, flashcardStack.length), 0, card);
+                updateFlashcard();
+            }
+        }
+
+        function initMatching() {
+            const selected = shuffleArray([...vocabulary]).slice(0, 8);
+            const persianItems = shuffleArray([...selected]);
+            const germanItems = shuffleArray([...selected]);
+            
+            document.getElementById('matchingContainer').innerHTML = `
+                <div class="matching-column">${persianItems.map(v => `<div class="matching-item" data-type="persian" data-word="${v.persian}" onclick="selectMatch(this, 'persian')">${v.persian}</div>`).join('')}</div>
+                <div class="matching-column">${germanItems.map(v => `<div class="matching-item german-text" data-type="german" data-word="${v.persian}" onclick="selectMatch(this, 'german')">${v.german}</div>`).join('')}</div>
+            `;
+            matchedPairs = 0;
+            selectedPersian = selectedGerman = null;
+            document.getElementById('matchScore').textContent = `۰ / ۸`;
+        }
+
+        function selectMatch(el, type) {
+            if (el.classList.contains('disabled')) return;
+            document.querySelectorAll(`.matching-item[data-type="${type}"]`).forEach(item => {
+                if (!item.classList.contains('disabled')) item.classList.remove('selected');
+            });
+            el.classList.add('selected');
+            if (type === 'persian') selectedPersian = el; else selectedGerman = el;
+            if (selectedPersian && selectedGerman) checkMatch();
+        }
+
+        function checkMatch() {
+            if (selectedPersian.dataset.word === selectedGerman.dataset.word) {
+                selectedPersian.classList.add('correct', 'disabled');
+                selectedGerman.classList.add('correct', 'disabled');
+                selectedPersian.classList.remove('selected');
+                selectedGerman.classList.remove('selected');
+                matchedPairs++;
+                document.getElementById('matchScore').textContent = `${matchedPairs} / ۸`;
+            } else {
+                selectedPersian.classList.add('wrong');
+                selectedGerman.classList.add('wrong');
+                setTimeout(() => {
+                    selectedPersian.classList.remove('wrong', 'selected');
+                    selectedGerman.classList.remove('wrong', 'selected');
+                    selectedPersian = selectedGerman = null;
+                }, 700);
+                return;
+            }
+            selectedPersian = selectedGerman = null;
+        }
+
+        function resetMatching() { initMatching(); }
+
+        const gapExercises = [
+            { sentence: "لطفاً خودتان را به‌طور کوتاه ___ کنید.", answer: "معرفی", hint: "vorstellen" },
+            { sentence: "مهم‌ترین ___ شما در کار چیست؟", answer: "مسئولیت", hint: "Verantwortung" },
+            { sentence: "چگونه وارد این ___ شدید؟", answer: "حوزه‌ی کاری", hint: "Arbeitsbereich" },
+            { sentence: "من در رشته‌ی پزشکی ___ کرده‌ام.", answer: "تحصیل", hint: "studieren" },
+            { sentence: "ده سال ___ دارم.", answer: "تجربه‌ی کاری", hint: "Berufserfahrung" },
+            { sentence: "من ___ را دوست دارم.", answer: "کار گروهی", hint: "Teamarbeit" }
+        ];
+
+        function initGapFill() {
+            const words = shuffleArray(gapExercises.map(e => e.answer));
+            document.getElementById('wordBank').innerHTML = words.map(w => `<span class="word-chip" onclick="selectWord(this)">${w}</span>`).join('');
+            document.getElementById('gapExercises').innerHTML = gapExercises.map((ex, i) => `
+                <div class="gap-sentence">
+                    ${ex.sentence.replace('___', `<input type="text" class="gap-input" id="gap${i}" data-answer="${ex.answer}" placeholder="...">`)}
+                    <div style="color: var(--text-light); font-size: 0.8rem; margin-top: 5px;" class="german-text">(${ex.hint})</div>
+                </div>
+            `).join('');
+            document.getElementById('gapFeedback').classList.remove('show');
+        }
+
+        function selectWord(el) {
+            if (el.classList.contains('used')) return;
+            for (let input of document.querySelectorAll('.gap-input')) {
+                if (input.value === '') { input.value = el.textContent; el.classList.add('used'); break; }
+            }
+        }
+
+        function checkGaps() {
+            let correct = 0;
+            document.querySelectorAll('.gap-input').forEach(input => {
+                if (input.value.trim() === input.dataset.answer) { input.classList.add('correct'); input.classList.remove('wrong'); correct++; }
+                else { input.classList.add('wrong'); input.classList.remove('correct'); }
+            });
+            const fb = document.getElementById('gapFeedback');
+            fb.className = correct === 6 ? 'feedback-box show success' : 'feedback-box show error';
+            fb.innerHTML = correct === 6 ? `🎉 عالی! (${correct}/6)` : `${correct}/6 درست. دوباره تلاش کنید!`;
+        }
+
+        function resetGaps() { initGapFill(); }
+
+        const translationExercises = [
+            { persian: "لطفاً خودتان را معرفی کنید.", german: "Bitte stellen Sie sich vor." },
+            { persian: "سِمَت من مدیر فروش است.", german: "Meine Position ist Verkaufsleiter." },
+            { persian: "من ده سال تجربه‌ی کاری دارم.", german: "Ich habe zehn Jahre Berufserfahrung." },
+            { persian: "کار گروهی برای من مهم است.", german: "Teamarbeit ist mir wichtig." },
+            { persian: "انگیزه‌ی من کمک به دیگران است.", german: "Meine Motivation ist es, anderen zu helfen." }
+        ];
+
+        function initTranslation() {
+            document.getElementById('translationExercises').innerHTML = translationExercises.map((ex, i) => `
+                <div class="translation-exercise">
+                    <div class="source-sentence">${ex.persian}</div>
+                    <textarea class="translation-input" placeholder="Deutsche Übersetzung..."></textarea>
+                    <button class="btn btn-secondary" onclick="this.nextElementSibling.classList.toggle('show')" style="margin-top: 10px;">📖 نمونه</button>
+                    <div class="sample-answer german-text"><strong>Musterantwort:</strong> ${ex.german}</div>
+                </div>
+            `).join('');
+        }
+
+        const compQuestions = [
+            { question: "«سِمَت» به چه معناست؟", options: ["محل زندگی", "موقعیت شغلی", "حقوق ماهانه", "ساعت کاری"], correct: 1 },
+            { question: "«تجربه‌ی کاری» در آلمانی چه می‌شود؟", options: ["Ausbildung", "Praktikum", "Berufserfahrung", "Studium"], correct: 2 },
+            { question: "«حوزه‌ی کاری» یعنی چه؟", options: ["ساختمان اداری", "زمینه‌ی تخصصی شغل", "قرارداد کار", "ساعت کاری"], correct: 1 },
+            { question: "کدام واژه به معنای Teamarbeit است?", options: ["کار شبانه", "کار گروهی", "کار خانگی", "کار فردی"], correct: 1 },
+            { question: "«انتظارات» در آلمانی چیست؟", options: ["Erfahrungen", "Erwartungen", "Entscheidungen", "Entwicklung"], correct: 1 }
+        ];
+
+        const compAnswers = {};
+
+        function initComprehension() {
+            document.getElementById('compQuestions').innerHTML = compQuestions.map((q, qi) => `
+                <div class="comp-question">
+                    <div class="comp-question-text">${qi + 1}. ${q.question}</div>
+                    <div class="comp-options">${q.options.map((opt, oi) => `
+                        <div class="comp-option" data-q="${qi}" data-o="${oi}" onclick="selectComp(${qi}, ${oi})">${opt}</div>
+                    `).join('')}</div>
+                </div>
+            `).join('');
+            document.getElementById('compScore').style.display = 'none';
+        }
+
+        function selectComp(qi, oi) {
+            document.querySelectorAll(`[data-q="${qi}"]`).forEach(o => o.classList.remove('selected'));
+            event.target.classList.add('selected');
+            compAnswers[qi] = oi;
+            if (Object.keys(compAnswers).length === compQuestions.length) checkComp();
+        }
+
+        function checkComp() {
+            let correct = 0;
+            compQuestions.forEach((q, qi) => {
+                document.querySelectorAll(`[data-q="${qi}"]`).forEach((o, oi) => {
+                    if (oi === q.correct) o.classList.add('correct');
+                    else if (compAnswers[qi] === oi) o.classList.add('wrong');
+                });
+                if (compAnswers[qi] === q.correct) correct++;
+            });
+            document.getElementById('compScore').style.display = 'block';
+            document.getElementById('compScoreValue').textContent = `${correct} / ${compQuestions.length}`;
+        }
+
+        // ==================== SURVEY FUNCTIONS ====================
+        function startSurvey() {
+            document.getElementById('surveyStart').classList.remove('active');
+            document.getElementById('surveyQuestions').classList.add('active');
+            surveyCurrentQ = 0;
+            surveyAnswers = new Array(surveyQuestions.length).fill(null);
+            loadSurveyQ();
+        }
+
+        function loadSurveyQ() {
+            const q = surveyQuestions[surveyCurrentQ];
+            document.getElementById('surveyProgressBar').style.width = ((surveyCurrentQ + 1) / surveyQuestions.length * 100) + '%';
+            document.getElementById('surveyProgressText').textContent = `سؤال ${surveyCurrentQ + 1} از ${surveyQuestions.length}`;
+            document.getElementById('surveyQNumber').textContent = `سؤال ${surveyCurrentQ + 1}`;
+            document.getElementById('surveyQText').textContent = q.question;
+            document.getElementById('surveyOptions').innerHTML = q.options.map((opt, i) => `
+                <div class="survey-option ${surveyAnswers[surveyCurrentQ] === i ? 'selected' : ''}" onclick="selectSurveyOpt(${i})">
+                    <span class="survey-option-icon">${opt.icon}</span>
+                    <span>${opt.text}</span>
+                </div>
+            `).join('');
+            document.getElementById('surveyPrev').disabled = surveyCurrentQ === 0;
+            document.getElementById('surveyNext').textContent = surveyCurrentQ === surveyQuestions.length - 1 ? 'نتیجه 🎯' : 'بعدی ←';
+        }
+
+        function selectSurveyOpt(i) {
+            surveyAnswers[surveyCurrentQ] = i;
+            document.querySelectorAll('.survey-option').forEach((o, idx) => o.classList.toggle('selected', idx === i));
+        }
+
+        function surveyNext() {
+            if (surveyAnswers[surveyCurrentQ] === null) return;
+            if (surveyCurrentQ < surveyQuestions.length - 1) { surveyCurrentQ++; loadSurveyQ(); }
+            else showSurveyResult();
+        }
+
+        function surveyPrev() { if (surveyCurrentQ > 0) { surveyCurrentQ--; loadSurveyQ(); } }
+
+        function showSurveyResult() {
+            document.getElementById('surveyQuestions').classList.remove('active');
+            document.getElementById('surveyResult').classList.add('active');
+            
+            const counts = { L: 0, E: 0, A: 0, C: 0, I: 0, S: 0 };
+            surveyAnswers.forEach((a, i) => { if (a !== null) counts[surveyQuestions[i].options[a].type]++; });
+            const dominant = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+            const p = personalities[dominant];
+            
+            document.getElementById('surveyResultIcon').textContent = p.icon;
+            document.getElementById('surveyResultType').textContent = p.title;
+            document.getElementById('surveyResultDesc').textContent = p.description;
+            document.getElementById('surveyTraits').innerHTML = p.traits.map((t, i) => `<span class="survey-trait">${t} | ${p.germanTraits[i]}</span>`).join('');
+            
+            const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 4);
+            document.getElementById('surveyStats').innerHTML = sorted.map(([t, c]) => `
+                <div class="survey-stat">
+                    <div class="survey-stat-value">${personalities[t].icon} ${Math.round(c / surveyQuestions.length * 100)}%</div>
+                    <div class="survey-stat-label">${personalities[t].title.split(' | ')[0]}</div>
+                </div>
+            `).join('');
+            
+            document.getElementById('surveyVocabList').innerHTML = surveyQuestions.slice(0, 10).map(q => `
+                <div class="survey-vocab-item">
+                    <span>${q.vocab.persian}</span>
+                    <span style="color: var(--text-light); direction: ltr;">${q.vocab.german}</span>
+                </div>
+            `).join('');
+        }
+
+        function restartSurvey() {
+            document.getElementById('surveyResult').classList.remove('active');
+            document.getElementById('surveyStart').classList.add('active');
+        }
+
+        // ==================== NOTES & TOOLTIP ====================
+        function saveNotes() {
+            const notes = document.getElementById('userNotes').value;
+            localStorage.setItem('persianVortragNotes', notes);
+            const savedMsg = document.getElementById('notesSaved');
+            savedMsg.classList.add('show');
+            setTimeout(() => savedMsg.classList.remove('show'), 2000);
+        }
+
+        function clearNotes() {
+            if (confirm('آیا مطمئن هستید؟ / Sind Sie sicher?')) {
+                document.getElementById('userNotes').value = '';
+                localStorage.removeItem('persianVortragNotes');
+            }
+        }
+
+        function loadNotes() {
+            const saved = localStorage.getItem('persianVortragNotes');
+            if (saved) {
+                document.getElementById('userNotes').value = saved;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load saved notes
+            loadNotes();
+
+            // Tooltip for vocab
+            document.querySelectorAll('.vocab-highlight').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    document.querySelectorAll('.tooltip').forEach(t => t.remove());
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'tooltip';
+                    tooltip.innerHTML = `<strong>${this.textContent}</strong><br><span class="german-text">${this.getAttribute('title')}</span>`;
+                    document.body.appendChild(tooltip);
+                    const rect = this.getBoundingClientRect();
+                    tooltip.style.left = Math.max(10, rect.left + rect.width / 2 - tooltip.offsetWidth / 2) + 'px';
+                    tooltip.style.top = (rect.top - tooltip.offsetHeight - 12) + 'px';
+                    this.classList.add('clicked');
+                    setTimeout(() => {
+                        document.addEventListener('click', function rm(e) {
+                            if (!e.target.classList.contains('vocab-highlight')) { tooltip.remove(); document.removeEventListener('click', rm); }
+                        });
+                    }, 100);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

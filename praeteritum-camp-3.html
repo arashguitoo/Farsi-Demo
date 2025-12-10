@@ -1,0 +1,1998 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Übungscamp Präteritum - Persisch</title>
+    <script data-goatcounter="https://aguitoo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 10px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Navigation */
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .nav-btn {
+            background: #e94560;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background: #ff6b6b;
+            transform: scale(1.05);
+        }
+        
+        .nav-btn.home {
+            background: #4ecdc4;
+        }
+        
+        .nav-btn.restart {
+            background: #ffa502;
+        }
+        
+        /* Screens */
+        .screen {
+            display: none;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        /* Home Screen */
+        .home-screen h1 {
+            text-align: center;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #4ecdc4;
+        }
+        
+        .home-screen .subtitle {
+            text-align: center;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+        
+        .exercise-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .exercise-card:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: #4ecdc4;
+            transform: translateX(5px);
+        }
+        
+        .exercise-card h3 {
+            color: #4ecdc4;
+            margin-bottom: 8px;
+        }
+        
+        .exercise-card p {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        /* Instructions */
+        .instructions-box {
+            background: rgba(78, 205, 196, 0.2);
+            border: 1px solid #4ecdc4;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.9em;
+        }
+        
+        .instructions-box h4 {
+            color: #4ecdc4;
+            margin-bottom: 10px;
+        }
+        
+        /* Persian Text */
+        .persian {
+            font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+            direction: rtl;
+            font-size: 1.3em;
+        }
+        
+        .umschrift {
+            color: #ffa502;
+            font-style: italic;
+        }
+        
+        /* Übung 1: Matching */
+        .matching-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .matching-column {
+            flex: 1;
+        }
+        
+        .matching-column h4 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #4ecdc4;
+        }
+        
+        .match-item {
+            background: rgba(255,255,255,0.1);
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            border: 2px solid transparent;
+            font-size: 1.05em;
+        }
+        
+        .match-item.persian {
+            font-size: 1.15em;
+        }
+        
+        .match-item:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .match-item.selected {
+            border-color: #4ecdc4;
+            background: rgba(78, 205, 196, 0.3);
+        }
+        
+        .match-item.correct {
+            border-color: #2ecc71;
+            background: rgba(46, 204, 113, 0.3);
+        }
+        
+        .match-item.wrong {
+            border-color: #e74c3c;
+            background: rgba(231, 76, 60, 0.3);
+            animation: shake 0.5s;
+        }
+        
+        .match-item.matched {
+            opacity: 0.5;
+            pointer-events: none;
+            border-color: #2ecc71;
+            background: rgba(46, 204, 113, 0.2);
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        /* Übung 2: Multiple Choice */
+        .question-box {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .question-text {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        
+        .options-container {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .option-btn {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s;
+        }
+        
+        .option-btn:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: #4ecdc4;
+        }
+        
+        .option-btn.correct {
+            background: rgba(46, 204, 113, 0.5);
+            border-color: #2ecc71;
+        }
+        
+        .option-btn.wrong {
+            background: rgba(231, 76, 60, 0.5);
+            border-color: #e74c3c;
+        }
+        
+        /* Word Bank */
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        
+        .word-chip {
+            background: rgba(255,255,255,0.15);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .word-chip:hover {
+            background: rgba(255,255,255,0.25);
+        }
+        
+        .word-chip.selected {
+            background: rgba(78, 205, 196, 0.4);
+            border-color: #4ecdc4;
+        }
+        
+        .word-chip.used {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        
+        .answer-area {
+            background: rgba(0,0,0,0.3);
+            min-height: 50px;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 15px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: center;
+            direction: rtl;
+        }
+        
+        .answer-chip {
+            background: #4ecdc4;
+            color: #1a1a2e;
+            padding: 8px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        /* Übung 3: Input */
+        .sentence-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .sentence-german {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        
+        .sentence-hint {
+            color: #ffa502;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+        
+        .input-area {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .persian-input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-size: 1.2em;
+            direction: rtl;
+            font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+        }
+        
+        .persian-input:focus {
+            outline: none;
+            border-color: #4ecdc4;
+        }
+        
+        .check-btn {
+            background: #4ecdc4;
+            color: #1a1a2e;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .check-btn:hover {
+            background: #45b7aa;
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .feedback.correct {
+            background: rgba(46, 204, 113, 0.3);
+            border: 1px solid #2ecc71;
+        }
+        
+        .feedback.wrong {
+            background: rgba(231, 76, 60, 0.3);
+            border: 1px solid #e74c3c;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            height: 20px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4ecdc4, #44a08d);
+            border-radius: 10px;
+            transition: width 0.5s;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+        
+        /* Certificate */
+        .certificate-screen {
+            text-align: center;
+        }
+        
+        .certificate-canvas {
+            max-width: 100%;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.5);
+        }
+        
+        /* Tooltip for new words */
+        .tooltip-word {
+            position: relative;
+            color: #ffa502;
+            cursor: help;
+            border-bottom: 1px dashed #ffa502;
+        }
+        
+        .tooltip-word:hover::after {
+            content: attr(data-meaning);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            white-space: nowrap;
+            font-size: 0.8em;
+            z-index: 100;
+        }
+        
+        /* Stats */
+        .stats-box {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+        
+        .stat-item h4 {
+            color: #4ecdc4;
+            font-size: 1.5em;
+        }
+        
+        .stat-item p {
+            font-size: 0.8em;
+            opacity: 0.7;
+        }
+        
+        /* Responsive */
+        @media (max-width: 400px) {
+            .matching-container {
+                flex-direction: column;
+            }
+            
+            .nav-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+        }
+        
+        /* Loading animation */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255,255,255,0.1);
+            border-top-color: #4ecdc4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Success animation */
+        @keyframes celebrate {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .celebrate {
+            animation: celebrate 0.5s ease-in-out;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Bar -->
+        <div class="nav-bar">
+            <button class="nav-btn home" onclick="goHome()">🏠 Home</button>
+            <span id="current-exercise">Übungscamp Präteritum</span>
+            <button class="nav-btn restart" onclick="restartExercise()">🔄 Neu</button>
+        </div>
+
+        <!-- HOME SCREEN -->
+        <div id="home-screen" class="screen active">
+            <div class="home-screen">
+                <h1>🇮🇷 Übungscamp Präteritum</h1>
+                <p class="subtitle">Persisch lernen - Stufe A1</p>
+                
+                <div class="instructions-box">
+                    <h4>📋 Anweisungen</h4>
+                    <ul style="margin-left: 20px; line-height: 1.8;">
+                        <li>Jede Übung muss richtig gelöst werden</li>
+                        <li>Falsche Antworten kommen zurück in den Stapel</li>
+                        <li>Am Ende jeder Übung: Zertifikat herunterladen</li>
+                        <li>🏠 = Zurück zur Startseite</li>
+                        <li>🔄 = Übung neu starten</li>
+                    </ul>
+                    <p style="margin-top: 10px; padding: 8px; background: rgba(255,165,2,0.2); border-radius: 5px; border-left: 3px solid #ffa502;">
+                        <strong>⚠️ Wichtig:</strong> Schreibe immer vollständige Sätze mit Subjekt! Das Subjekt (من، تو، او...) darf nicht weggelassen werden.
+                    </p>
+                </div>
+                
+                <div class="exercise-card" onclick="startExercise(1)">
+                    <h3>📝 Übung 1: Vokabel-Matching</h3>
+                    <p>Verbinde deutsche Wörter mit ihren persischen Übersetzungen</p>
+                </div>
+                
+                <div class="exercise-card" onclick="startExercise(2)">
+                    <h3>🎯 Übung 2: Sätze verstehen</h3>
+                    <p>Multiple Choice & Satzbildung mit Wortbank</p>
+                </div>
+                
+                <div class="exercise-card" onclick="startExercise(3)">
+                    <h3>🔄 Übung 3: Verb-Konjugation</h3>
+                    <p>30 Multiple-Choice-Fragen zur Verbkonjugation</p>
+                </div>
+                
+                <div class="exercise-card" onclick="startExercise(4)">
+                    <h3>✍️ Übung 4: Präteritum schreiben</h3>
+                    <p>30 Sätze im Präteritum selbst eingeben</p>
+                </div>
+                
+                <!-- Trennlinie -->
+                <div style="margin: 30px 0; border-top: 2px dashed rgba(255,255,255,0.3); position: relative;">
+                    <span style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 0 15px; color: #ffa502; font-size: 0.9em;">Freies Üben</span>
+                </div>
+                
+                <div class="exercise-card" onclick="startVocabTraining()" style="border-color: #ffa502; background: rgba(255,165,2,0.1);">
+                    <h3 style="color: #ffa502;">📚 Vokabeltraining</h3>
+                    <p>Alle Vokabeln als Endlos-Stapel zum Üben (ohne Zertifikat)</p>
+                </div>
+                
+                <div class="exercise-card" onclick="startVerbTraining()" style="border-color: #ffa502; background: rgba(255,165,2,0.1);">
+                    <h3 style="color: #ffa502;">🔄 Verb-Konjugation Training</h3>
+                    <p>Pronomen ↔ konjugierte Verben matchen (فارسی ↔ فارسی)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ÜBUNG 1: MATCHING -->
+        <div id="exercise1-screen" class="screen">
+            <h2 style="text-align: center; margin-bottom: 10px;">Vokabel-Matching</h2>
+            <p style="text-align: center; opacity: 0.8; margin-bottom: 15px;">Tippe auf ein deutsches und dann ein persisches Wort</p>
+            
+            <div class="stats-box">
+                <div class="stat-item">
+                    <h4 id="e1-matched">0</h4>
+                    <p>Richtig</p>
+                </div>
+                <div class="stat-item">
+                    <h4 id="e1-round">1</h4>
+                    <p>Runde</p>
+                </div>
+            </div>
+            
+            <div class="matching-container">
+                <div class="matching-column">
+                    <h4>Deutsch</h4>
+                    <div id="german-words"></div>
+                </div>
+                <div class="matching-column">
+                    <h4>فارسی</h4>
+                    <div id="persian-words"></div>
+                </div>
+            </div>
+            
+            <button class="nav-btn" style="width: 100%; margin-top: 20px;" onclick="nextMatchingRound()" id="e1-next-btn" disabled>Nächste Runde →</button>
+        </div>
+
+        <!-- VOKABELTRAINING (ENDLOS) -->
+        <div id="vocab-training-screen" class="screen">
+            <h2 style="text-align: center; margin-bottom: 10px;">📚 Vokabeltraining</h2>
+            <p style="text-align: center; opacity: 0.8; margin-bottom: 15px;">Alle Vokabeln - Endlos-Stapel</p>
+            
+            <div class="stats-box">
+                <div class="stat-item">
+                    <h4 id="vt-correct">0</h4>
+                    <p>Richtig</p>
+                </div>
+                <div class="stat-item">
+                    <h4 id="vt-total">0</h4>
+                    <p>Gesamt</p>
+                </div>
+                <div class="stat-item">
+                    <h4 id="vt-remaining">0</h4>
+                    <p>Übrig</p>
+                </div>
+            </div>
+            
+            <div class="matching-container">
+                <div class="matching-column">
+                    <h4>Deutsch</h4>
+                    <div id="vt-german-words"></div>
+                </div>
+                <div class="matching-column">
+                    <h4>فارسی</h4>
+                    <div id="vt-persian-words"></div>
+                </div>
+            </div>
+            
+            <button class="nav-btn" style="width: 100%; margin-top: 20px;" onclick="nextVTRound()" id="vt-next-btn" disabled>Nächste Runde →</button>
+        </div>
+
+        <!-- VERB-KONJUGATION TRAINING (ENDLOS) -->
+        <div id="verb-training-screen" class="screen">
+            <h2 style="text-align: center; margin-bottom: 10px;">🔄 Verb-Konjugation Training</h2>
+            <p style="text-align: center; opacity: 0.8; margin-bottom: 5px;">Verbinde Pronomen mit der richtigen Verbform</p>
+            <p id="verb-training-verb" style="text-align: center; color: #4ecdc4; font-size: 1.2em; margin-bottom: 15px;" class="persian"></p>
+            
+            <div class="stats-box">
+                <div class="stat-item">
+                    <h4 id="vbt-correct">0</h4>
+                    <p>Richtig</p>
+                </div>
+                <div class="stat-item">
+                    <h4 id="vbt-total">0</h4>
+                    <p>Gesamt</p>
+                </div>
+                <div class="stat-item">
+                    <h4 id="vbt-verb-count">0</h4>
+                    <p>Verben</p>
+                </div>
+            </div>
+            
+            <div class="matching-container">
+                <div class="matching-column">
+                    <h4>ضمیر (Pronomen)</h4>
+                    <div id="vbt-pronouns"></div>
+                </div>
+                <div class="matching-column">
+                    <h4>فعل (Verb)</h4>
+                    <div id="vbt-verbs"></div>
+                </div>
+            </div>
+            
+            <button class="nav-btn" style="width: 100%; margin-top: 20px;" onclick="nextVerbTrainingRound()" id="vbt-next-btn" disabled>Nächstes Verb →</button>
+        </div>
+
+        <!-- ÜBUNG 2: MULTIPLE CHOICE / WORD BANK -->
+        <div id="exercise2-screen" class="screen">
+            <h2 style="text-align: center; margin-bottom: 10px;">Sätze verstehen</h2>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="e2-progress" style="width: 0%"></div>
+            </div>
+            <p class="progress-text"><span id="e2-current">0</span> / <span id="e2-total">0</span> Aufgaben</p>
+            
+            <div id="e2-question-area"></div>
+        </div>
+
+        <!-- ÜBUNG 3: VERB-KONJUGATION -->
+        <div id="exercise3-screen" class="screen">
+            <h2 style="text-align: center; margin-bottom: 10px;">Verb-Konjugation</h2>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="e3-progress" style="width: 0%"></div>
+            </div>
+            <p class="progress-text"><span id="e3-current">0</span> / 30 Fragen</p>
+            
+            <div id="e3-question-area"></div>
+        </div>
+
+        <!-- ÜBUNG 4: PRÄTERITUM EINGABE -->
+        <div id="exercise4-screen" class="screen">
+            <h2 style="text-align: center; margin-bottom: 10px;">Präteritum schreiben</h2>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="e4-progress" style="width: 0%"></div>
+            </div>
+            <p class="progress-text"><span id="e4-current">0</span> / 30 Sätze</p>
+            
+            <div id="e4-sentence-area"></div>
+        </div>
+
+        <!-- CERTIFICATE SCREEN -->
+        <div id="certificate-screen" class="screen">
+            <div class="certificate-screen">
+                <h2>🎉 Herzlichen Glückwunsch!</h2>
+                <p style="margin: 10px 0;">Du hast die Übung erfolgreich abgeschlossen!</p>
+                
+                <div id="name-input-area" style="margin: 20px 0;">
+                    <label style="display: block; margin-bottom: 8px;">Dein Name für das Zertifikat:</label>
+                    <input type="text" id="certificate-name" placeholder="Vorname Nachname" 
+                           style="padding: 12px; border-radius: 8px; border: 2px solid #4ecdc4; background: rgba(0,0,0,0.3); color: white; font-size: 1.1em; width: 80%; max-width: 300px;">
+                    <button class="nav-btn" style="margin-left: 10px; margin-top: 10px;" onclick="generateCertificateWithName()">Zertifikat erstellen</button>
+                </div>
+                
+                <canvas id="certificate-canvas" class="certificate-canvas" width="600" height="400" style="display: none;"></canvas>
+                
+                <div id="download-area" style="display: none;">
+                    <a id="download-link" class="download-btn" style="display: inline-block; text-decoration: none;">📥 Zertifikat herunterladen</a>
+                </div>
+                
+                <button class="nav-btn home" style="margin-top: 20px;" onclick="goHome()">🏠 Zurück zur Startseite</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===================== VOCABULARY DATA =====================
+        const vocabulary = [
+            // Familie
+            { de: "die Familie", fa: "خانِواده", um: "ḫānevāde" },
+            { de: "der Vater", fa: "پِدَر", um: "pedar" },
+            { de: "die Mutter", fa: "مادَر", um: "mādar" },
+            { de: "die Eltern", fa: "پدر و مادر", um: "pedar-o mādar" },
+            { de: "der Bruder", fa: "برادَر", um: "barādar" },
+            { de: "die Schwester", fa: "خواهَر", um: "ḫāhar" },
+            { de: "der Sohn", fa: "پِسَر", um: "pesar" },
+            { de: "die Tochter", fa: "دُختَر", um: "doḫtar" },
+            { de: "der Großvater", fa: "پدربُزُرگ", um: "pedar-bozorg" },
+            { de: "die Großmutter", fa: "مادربُزُرگ", um: "mādar-bozorg" },
+            { de: "das Kind", fa: "بچه", um: "bačče" },
+            { de: "der Onkel", fa: "عمو / دایی", um: "amū / dāyī" },
+            { de: "die Tante", fa: "عمه / خاله", um: "amme / ḫāle" },
+            { de: "der Mann", fa: "مَرد", um: "mard" },
+            { de: "die Frau", fa: "زَن", um: "zan" },
+            // Possessivkonstruktionen
+            { de: "mein Vater", fa: "پدر من", um: "pedar-e man" },
+            { de: "meine Mutter", fa: "مادر من", um: "mādar-e man" },
+            { de: "mein Bruder", fa: "برادر من", um: "barādar-e man" },
+            { de: "meine Schwester", fa: "خواهر من", um: "ḫāhar-e man" },
+            { de: "dein Vater", fa: "پدر تو", um: "pedar-e to" },
+            { de: "deine Mutter", fa: "مادر تو", um: "mādar-e to" },
+            { de: "sein/ihr Vater", fa: "پدر او", um: "pedar-e u" },
+            { de: "seine/ihre Mutter", fa: "مادر او", um: "mādar-e u" },
+            { de: "unser Haus", fa: "خانه ما", um: "ḫāne-ye mā" },
+            { de: "mein Zuhause", fa: "خانه من", um: "ḫāne-ye man" },
+            { de: "dein Zuhause", fa: "خانه تو", um: "ḫāne-ye to" },
+            { de: "unser Kind", fa: "بچه ما", um: "bačče-ye mā" },
+            { de: "mein Kind", fa: "بچه من", um: "bačče-ye man" },
+            { de: "mein/e Freund/in", fa: "دوست من", um: "dust-e man" },
+            { de: "dein/e Freund/in", fa: "دوست تو", um: "dust-e to" },
+            { de: "euer/eure Freund/in", fa: "دوست شما", um: "dust-e šomā" },
+            { de: "mein/e Lehrer/in", fa: "معلم من", um: "moʿallem-e man" },
+            { de: "unsere Familie", fa: "خانواده ما", um: "ḫānevāde-ye mā" },
+            { de: "meine Familie", fa: "خانواده من", um: "ḫānevāde-ye man" },
+            // Zahlen
+            { de: "eins", fa: "یک", um: "yek" },
+            { de: "zwei", fa: "دو", um: "do" },
+            { de: "drei", fa: "سه", um: "se" },
+            { de: "vier", fa: "چَهار", um: "čahār" },
+            { de: "fünf", fa: "پَنج", um: "panj" },
+            { de: "sechs", fa: "شش", um: "šeš" },
+            { de: "sieben", fa: "هفت", um: "haft" },
+            { de: "acht", fa: "هشت", um: "hašt" },
+            { de: "neun", fa: "نُه", um: "noh" },
+            { de: "zehn", fa: "ده", um: "dah" },
+            // Zeit
+            { de: "6 Uhr", fa: "ساعت شش", um: "sāʿat-e šeš" },
+            { de: "7 Uhr", fa: "ساعت هفت", um: "sāʿat-e haft" },
+            { de: "8 Uhr", fa: "ساعت هشت", um: "sāʿat-e hašt" },
+            // Allgemein
+            { de: "Hallo", fa: "سَلام", um: "salām" },
+            { de: "der/die Student/in", fa: "دانشجو", um: "dānešǧū" },
+            { de: "der Morgen", fa: "صُبح", um: "sobh" },
+            { de: "die Uhr/Stunde", fa: "ساعت", um: "sāʿat" },
+            { de: "das Frühstück", fa: "صُبحانه", um: "sobḥāne" },
+            { de: "das Mittagessen", fa: "ناهار", um: "nāhār" },
+            { de: "das Abendessen", fa: "شام", um: "šām" },
+            { de: "der Kaffee", fa: "قَهوِه", um: "qahve" },
+            { de: "der Tee", fa: "چای", um: "čāy" },
+            { de: "das Wasser", fa: "آب", um: "āb" },
+            { de: "das Obst", fa: "میوِه", um: "mīve" },
+            { de: "das Brot", fa: "نان", um: "nān" },
+            { de: "der Reis", fa: "برنج", um: "berenǧ" },
+            { de: "das Haus", fa: "خانِه", um: "ḫāne" },
+            { de: "die Universität", fa: "دانِشگاه", um: "dānešgāh" },
+            { de: "die Schule", fa: "مدرسه", um: "madrese" },
+            { de: "die Bibliothek", fa: "کِتابخانه", um: "ketābḫāne" },
+            { de: "der Unterricht", fa: "کِلاس", um: "kelās" },
+            { de: "das Buch", fa: "کِتاب", um: "ketāb" },
+            { de: "der/die Freund/in", fa: "دوست", um: "dust" },
+            { de: "der/die Lehrer/in", fa: "معلم", um: "moʿallem" },
+            { de: "die Musik", fa: "موسیقی", um: "mūsīqī" },
+            { de: "der Film", fa: "فیلم", um: "fīlm" },
+            { de: "gestern", fa: "دیروز", um: "dīrūz" },
+            { de: "heute", fa: "امروز", um: "emrūz" },
+            { de: "morgen", fa: "فردا", um: "fardā" },
+            { de: "dann, danach", fa: "بَعد", um: "baʿd" },
+            { de: "mit", fa: "با", um: "bā" },
+            { de: "in", fa: "دَر", um: "dar" },
+            { de: "zu, nach", fa: "به", um: "be" },
+            { de: "für", fa: "برای", um: "barāye" },
+            { de: "wie viele", fa: "چَند", um: "čand" },
+            { de: "was", fa: "چِه / چی", um: "če / čī" },
+            { de: "wann", fa: "کِـی", um: "key" },
+            { de: "wo", fa: "کُجا", um: "kojā" },
+            { de: "ich", fa: "من", um: "man" },
+            { de: "du", fa: "تو", um: "to" },
+            { de: "er/sie", fa: "او", um: "u" },
+            { de: "wir", fa: "ما", um: "mā" },
+            { de: "ihr/Sie", fa: "شما", um: "šomā" },
+            { de: "sie (Plural)", fa: "آنها", um: "ānhā" }
+        ];
+
+        // Verben für Präteritum
+        const verbs = [
+            { inf: "بودَن", um: "budan", de: "sein", stamm: "بود", stammUm: "bud" },
+            { inf: "رَفتن", um: "raftan", de: "gehen", stamm: "رَفت", stammUm: "raft" },
+            { inf: "خوردَن", um: "ḫordan", de: "essen", stamm: "خورد", stammUm: "ḫord" },
+            { inf: "نوشیدَن", um: "nušīdan", de: "trinken", stamm: "نوشید", stammUm: "nušīd" },
+            { inf: "خواندَن", um: "ḫāndan", de: "lesen", stamm: "خواند", stammUm: "ḫānd" },
+            { inf: "داشتَن", um: "dāštan", de: "haben", stamm: "داشت", stammUm: "dāšt" },
+            { inf: "گُفتَن", um: "goftan", de: "sagen", stamm: "گُفت", stammUm: "goft" },
+            { inf: "شِنیدَن", um: "šenīdan", de: "hören", stamm: "شِنید", stammUm: "šenīd" },
+            { inf: "دُرُست کَردَن", um: "dorost kardan", de: "machen/kochen", stamm: "دُرُست کَرد", stammUm: "dorost kard" },
+            { inf: "خَریدَن", um: "ḫarīdan", de: "kaufen", stamm: "خَرید", stammUm: "ḫarīd" },
+            { inf: "خوابیدَن", um: "ḫābīdan", de: "schlafen", stamm: "خوابید", stammUm: "ḫābīd" },
+            { inf: "بَرگَشتَن", um: "bargaštan", de: "zurückkehren", stamm: "بَرگَشت", stammUm: "bargašt" },
+            { inf: "بیدار شُدَن", um: "bidār šodan", de: "aufwachen", stamm: "بیدار شُد", stammUm: "bidār šod" },
+            { inf: "گوش دادن", um: "guš dādan", de: "zuhören", stamm: "گوش داد", stammUm: "guš dād" },
+            { inf: "دیدَن", um: "dīdan", de: "sehen", stamm: "دید", stammUm: "dīd" },
+            { inf: "آمَدَن", um: "āmadan", de: "kommen", stamm: "آمد", stammUm: "āmad" }
+        ];
+
+        // Präteritum Endungen
+        const endings = {
+            "من": { end: "َم", endUm: "am" },
+            "تو": { end: "ی", endUm: "ī" },
+            "او": { end: "", endUm: "" },
+            "ما": { end: "یم", endUm: "īm" },
+            "شما": { end: "ید", endUm: "īd" },
+            "آنها": { end: "َند", endUm: "and" }
+        };
+
+        // Präsens Endungen für haben und sein
+        const presentEndings = {
+            "من": { end: "م", endUm: "am" },
+            "تو": { end: "ی", endUm: "ī" },
+            "او": { end: "", endUm: "" },
+            "ما": { end: "یم", endUm: "īm" },
+            "شما": { end: "ید", endUm: "īd" },
+            "آنها": { end: "ند", endUm: "and" }
+        };
+
+        // Präsens von haben (dāštan) und sein (budan)
+        const presentForms = {
+            budan: { // sein - Präsens: هستم، هستی، است/هست، هستیم، هستید، هستند
+                "من": "هستم",
+                "تو": "هستی",
+                "او": "است",
+                "ما": "هستیم",
+                "شما": "هستید",
+                "آنها": "هستند"
+            },
+            dāštan: { // haben - Präsens: دارم، داری، دارد، داریم، دارید، دارند
+                "من": "دارم",
+                "تو": "داری",
+                "او": "دارد",
+                "ما": "داریم",
+                "شما": "دارید",
+                "آنها": "دارند"
+            }
+        };
+
+        const pronounsDE = {
+            "من": "ich",
+            "تو": "du",
+            "او": "er/sie",
+            "ما": "wir",
+            "شما": "ihr/Sie",
+            "آنها": "sie (Plural)"
+        };
+
+        // ===================== GLOBAL STATE =====================
+        let currentExercise = 0;
+        let exerciseState = {};
+
+        // ===================== NAVIGATION =====================
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function goHome() {
+            currentExercise = 0;
+            document.getElementById('current-exercise').textContent = 'Übungscamp Präteritum';
+            showScreen('home-screen');
+        }
+
+        function restartExercise() {
+            if (currentExercise === -1) {
+                startVocabTraining();
+            } else if (currentExercise === -2) {
+                startVerbTraining();
+            } else if (currentExercise > 0) {
+                startExercise(currentExercise);
+            }
+        }
+
+        function startExercise(num) {
+            currentExercise = num;
+            const titles = ['', 'Übung 1: Matching', 'Übung 2: Sätze', 'Übung 3: Konjugation', 'Übung 4: Präteritum'];
+            document.getElementById('current-exercise').textContent = titles[num];
+            
+            if (num === 1) initExercise1();
+            else if (num === 2) initExercise2();
+            else if (num === 3) initExercise3();
+            else if (num === 4) initExercise4();
+            
+            showScreen(`exercise${num}-screen`);
+        }
+
+        // ===================== ÜBUNG 1: MATCHING =====================
+        function initExercise1() {
+            exerciseState = {
+                round: 1,
+                totalMatched: 0,
+                currentMatched: 0,
+                selectedGerman: null,
+                selectedPersian: null,
+                currentPairs: [],
+                usedIndices: []
+            };
+            loadMatchingRound();
+        }
+
+        function loadMatchingRound() {
+            const state = exerciseState;
+            state.currentMatched = 0;
+            state.selectedGerman = null;
+            state.selectedPersian = null;
+            
+            // Wähle bis zu 6 zufällige Vokabeln, die noch nicht verwendet wurden
+            let pool = vocabulary.filter((v, i) => !state.usedIndices.includes(i));
+            
+            if (pool.length === 0) {
+                // Alle verwendet - Übung beendet
+                showCertificate(1);
+                return;
+            }
+            
+            shuffleArray(pool);
+            const numCards = Math.min(6, pool.length);
+            state.currentPairs = pool.slice(0, numCards);
+            state.cardsThisRound = numCards;
+            
+            // Merke verwendete Indizes
+            state.currentPairs.forEach(pair => {
+                const idx = vocabulary.findIndex(v => v.de === pair.de);
+                if (idx !== -1) state.usedIndices.push(idx);
+            });
+            
+            // Render
+            const germanDiv = document.getElementById('german-words');
+            const persianDiv = document.getElementById('persian-words');
+            
+            const germanOrder = [...state.currentPairs];
+            const persianOrder = [...state.currentPairs];
+            shuffleArray(germanOrder);
+            shuffleArray(persianOrder);
+            
+            germanDiv.innerHTML = germanOrder.map((v, i) => 
+                `<div class="match-item" data-de="${v.de}" onclick="selectGerman(this)">${v.de}</div>`
+            ).join('');
+            
+            persianDiv.innerHTML = persianOrder.map((v, i) => 
+                `<div class="match-item persian" data-de="${v.de}" onclick="selectPersian(this)">
+                    ${v.fa}<br><span class="umschrift" style="font-size: 0.75em;">${v.um}</span>
+                </div>`
+            ).join('');
+            
+            document.getElementById('e1-round').textContent = state.round;
+            document.getElementById('e1-matched').textContent = state.totalMatched;
+            document.getElementById('e1-next-btn').disabled = true;
+        }
+
+        function selectGerman(el) {
+            if (el.classList.contains('matched')) return;
+            
+            document.querySelectorAll('#german-words .match-item').forEach(e => {
+                if (!e.classList.contains('matched')) e.classList.remove('selected');
+            });
+            el.classList.add('selected');
+            exerciseState.selectedGerman = el.dataset.de;
+            
+            checkMatch();
+        }
+
+        function selectPersian(el) {
+            if (el.classList.contains('matched')) return;
+            
+            document.querySelectorAll('#persian-words .match-item').forEach(e => {
+                if (!e.classList.contains('matched')) e.classList.remove('selected');
+            });
+            el.classList.add('selected');
+            exerciseState.selectedPersian = el.dataset.de;
+            
+            checkMatch();
+        }
+
+        function checkMatch() {
+            const state = exerciseState;
+            if (!state.selectedGerman || !state.selectedPersian) return;
+            
+            const germanEl = document.querySelector(`#german-words .match-item[data-de="${state.selectedGerman}"]`);
+            const persianEl = document.querySelector(`#persian-words .match-item[data-de="${state.selectedPersian}"]`);
+            
+            if (state.selectedGerman === state.selectedPersian) {
+                // Richtig!
+                germanEl.classList.remove('selected');
+                persianEl.classList.remove('selected');
+                germanEl.classList.add('matched', 'correct');
+                persianEl.classList.add('matched', 'correct');
+                
+                state.currentMatched++;
+                state.totalMatched++;
+                document.getElementById('e1-matched').textContent = state.totalMatched;
+                
+                if (state.currentMatched >= state.cardsThisRound) {
+                    // Prüfe ob noch Vokabeln übrig sind
+                    const remaining = vocabulary.filter((v, i) => !state.usedIndices.includes(i));
+                    if (remaining.length === 0) {
+                        setTimeout(() => showCertificate(1), 500);
+                    } else {
+                        document.getElementById('e1-next-btn').disabled = false;
+                    }
+                }
+            } else {
+                // Falsch
+                germanEl.classList.add('wrong');
+                persianEl.classList.add('wrong');
+                setTimeout(() => {
+                    germanEl.classList.remove('wrong', 'selected');
+                    persianEl.classList.remove('wrong', 'selected');
+                }, 500);
+            }
+            
+            state.selectedGerman = null;
+            state.selectedPersian = null;
+        }
+
+        function nextMatchingRound() {
+            exerciseState.round++;
+            loadMatchingRound();
+        }
+
+        // ===================== VOKABELTRAINING (ENDLOS) =====================
+        let vtState = {};
+        
+        function startVocabTraining() {
+            currentExercise = -1; // Spezieller Modus
+            document.getElementById('current-exercise').textContent = 'Vokabeltraining';
+            
+            vtState = {
+                pool: shuffleArray([...vocabulary]),
+                currentPairs: [],
+                cardsThisRound: 6,
+                currentMatched: 0,
+                totalCorrect: 0,
+                totalAttempts: 0,
+                selectedGerman: null,
+                selectedPersian: null
+            };
+            
+            loadVTRound();
+            showScreen('vocab-training-screen');
+        }
+        
+        function loadVTRound() {
+            vtState.currentMatched = 0;
+            vtState.selectedGerman = null;
+            vtState.selectedPersian = null;
+            
+            // Wenn Pool leer, neu mischen
+            if (vtState.pool.length < 6) {
+                vtState.pool = shuffleArray([...vocabulary]);
+            }
+            
+            const numCards = Math.min(6, vtState.pool.length);
+            vtState.currentPairs = vtState.pool.splice(0, numCards);
+            vtState.cardsThisRound = numCards;
+            
+            // Render
+            const germanDiv = document.getElementById('vt-german-words');
+            const persianDiv = document.getElementById('vt-persian-words');
+            
+            const germanOrder = shuffleArray([...vtState.currentPairs]);
+            const persianOrder = shuffleArray([...vtState.currentPairs]);
+            
+            germanDiv.innerHTML = germanOrder.map((v, i) => 
+                `<div class="match-item" data-de="${v.de}" onclick="selectVTGerman(this)">${v.de}</div>`
+            ).join('');
+            
+            persianDiv.innerHTML = persianOrder.map((v, i) => 
+                `<div class="match-item persian" data-de="${v.de}" onclick="selectVTPersian(this)">
+                    ${v.fa}<br><span class="umschrift" style="font-size: 0.75em;">${v.um}</span>
+                </div>`
+            ).join('');
+            
+            updateVTStats();
+            document.getElementById('vt-next-btn').disabled = true;
+        }
+        
+        function updateVTStats() {
+            document.getElementById('vt-correct').textContent = vtState.totalCorrect;
+            document.getElementById('vt-total').textContent = vtState.totalAttempts;
+            document.getElementById('vt-remaining').textContent = vtState.pool.length;
+        }
+        
+        function selectVTGerman(el) {
+            if (el.classList.contains('matched')) return;
+            
+            document.querySelectorAll('#vt-german-words .match-item').forEach(e => {
+                if (!e.classList.contains('matched')) e.classList.remove('selected');
+            });
+            el.classList.add('selected');
+            vtState.selectedGerman = el.dataset.de;
+            
+            checkVTMatch();
+        }
+        
+        function selectVTPersian(el) {
+            if (el.classList.contains('matched')) return;
+            
+            document.querySelectorAll('#vt-persian-words .match-item').forEach(e => {
+                if (!e.classList.contains('matched')) e.classList.remove('selected');
+            });
+            el.classList.add('selected');
+            vtState.selectedPersian = el.dataset.de;
+            
+            checkVTMatch();
+        }
+        
+        function checkVTMatch() {
+            if (!vtState.selectedGerman || !vtState.selectedPersian) return;
+            
+            const germanEl = document.querySelector(`#vt-german-words .match-item[data-de="${vtState.selectedGerman}"]`);
+            const persianEl = document.querySelector(`#vt-persian-words .match-item[data-de="${vtState.selectedPersian}"]`);
+            
+            vtState.totalAttempts++;
+            
+            if (vtState.selectedGerman === vtState.selectedPersian) {
+                // Richtig!
+                germanEl.classList.remove('selected');
+                persianEl.classList.remove('selected');
+                germanEl.classList.add('matched', 'correct');
+                persianEl.classList.add('matched', 'correct');
+                
+                vtState.currentMatched++;
+                vtState.totalCorrect++;
+                
+                if (vtState.currentMatched >= vtState.cardsThisRound) {
+                    document.getElementById('vt-next-btn').disabled = false;
+                }
+            } else {
+                // Falsch - Karte zurück in den Pool
+                const wrongCard = vocabulary.find(v => v.de === vtState.selectedGerman);
+                if (wrongCard) {
+                    vtState.pool.push(wrongCard);
+                }
+                
+                germanEl.classList.add('wrong');
+                persianEl.classList.add('wrong');
+                setTimeout(() => {
+                    germanEl.classList.remove('wrong', 'selected');
+                    persianEl.classList.remove('wrong', 'selected');
+                }, 500);
+            }
+            
+            updateVTStats();
+            vtState.selectedGerman = null;
+            vtState.selectedPersian = null;
+        }
+        
+        function nextVTRound() {
+            loadVTRound();
+        }
+
+        // ===================== VERB-KONJUGATION TRAINING (ENDLOS) =====================
+        let vbtState = {};
+        
+        function startVerbTraining() {
+            currentExercise = -2; // Spezieller Modus für Verb-Training
+            document.getElementById('current-exercise').textContent = 'Verb-Training';
+            
+            vbtState = {
+                verbPool: shuffleArray([...verbs]),
+                currentVerb: null,
+                currentPairs: [],
+                currentMatched: 0,
+                totalCorrect: 0,
+                totalAttempts: 0,
+                verbCount: 0,
+                selectedPronoun: null,
+                selectedVerb: null
+            };
+            
+            loadVerbTrainingRound();
+            showScreen('verb-training-screen');
+        }
+        
+        function loadVerbTrainingRound() {
+            vbtState.currentMatched = 0;
+            vbtState.selectedPronoun = null;
+            vbtState.selectedVerb = null;
+            
+            // Wenn Pool leer, neu mischen
+            if (vbtState.verbPool.length === 0) {
+                vbtState.verbPool = shuffleArray([...verbs]);
+            }
+            
+            // Wähle ein Verb
+            vbtState.currentVerb = vbtState.verbPool.pop();
+            vbtState.verbCount++;
+            
+            const verb = vbtState.currentVerb;
+            const pronouns = ["من", "تو", "او", "ما", "شما", "آنها"];
+            
+            // Generiere alle konjugierten Formen
+            vbtState.currentPairs = pronouns.map(pronoun => {
+                const ending = endings[pronoun];
+                return {
+                    pronoun: pronoun,
+                    conjugated: verb.stamm + ending.end,
+                    pronounDE: pronounsDE[pronoun]
+                };
+            });
+            
+            // Zeige Verb-Info
+            document.getElementById('verb-training-verb').innerHTML = 
+                `<span style="color: #ffa502;">${verb.inf}</span> (${verb.de})`;
+            
+            // Render
+            const pronounsDiv = document.getElementById('vbt-pronouns');
+            const verbsDiv = document.getElementById('vbt-verbs');
+            
+            const shuffledPronouns = shuffleArray([...vbtState.currentPairs]);
+            const shuffledVerbs = shuffleArray([...vbtState.currentPairs]);
+            
+            pronounsDiv.innerHTML = shuffledPronouns.map(p => 
+                `<div class="match-item persian" data-pronoun="${p.pronoun}" onclick="selectVBTPronoun(this)">
+                    ${p.pronoun}<br><span class="umschrift" style="font-size: 0.7em;">${p.pronounDE}</span>
+                </div>`
+            ).join('');
+            
+            verbsDiv.innerHTML = shuffledVerbs.map(p => 
+                `<div class="match-item persian" data-pronoun="${p.pronoun}" onclick="selectVBTVerb(this)">${p.conjugated}</div>`
+            ).join('');
+            
+            updateVBTStats();
+            document.getElementById('vbt-next-btn').disabled = true;
+        }
+        
+        function updateVBTStats() {
+            document.getElementById('vbt-correct').textContent = vbtState.totalCorrect;
+            document.getElementById('vbt-total').textContent = vbtState.totalAttempts;
+            document.getElementById('vbt-verb-count').textContent = vbtState.verbCount;
+        }
+        
+        function selectVBTPronoun(el) {
+            if (el.classList.contains('matched')) return;
+            
+            document.querySelectorAll('#vbt-pronouns .match-item').forEach(e => {
+                if (!e.classList.contains('matched')) e.classList.remove('selected');
+            });
+            el.classList.add('selected');
+            vbtState.selectedPronoun = el.dataset.pronoun;
+            
+            checkVBTMatch();
+        }
+        
+        function selectVBTVerb(el) {
+            if (el.classList.contains('matched')) return;
+            
+            document.querySelectorAll('#vbt-verbs .match-item').forEach(e => {
+                if (!e.classList.contains('matched')) e.classList.remove('selected');
+            });
+            el.classList.add('selected');
+            vbtState.selectedVerb = el.dataset.pronoun; // data-pronoun enthält die richtige Zuordnung
+            
+            checkVBTMatch();
+        }
+        
+        function checkVBTMatch() {
+            if (!vbtState.selectedPronoun || !vbtState.selectedVerb) return;
+            
+            const pronounEl = document.querySelector(`#vbt-pronouns .match-item[data-pronoun="${vbtState.selectedPronoun}"]`);
+            const verbEl = document.querySelector(`#vbt-verbs .match-item.selected`);
+            
+            vbtState.totalAttempts++;
+            
+            if (vbtState.selectedPronoun === vbtState.selectedVerb) {
+                // Richtig!
+                pronounEl.classList.remove('selected');
+                verbEl.classList.remove('selected');
+                pronounEl.classList.add('matched', 'correct');
+                verbEl.classList.add('matched', 'correct');
+                
+                vbtState.currentMatched++;
+                vbtState.totalCorrect++;
+                
+                if (vbtState.currentMatched >= 6) {
+                    document.getElementById('vbt-next-btn').disabled = false;
+                }
+            } else {
+                // Falsch
+                pronounEl.classList.add('wrong');
+                verbEl.classList.add('wrong');
+                setTimeout(() => {
+                    pronounEl.classList.remove('wrong', 'selected');
+                    verbEl.classList.remove('wrong', 'selected');
+                }, 500);
+            }
+            
+            updateVBTStats();
+            vbtState.selectedPronoun = null;
+            vbtState.selectedVerb = null;
+        }
+        
+        function nextVerbTrainingRound() {
+            loadVerbTrainingRound();
+        }
+
+        // ===================== ÜBUNG 2: MULTIPLE CHOICE / WORD BANK =====================
+        const exercise2Questions = [
+            // Multiple Choice - Original
+            { type: 'mc', de: 'Ich ging zur Universität.', correct: 'من به دانشگاه رفتم.', options: ['من به دانشگاه رفتم.', 'تو به دانشگاه رفتی.', 'او به خانه رفت.', 'ما نان خوردیم.'] },
+            { type: 'mc', de: 'Er las ein Buch.', correct: 'او یک کتاب خواند.', options: ['او یک کتاب خواند.', 'من یک کتاب خواندم.', 'او قهوه نوشید.', 'ما فیلم دیدیم.'] },
+            { type: 'mc', de: 'Wir tranken Kaffee.', correct: 'ما قهوه نوشیدیم.', options: ['ما قهوه نوشیدیم.', 'شما قهوه نوشیدید.', 'آنها چای خوردند.', 'من آب نوشیدم.'] },
+            { type: 'mc', de: 'Du hattest einen Freund.', correct: 'تو یک دوست داشتی.', options: ['تو یک دوست داشتی.', 'او یک دوست داشت.', 'من یک برادر داشتم.', 'ما دوست داشتیم.'] },
+            { type: 'mc', de: 'Sie (Pl.) kehrten nach Hause zurück.', correct: 'آنها به خانه برگشتند.', options: ['آنها به خانه برگشتند.', 'ما به خانه برگشتیم.', 'او به خانه برگشت.', 'شما به خانه برگشتید.'] },
+            { type: 'mc', de: 'Mein Vater kaufte Brot.', correct: 'پدر من نان خرید.', options: ['پدر من نان خرید.', 'مادر من نان خرید.', 'من نان خریدم.', 'پدر من میوه خرید.'] },
+            { type: 'mc', de: 'Die Kinder schliefen.', correct: 'بچه‌ها خوابیدند.', options: ['بچه‌ها خوابیدند.', 'بچه خوابید.', 'ما خوابیدیم.', 'آنها بیدار شدند.'] },
+            { type: 'mc', de: 'Ich wachte um 6 Uhr auf.', correct: 'من ساعت شش بیدار شدم.', options: ['من ساعت شش بیدار شدم.', 'تو ساعت شش بیدار شدی.', 'او ساعت هفت بیدار شد.', 'ما ساعت ده بیدار شدیم.'] },
+            // Multiple Choice - Verdoppelt/Neu
+            { type: 'mc', de: 'Du gingst zur Schule.', correct: 'تو به مدرسه رفتی.', options: ['تو به مدرسه رفتی.', 'من به مدرسه رفتم.', 'او به مدرسه رفت.', 'ما به مدرسه رفتیم.'] },
+            { type: 'mc', de: 'Sie (er/sie) hörte Musik.', correct: 'او موسیقی شنید.', options: ['او موسیقی شنید.', 'من موسیقی شنیدم.', 'تو موسیقی شنیدی.', 'آنها موسیقی شنیدند.'] },
+            { type: 'mc', de: 'Wir lasen ein Buch.', correct: 'ما یک کتاب خواندیم.', options: ['ما یک کتاب خواندیم.', 'شما یک کتاب خواندید.', 'آنها یک کتاب خواندند.', 'من یک کتاب خواندم.'] },
+            { type: 'mc', de: 'Ihr sagtet Hallo.', correct: 'شما سلام گفتید.', options: ['شما سلام گفتید.', 'ما سلام گفتیم.', 'آنها سلام گفتند.', 'تو سلام گفتی.'] },
+            { type: 'mc', de: 'Ich hatte zwei Brüder.', correct: 'من دو برادر داشتم.', options: ['من دو برادر داشتم.', 'تو دو برادر داشتی.', 'او دو برادر داشت.', 'ما دو برادر داشتیم.'] },
+            { type: 'mc', de: 'Meine Mutter kochte das Mittagessen.', correct: 'مادر من ناهار درست کرد.', options: ['مادر من ناهار درست کرد.', 'پدر من ناهار درست کرد.', 'من ناهار درست کردم.', 'مادر من شام درست کرد.'] },
+            { type: 'mc', de: 'Die Schwester kaufte Obst.', correct: 'خواهر میوه خرید.', options: ['خواهر میوه خرید.', 'برادر میوه خرید.', 'خواهر نان خرید.', 'من میوه خریدم.'] },
+            { type: 'mc', de: 'Er/Sie kam nach Hause.', correct: 'او به خانه آمد.', options: ['او به خانه آمد.', 'من به خانه آمدم.', 'او به خانه رفت.', 'ما به خانه آمدیم.'] },
+            // Präsens - haben und sein
+            { type: 'mc', de: 'Ich bin Student. (Präsens)', correct: 'من دانشجو هستم.', options: ['من دانشجو هستم.', 'تو دانشجو هستی.', 'من دانشجو بودم.', 'او دانشجو است.'] },
+            { type: 'mc', de: 'Du bist mein Freund. (Präsens)', correct: 'تو دوست من هستی.', options: ['تو دوست من هستی.', 'من دوست تو هستم.', 'او دوست من است.', 'تو دوست من بودی.'] },
+            { type: 'mc', de: 'Wir haben ein Haus. (Präsens)', correct: 'ما یک خانه داریم.', options: ['ما یک خانه داریم.', 'ما یک خانه داشتیم.', 'شما یک خانه دارید.', 'آنها یک خانه دارند.'] },
+            { type: 'mc', de: 'Er/Sie hat einen Bruder. (Präsens)', correct: 'او یک برادر دارد.', options: ['او یک برادر دارد.', 'او یک برادر داشت.', 'من یک برادر دارم.', 'تو یک برادر داری.'] },
+            // Word Bank - Original
+            { type: 'wb', de: 'Ich aß Frühstück.', words: ['من', 'صبحانه', 'خوردم'], extra: ['تو', 'ناهار'], alts: [['صبحانه', 'من', 'خوردم']] },
+            { type: 'wb', de: 'Du sagtest Hallo.', words: ['تو', 'سلام', 'گفتی'], extra: ['من', 'خداحافظ'], alts: [['سلام', 'تو', 'گفتی'], ['تو', 'گفتی', 'سلام']] },
+            { type: 'wb', de: 'Sie (er/sie) ging zur Bibliothek.', words: ['او', 'به', 'کتابخانه', 'رفت'], extra: ['من', 'دانشگاه'] },
+            { type: 'wb', de: 'Wir hörten Musik.', words: ['ما', 'موسیقی', 'شنیدیم'], extra: ['آنها', 'فیلم'], alts: [['موسیقی', 'ما', 'شنیدیم']] },
+            { type: 'wb', de: 'Ihr kochtet Abendessen.', words: ['شما', 'شام', 'درست', 'کردید'], extra: ['ناهار', 'ما'] },
+            { type: 'wb', de: 'Meine Mutter hatte zwei Töchter.', words: ['مادر', 'من', 'دو', 'دختر', 'داشت'], extra: ['پدر', 'سه'] },
+            { type: 'wb', de: 'Gestern kaufte ich Obst.', words: ['دیروز', 'من', 'میوه', 'خریدم'], extra: ['امروز', 'نان'], alts: [['من', 'دیروز', 'میوه', 'خریدم']] },
+            { type: 'wb', de: 'Der Bruder schlief im Haus.', words: ['برادر', 'در', 'خانه', 'خوابید'], extra: ['پدر', 'دانشگاه'] },
+            // Word Bank - Verdoppelt/Neu
+            { type: 'wb', de: 'Ich trank Tee.', words: ['من', 'چای', 'نوشیدم'], extra: ['تو', 'قهوه'], alts: [['چای', 'من', 'نوشیدم']] },
+            { type: 'wb', de: 'Du kauftest Brot.', words: ['تو', 'نان', 'خریدی'], extra: ['من', 'میوه'] },
+            { type: 'wb', de: 'Wir gingen zur Schule.', words: ['ما', 'به', 'مدرسه', 'رفتیم'], extra: ['آنها', 'دانشگاه'] },
+            { type: 'wb', de: 'Mein Vater las ein Buch.', words: ['پدر', 'من', 'یک', 'کتاب', 'خواند'], extra: ['مادر', 'فیلم'] },
+            { type: 'wb', de: 'Gestern war ich zuhause.', words: ['دیروز', 'من', 'در', 'خانه', 'بودم'], extra: ['امروز', 'دانشگاه'], alts: [['من', 'دیروز', 'در', 'خانه', 'بودم']] },
+            { type: 'wb', de: 'Die Kinder aßen Reis.', words: ['بچه‌ها', 'برنج', 'خوردند'], extra: ['نان', 'میوه'] }
+        ];
+
+        function initExercise2() {
+            exerciseState = {
+                questions: shuffleArray([...exercise2Questions]),
+                currentIndex: 0,
+                completed: 0,
+                total: exercise2Questions.length,
+                selectedWords: []
+            };
+            updateE2Progress();
+            showE2Question();
+        }
+
+        function updateE2Progress() {
+            const state = exerciseState;
+            const pct = (state.completed / state.total) * 100;
+            document.getElementById('e2-progress').style.width = pct + '%';
+            document.getElementById('e2-current').textContent = state.completed;
+            document.getElementById('e2-total').textContent = state.total;
+        }
+
+        function showE2Question() {
+            const state = exerciseState;
+            if (state.currentIndex >= state.questions.length) {
+                showCertificate(2);
+                return;
+            }
+            
+            const q = state.questions[state.currentIndex];
+            const area = document.getElementById('e2-question-area');
+            
+            if (q.type === 'mc') {
+                const shuffledOptions = shuffleArray([...q.options]);
+                area.innerHTML = `
+                    <div class="question-box">
+                        <p class="question-text">${q.de}</p>
+                        <div class="options-container">
+                            ${shuffledOptions.map(opt => 
+                                `<button class="option-btn persian" onclick="checkMC(this, '${escapeHtml(opt)}', '${escapeHtml(q.correct)}')">${opt}</button>`
+                            ).join('')}
+                        </div>
+                    </div>
+                `;
+            } else {
+                // Word Bank
+                state.selectedWords = [];
+                const allWords = shuffleArray([...q.words, ...q.extra]);
+                area.innerHTML = `
+                    <div class="question-box">
+                        <p class="question-text">${q.de}</p>
+                        <div class="answer-area" id="wb-answer"></div>
+                        <div class="word-bank" id="wb-bank">
+                            ${allWords.map(w => 
+                                `<span class="word-chip persian" onclick="toggleWord(this, '${escapeHtml(w)}')">${w}</span>`
+                            ).join('')}
+                        </div>
+                        <button class="check-btn" style="width: 100%; margin-top: 15px;" onclick="checkWordBank()">Überprüfen</button>
+                        <div id="wb-feedback"></div>
+                    </div>
+                `;
+            }
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/'/g, "\\'").replace(/"/g, '\\"');
+        }
+
+        function checkMC(btn, selected, correct) {
+            const buttons = btn.parentElement.querySelectorAll('.option-btn');
+            
+            if (selected === correct) {
+                btn.classList.add('correct');
+                exerciseState.completed++;
+                updateE2Progress();
+                setTimeout(() => {
+                    exerciseState.currentIndex++;
+                    showE2Question();
+                }, 800);
+            } else {
+                btn.classList.add('wrong');
+                // Zeige richtige Antwort
+                buttons.forEach(b => {
+                    if (b.textContent === correct) b.classList.add('correct');
+                });
+                // Zurück in Stapel
+                setTimeout(() => {
+                    exerciseState.questions.push(exerciseState.questions[exerciseState.currentIndex]);
+                    exerciseState.currentIndex++;
+                    showE2Question();
+                }, 1500);
+            }
+        }
+
+        function toggleWord(chip, word) {
+            const state = exerciseState;
+            const idx = state.selectedWords.indexOf(word);
+            
+            if (idx === -1) {
+                state.selectedWords.push(word);
+                chip.classList.add('selected');
+            } else {
+                state.selectedWords.splice(idx, 1);
+                chip.classList.remove('selected');
+            }
+            
+            updateAnswerArea();
+        }
+
+        function updateAnswerArea() {
+            const area = document.getElementById('wb-answer');
+            area.innerHTML = exerciseState.selectedWords.map(w => 
+                `<span class="answer-chip persian" onclick="removeWord('${escapeHtml(w)}')">${w}</span>`
+            ).join('');
+        }
+
+        function removeWord(word) {
+            const state = exerciseState;
+            const idx = state.selectedWords.indexOf(word);
+            if (idx !== -1) {
+                state.selectedWords.splice(idx, 1);
+                document.querySelectorAll('.word-chip').forEach(c => {
+                    if (c.textContent === word) c.classList.remove('selected');
+                });
+                updateAnswerArea();
+            }
+        }
+
+        function checkWordBank() {
+            const state = exerciseState;
+            const q = state.questions[state.currentIndex];
+            const feedback = document.getElementById('wb-feedback');
+            
+            // Prüfe Hauptantwort und Alternativen
+            const selectedStr = JSON.stringify(state.selectedWords);
+            let isCorrect = selectedStr === JSON.stringify(q.words);
+            
+            if (!isCorrect && q.alts) {
+                for (const alt of q.alts) {
+                    if (selectedStr === JSON.stringify(alt)) {
+                        isCorrect = true;
+                        break;
+                    }
+                }
+            }
+            
+            if (isCorrect) {
+                feedback.innerHTML = '<div class="feedback correct">✓ Richtig!</div>';
+                state.completed++;
+                updateE2Progress();
+                setTimeout(() => {
+                    state.currentIndex++;
+                    showE2Question();
+                }, 800);
+            } else {
+                feedback.innerHTML = `<div class="feedback wrong">✗ Richtige Antwort:<br><div class="persian" style="direction: rtl; text-align: right;">${q.words.join(' ')}</div></div>`;
+                // Zurück in Stapel
+                setTimeout(() => {
+                    state.questions.push(q);
+                    state.currentIndex++;
+                    showE2Question();
+                }, 2000);
+            }
+        }
+
+        // ===================== ÜBUNG 3: VERB-KONJUGATION (NEU) =====================
+        function generateConjugationQuestions() {
+            const questions = [];
+            const pronouns = ["من", "تو", "او", "ما", "شما", "آنها"];
+            const tenses = ['preterite', 'present'];
+            
+            // Präteritum für alle Verben
+            for (const verb of verbs) {
+                for (const pronoun of pronouns) {
+                    const ending = endings[pronoun];
+                    const correct = verb.stamm + ending.end;
+                    const correctUm = verb.stammUm + ending.endUm;
+                    
+                    // Generiere falsche Optionen
+                    const wrongOptions = [];
+                    for (const otherPronoun of pronouns) {
+                        if (otherPronoun !== pronoun) {
+                            const wrongEnding = endings[otherPronoun];
+                            wrongOptions.push(verb.stamm + wrongEnding.end);
+                        }
+                    }
+                    shuffleArray(wrongOptions);
+                    
+                    questions.push({
+                        de: `${pronounsDE[pronoun]} - ${verb.de} (Präteritum)`,
+                        fa: pronoun,
+                        verb: verb.inf,
+                        correct: correct,
+                        correctUm: correctUm,
+                        options: shuffleArray([correct, ...wrongOptions.slice(0, 3)])
+                    });
+                }
+            }
+            
+            // Präsens für haben und sein
+            for (const [verbKey, forms] of Object.entries(presentForms)) {
+                const verbName = verbKey === 'budan' ? 'sein' : 'haben';
+                for (const pronoun of pronouns) {
+                    const correct = forms[pronoun];
+                    
+                    // Generiere falsche Optionen
+                    const wrongOptions = [];
+                    for (const otherPronoun of pronouns) {
+                        if (otherPronoun !== pronoun) {
+                            wrongOptions.push(forms[otherPronoun]);
+                        }
+                    }
+                    shuffleArray(wrongOptions);
+                    
+                    questions.push({
+                        de: `${pronounsDE[pronoun]} - ${verbName} (Präsens)`,
+                        fa: pronoun,
+                        verb: verbKey === 'budan' ? 'بودن' : 'داشتن',
+                        correct: correct,
+                        options: shuffleArray([correct, ...wrongOptions.slice(0, 3)])
+                    });
+                }
+            }
+            
+            return shuffleArray(questions);
+        }
+
+        function initExercise3() {
+            const allQuestions = generateConjugationQuestions();
+            exerciseState = {
+                questions: allQuestions.slice(0, 30),
+                currentIndex: 0,
+                completed: 0
+            };
+            updateE3Progress();
+            showE3Question();
+        }
+
+        function updateE3Progress() {
+            const state = exerciseState;
+            const pct = (state.completed / 30) * 100;
+            document.getElementById('e3-progress').style.width = pct + '%';
+            document.getElementById('e3-current').textContent = state.completed;
+        }
+
+        function showE3Question() {
+            const state = exerciseState;
+            if (state.completed >= 30) {
+                showCertificate(3);
+                return;
+            }
+            
+            const q = state.questions[state.currentIndex % state.questions.length];
+            const area = document.getElementById('e3-question-area');
+            
+            area.innerHTML = `
+                <div class="question-box">
+                    <p class="question-text">${q.de}</p>
+                    <p class="persian" style="font-size: 1.3em; margin-bottom: 15px;">${q.fa} + ${q.verb} = ?</p>
+                    <div class="options-container">
+                        ${q.options.map(opt => 
+                            `<button class="option-btn persian" onclick="checkE3MC(this, '${escapeHtml(opt)}', '${escapeHtml(q.correct)}')">${opt}</button>`
+                        ).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkE3MC(btn, selected, correct) {
+            const buttons = btn.parentElement.querySelectorAll('.option-btn');
+            const state = exerciseState;
+            
+            if (selected === correct) {
+                btn.classList.add('correct');
+                state.completed++;
+                state.currentIndex++;
+                updateE3Progress();
+                setTimeout(() => {
+                    showE3Question();
+                }, 600);
+            } else {
+                btn.classList.add('wrong');
+                buttons.forEach(b => {
+                    if (b.textContent === correct) b.classList.add('correct');
+                });
+                // Zurück in Stapel
+                setTimeout(() => {
+                    state.questions.push(state.questions[state.currentIndex]);
+                    state.currentIndex++;
+                    showE3Question();
+                }, 1200);
+            }
+        }
+
+        // ===================== ÜBUNG 4: PRÄTERITUM EINGABE =====================
+        const exercise4Sentences = [
+            // Positive Sätze
+            { de: "Ich ging zur Universität.", fa: "من به دانشگاه رفتم.", um: "man be dānešgāh raftam", verb: "raftan", neg: false, alts: ["من به دانشگاه رفتم"] },
+            { de: "Du aßt Brot.", fa: "تو نان خوردی.", um: "to nān ḫordī", verb: "ḫordan", neg: false, alts: ["تو نان خوردی"] },
+            { de: "Er/Sie las ein Buch.", fa: "او یک کتاب خواند.", um: "u yek ketāb ḫānd", verb: "ḫāndan", neg: false, alts: ["او یک کتاب خواند"] },
+            { de: "Wir tranken Kaffee.", fa: "ما قهوه نوشیدیم.", um: "mā qahve nušīdīm", verb: "nušīdan", neg: false, alts: ["ما قهوه نوشیدیم"] },
+            { de: "Ihr hattet einen Freund.", fa: "شما یک دوست داشتید.", um: "šomā yek dust dāštīd", verb: "dāštan", neg: false, alts: ["شما یک دوست داشتید"] },
+            { de: "Sie (Pl.) sagten Hallo.", fa: "آنها سلام گفتند.", um: "ānhā salām goftand", verb: "goftan", neg: false, alts: ["آنها سلام گفتند"] },
+            { de: "Ich hörte Musik.", fa: "من موسیقی شنیدم.", um: "man mūsīqī šenīdam", verb: "šenīdan", neg: false, alts: ["من موسیقی شنیدم", "موسیقی من شنیدم"] },
+            { de: "Mein Vater kaufte Obst.", fa: "پدر من میوه خرید.", um: "pedar-e man mīve ḫarīd", verb: "ḫarīdan", neg: false, alts: ["پدر من میوه خرید"] },
+            { de: "Meine Mutter kochte das Abendessen.", fa: "مادر من شام درست کرد.", um: "mādar-e man šām dorost kard", verb: "dorost kardan", neg: false, alts: ["مادر من شام درست کرد"] },
+            { de: "Das Kind schlief.", fa: "بچه خوابید.", um: "bačče ḫābīd", verb: "ḫābīdan", neg: false, alts: ["بچه خوابید"] },
+            { de: "Wir kehrten nach Hause zurück.", fa: "ما به خانه برگشتیم.", um: "mā be ḫāne bargaštīm", verb: "bargaštan", neg: false, alts: ["ما به خانه برگشتیم"] },
+            { de: "Ich wachte um 6 Uhr auf.", fa: "من ساعت شش بیدار شدم.", um: "man sāʿat-e šeš bidār šodam", verb: "bidār šodan", neg: false, alts: ["من ساعت شش بیدار شدم"] },
+            { de: "Du hörtest dem Lehrer zu.", fa: "تو به معلم گوش دادی.", um: "to be moʿallem guš dādī", verb: "guš dādan", neg: false, extra: { "معلم": "Lehrer" }, alts: ["تو به معلم گوش دادی"] },
+            { de: "Gestern war ich zuhause.", fa: "دیروز من در خانه بودم.", um: "dīrūz man dar ḫāne budam", verb: "budan", neg: false, alts: ["دیروز من در خانه بودم", "من دیروز در خانه بودم"] },
+            { de: "Der Bruder ging zum Unterricht.", fa: "برادر به کلاس رفت.", um: "barādar be kelās raft", verb: "raftan", neg: false, alts: ["برادر به کلاس رفت"] },
+            // Verneinte Sätze
+            { de: "Ich ging nicht zur Universität. (Verneinung)", fa: "من به دانشگاه نرفتم.", um: "man be dānešgāh naraftam", verb: "raftan", neg: true, alts: ["من به دانشگاه نرفتم"] },
+            { de: "Du aßt kein Brot. (Verneinung)", fa: "تو نان نخوردی.", um: "to nān naḫordī", verb: "ḫordan", neg: true, alts: ["تو نان نخوردی"] },
+            { de: "Er/Sie las nicht. (Verneinung)", fa: "او نخواند.", um: "u naḫānd", verb: "ḫāndan", neg: true, alts: ["او نخواند"] },
+            { de: "Wir tranken keinen Kaffee. (Verneinung)", fa: "ما قهوه ننوشیدیم.", um: "mā qahve nanušīdīm", verb: "nušīdan", neg: true, alts: ["ما قهوه ننوشیدیم"] },
+            { de: "Sie hatten keinen Freund. (Verneinung)", fa: "آنها دوست نداشتند.", um: "ānhā dust nadāštand", verb: "dāštan", neg: true, alts: ["آنها دوست نداشتند"] },
+            { de: "Ich hörte keine Musik. (Verneinung)", fa: "من موسیقی نشنیدم.", um: "man mūsīqī našenīdam", verb: "šenīdan", neg: true, alts: ["من موسیقی نشنیدم"] },
+            { de: "Das Kind schlief nicht. (Verneinung)", fa: "بچه نخوابید.", um: "bačče naḫābīd", verb: "ḫābīdan", neg: true, alts: ["بچه نخوابید"] },
+            { de: "Wir kehrten nicht zurück. (Verneinung)", fa: "ما برنگشتیم.", um: "mā barnagaštīm", verb: "bargaštan", neg: true, alts: ["ما برنگشتیم"] },
+            // Weitere positive
+            { de: "Die Schwester trank Tee.", fa: "خواهر چای نوشید.", um: "ḫāhar čāy nušīd", verb: "nušīdan", neg: false, extra: { "چای": "Tee" }, alts: ["خواهر چای نوشید"] },
+            { de: "Der Großvater hatte 5 Kinder.", fa: "پدربزرگ پنج بچه داشت.", um: "pedar-bozorg panj bačče dāšt", verb: "dāštan", neg: false, alts: ["پدربزرگ پنج بچه داشت"] },
+            { de: "Ich kaufte einen Film.", fa: "من یک فیلم خریدم.", um: "man yek fīlm ḫarīdam", verb: "ḫarīdan", neg: false, alts: ["من یک فیلم خریدم"] },
+            { de: "Du wachtest um 7 Uhr auf.", fa: "تو ساعت هفت بیدار شدی.", um: "to sāʿat-e haft bidār šodī", verb: "bidār šodan", neg: false, alts: ["تو ساعت هفت بیدار شدی"] },
+            { de: "Die Studentin ging zur Bibliothek.", fa: "دانشجو به کتابخانه رفت.", um: "dānešǧū be ketābḫāne raft", verb: "raftan", neg: false, alts: ["دانشجو به کتابخانه رفت"] },
+            { de: "Wir aßen Mittagessen.", fa: "ما ناهار خوردیم.", um: "mā nāhār ḫordīm", verb: "ḫordan", neg: false, alts: ["ما ناهار خوردیم"] },
+            { de: "Die Eltern sagten nichts. (Verneinung)", fa: "پدر و مادر چیزی نگفتند.", um: "pedar-o mādar čīzī nagoftand", verb: "goftan", neg: true, extra: { "چیزی": "etwas/nichts" }, alts: ["پدر و مادر چیزی نگفتند"] }
+        ];
+
+        function initExercise4() {
+            exerciseState = {
+                sentences: shuffleArray([...exercise4Sentences]),
+                currentIndex: 0,
+                completed: 0
+            };
+            updateE4Progress();
+            showE4Sentence();
+        }
+
+        function updateE4Progress() {
+            const state = exerciseState;
+            const pct = (state.completed / 30) * 100;
+            document.getElementById('e4-progress').style.width = pct + '%';
+            document.getElementById('e4-current').textContent = state.completed;
+        }
+
+        function showE4Sentence() {
+            const state = exerciseState;
+            if (state.completed >= 30) {
+                showCertificate(4);
+                return;
+            }
+            
+            const s = state.sentences[state.currentIndex % state.sentences.length];
+            const area = document.getElementById('e4-sentence-area');
+            
+            // Extra Vokabeln als Tooltips
+            let extraHtml = '';
+            if (s.extra) {
+                extraHtml = '<p style="margin-top: 10px; font-size: 0.85em; color: #ffa502;">💡 Neue Wörter: ';
+                for (const [fa, de] of Object.entries(s.extra)) {
+                    extraHtml += `<span class="tooltip-word persian" data-meaning="${de}">${fa}</span> `;
+                }
+                extraHtml += '</p>';
+            }
+            
+            // Verb-Info
+            const verbInfo = verbs.find(v => v.um === s.verb);
+            const verbDisplay = verbInfo ? `(${verbInfo.inf} - ${verbInfo.de})` : '';
+            
+            area.innerHTML = `
+                <div class="sentence-card">
+                    <p class="sentence-german">${s.de}</p>
+                    <p class="sentence-hint">Verb: ${verbDisplay} ${s.neg ? '🚫 Verneinung mit نـ' : ''}</p>
+                    ${extraHtml}
+                    <div class="input-area">
+                        <input type="text" class="persian-input" id="e4-input" placeholder="Persische Übersetzung..." autocomplete="off">
+                        <button class="check-btn" onclick="checkE4Answer()">✓</button>
+                    </div>
+                    <div id="e4-feedback"></div>
+                    <p style="margin-top: 15px; font-size: 0.8em; opacity: 0.6;">Umschrift: ${s.um}</p>
+                </div>
+            `;
+            
+            document.getElementById('e4-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') checkE4Answer();
+            });
+            document.getElementById('e4-input').focus();
+        }
+
+        function checkE4Answer() {
+            const state = exerciseState;
+            const s = state.sentences[state.currentIndex % state.sentences.length];
+            const input = document.getElementById('e4-input').value.trim();
+            const feedback = document.getElementById('e4-feedback');
+            
+            // Normalisiere für Vergleich (entferne Punkte)
+            const normalizeLight = str => str.replace(/[.۔٪،,]/g, '').trim();
+            
+            // Strenge Normalisierung (entferne alle Leerzeichen und Halbleerzeichen)
+            const normalizeStrict = str => str.replace(/[\s\u200C\u200B\u00A0]+/g, '').replace(/[.۔٪،,]/g, '').trim();
+            
+            const inputLight = normalizeLight(input);
+            const correctLight = normalizeLight(s.fa);
+            const inputStrict = normalizeStrict(input);
+            const correctStrict = normalizeStrict(s.fa);
+            
+            // Prüfe exakte Übereinstimmung (ohne Punkt)
+            let isExact = inputLight === correctLight;
+            
+            // Prüfe auch Alternativen
+            if (!isExact && s.alts) {
+                for (const alt of s.alts) {
+                    if (inputLight === normalizeLight(alt)) {
+                        isExact = true;
+                        break;
+                    }
+                }
+            }
+            
+            // Prüfe Leerzeichen-tolerante Übereinstimmung
+            let isAlmostCorrect = false;
+            if (!isExact) {
+                isAlmostCorrect = inputStrict === correctStrict;
+                
+                if (!isAlmostCorrect && s.alts) {
+                    for (const alt of s.alts) {
+                        if (inputStrict === normalizeStrict(alt)) {
+                            isAlmostCorrect = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            if (isExact) {
+                feedback.innerHTML = '<div class="feedback correct">✓ Richtig! Sehr gut!</div>';
+                state.completed++;
+                state.currentIndex++;
+                updateE4Progress();
+                setTimeout(() => {
+                    showE4Sentence();
+                }, 800);
+            } else if (isAlmostCorrect) {
+                // Fast richtig - Leerzeichen-Problem
+                feedback.innerHTML = `
+                    <div class="feedback" style="background: rgba(255, 165, 2, 0.3); border: 1px solid #ffa502;">
+                        ⚠️ Fast richtig! Achte auf Leerzeichen:<br>
+                        <div class="persian" style="font-size: 1.3em; direction: rtl; text-align: right;">${s.fa}</div>
+                    </div>
+                `;
+                state.completed++;
+                state.currentIndex++;
+                updateE4Progress();
+                setTimeout(() => {
+                    showE4Sentence();
+                }, 2500);
+            } else {
+                feedback.innerHTML = `
+                    <div class="feedback wrong">
+                        ✗ Richtige Antwort:<br>
+                        <div class="persian" style="font-size: 1.3em; direction: rtl; text-align: right;">${s.fa}</div>
+                    </div>
+                `;
+                // Zurück in Stapel
+                setTimeout(() => {
+                    state.sentences.push(s);
+                    state.currentIndex++;
+                    showE4Sentence();
+                }, 4000);
+            }
+        }
+
+        // ===================== ZERTIFIKAT =====================
+        let currentCertificateExercise = 0;
+        
+        function showCertificate(exerciseNum) {
+            currentCertificateExercise = exerciseNum;
+            showScreen('certificate-screen');
+            
+            // Zeige Namenseingabe, verstecke Canvas und Download
+            document.getElementById('name-input-area').style.display = 'block';
+            document.getElementById('certificate-canvas').style.display = 'none';
+            document.getElementById('download-area').style.display = 'none';
+            document.getElementById('certificate-name').value = '';
+            document.getElementById('certificate-name').focus();
+        }
+        
+        function generateCertificateWithName() {
+            const name = document.getElementById('certificate-name').value.trim() || 'Teilnehmer/in';
+            const exerciseNum = currentCertificateExercise;
+            
+            const canvas = document.getElementById('certificate-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Hintergrund
+            const gradient = ctx.createLinearGradient(0, 0, 600, 400);
+            gradient.addColorStop(0, '#1a1a2e');
+            gradient.addColorStop(0.5, '#16213e');
+            gradient.addColorStop(1, '#0f3460');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 600, 400);
+            
+            // Rahmen
+            ctx.strokeStyle = '#4ecdc4';
+            ctx.lineWidth = 8;
+            ctx.strokeRect(20, 20, 560, 360);
+            
+            ctx.strokeStyle = '#ffa502';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(35, 35, 530, 330);
+            
+            // Titel
+            ctx.fillStyle = '#4ecdc4';
+            ctx.font = 'bold 28px Segoe UI';
+            ctx.textAlign = 'center';
+            ctx.fillText('🎓 ZERTIFIKAT', 300, 70);
+            
+            // Untertitel
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '16px Segoe UI';
+            ctx.fillText('Übungscamp Präteritum - Persisch', 300, 100);
+            
+            // Name
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 22px Segoe UI';
+            ctx.fillText(name, 300, 145);
+            
+            // Übung
+            const exerciseNames = ['', 'Vokabel-Matching', 'Sätze verstehen', 'Verb-Konjugation', 'Präteritum schreiben'];
+            ctx.fillStyle = '#ffa502';
+            ctx.font = 'bold 20px Segoe UI';
+            ctx.fillText(`Übung ${exerciseNum}: ${exerciseNames[exerciseNum]}`, 300, 190);
+            
+            // Erfolg
+            ctx.fillStyle = '#2ecc71';
+            ctx.font = '18px Segoe UI';
+            ctx.fillText('✓ Erfolgreich abgeschlossen!', 300, 230);
+            
+            // Datum
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('de-DE', { 
+                day: '2-digit', 
+                month: '2-digit', 
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '14px Segoe UI';
+            ctx.fillText(`Datum: ${dateStr}`, 300, 280);
+            
+            // Code
+            const code = generateCode(exerciseNum);
+            ctx.fillStyle = '#e94560';
+            ctx.font = 'bold 18px monospace';
+            ctx.fillText(`Code: ${code}`, 300, 320);
+            
+            // Footer
+            ctx.fillStyle = 'rgba(255,255,255,0.5)';
+            ctx.font = '12px Segoe UI';
+            ctx.fillText('JIK-AWO 25/26 - Persisch Kurs', 300, 370);
+            
+            // Zeige Canvas und Download, verstecke Eingabe
+            document.getElementById('name-input-area').style.display = 'none';
+            document.getElementById('certificate-canvas').style.display = 'block';
+            document.getElementById('download-area').style.display = 'block';
+            
+            // Download-Link aktualisieren
+            const downloadLink = document.getElementById('download-link');
+            downloadLink.href = canvas.toDataURL('image/png');
+            downloadLink.download = `${code}.png`;
+        }
+
+        function generateCode(exerciseNum) {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let code = '';
+            for (let i = 0; i < 6; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return `U${exerciseNum}-${code}`;
+        }
+
+        // ===================== HILFSFUNKTIONEN =====================
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+    </script>
+</body>
+</html>
